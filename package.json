@@ -1,0 +1,25 @@
+{
+  "name": "facebook-messenger-bot",
+  "version": "1.0.0",
+  "description": "Facebook Messenger Bot",
+  "main": "app.js",
+  "scripts": {
+    "test": "node app"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/sivasankars"
+  },
+  "keywords": [
+    "nodejs",
+    "facebook",
+    "bot"
+  ],
+  "author": "Siva Sankar",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.15.1",
+    "express": "^4.14.0",
+    "request": "^2.72.0"
+  }
+}
