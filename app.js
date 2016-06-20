@@ -16,7 +16,7 @@ app.listen(app.get('port'), function () {
 
 
 app.get('/', function (req, res) {
-  res.send('hello world i am a secret bot')
+  res.send('Facebook Messenger Bot')
 });
 
 app.get('/webhook', function (req, res) {
