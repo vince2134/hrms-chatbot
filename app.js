@@ -12,6 +12,11 @@ app.get('/', function (req, res) {
   res.send('Facebook Bot')
 });
 
+/*
+ * Use your own validation token. Check that the token used in the Webhook 
+ * setup is the same token used here.
+ *
+ */
 app.get('/webhook', function (req, res) {
   if (req.query['hub.mode'] === 'subscribe' && req.query['hub.verify_token'] === 'webhooktoken') {
     console.log("Validating webhook");
@@ -22,6 +27,10 @@ app.get('/webhook', function (req, res) {
   }
 });
 
+/*
+ * All callbacks for Messenger are POST-ed. They will be sent to the same webhook.
+ *
+ */
 app.post('/webhook', function (req, res) {
   var data = req.body;
   if (data.object == 'page') {
@@ -54,6 +63,11 @@ function receivedMessage(event) {
   callSendAPI(messageData);
 }
 
+/*
+ * Call the Send API. The message data goes in the body. If successful, we'll 
+ * get the message id in a response 
+ *
+ */
 function callSendAPI(messageData) {
   request({
     uri: 'https://graph.facebook.com/v2.6/me/messages',
