@@ -12,6 +12,25 @@ app.get('/', function (req, res) {
   res.send('Facebook Bot')
 });
 
+var mysql = require("mysql");
+
+// First you need to create a connection to the db
+var con = mysql.createConnection({
+  host: "localhost",
+  user: "root",
+  password: "mysqldev",
+  database: "anonymous"
+});
+
+con.connect(function(err){
+    console.log("connecting to DB");
+  if(err){
+    console.log('Error connecting to Db');
+    return;
+  }
+  console.log('Connection established');
+});
+
 /*
  * Use your own validation token. Check that the token used in the Webhook
  * setup is the same token used here.
@@ -54,6 +73,15 @@ function receivedMessage(event) {
   var message = event.message.text;
 
   var messageText = "Echo: " + event.message.text;
+  //Insert api logic here
+  con.query('SELECT * FROM employees',function(err,rows){
+    if(err) throw err;
+
+    console.log('Data received from Db:\n');
+    console.log(rows);
+
+      con.end()
+  });
 
   var messageData = {
     recipient: { id: senderID },
