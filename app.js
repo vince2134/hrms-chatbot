@@ -3,7 +3,18 @@ var bodyParser = require('body-parser');
 var request = require('request');
 var mysql = require('./node_modules/mysql');
 var app = express();
+var firebase = require("firebase");
+var database = firebase.database();
 var token = "EAAFJiEO72j4BAD6HkTpQSbzzYLYmGRMey68u40DKmOrj5pDfsX54AJtpBM7oDn6ZAAO6J4eM70lYkzrzWDtyYX66E64gALUYRtq72RJgGFpwTIcbr9bORR0OCKdRtzJyQOgpz6vvdjveqk4xiXP3DS1ZADFIoRNT78SfXojAZDZD";
+// Initialize Firebase
+  var config = {
+    apiKey: "AIzaSyANjPZEtg8JXi017TYN5InsDEcNBvXFIco",
+    authDomain: "hrms-database.firebaseapp.com",
+    databaseURL: "https://hrms-database.firebaseio.com",
+    storageBucket: "hrms-database.appspot.com",
+    messagingSenderId: "400928154855"
+  };
+  firebase.initializeApp(config);
 
 app.set('port', (process.env.PORT || 1000))
 app.use(bodyParser.urlencoded({ extended: false }))
@@ -59,10 +70,10 @@ function receivedMessage(event) {
 
   // First you need to create a connection to the db
   var con = mysql.createConnection({
-    host: "122.49.217.50",
-    user: "root",
-    password: "mysqldev",
-    database: "anonymous"
+    host: "us-cdbr-iron-east-04.cleardb.net",
+    user: "b523f4395a2aab",
+    password: "99761a45",
+    database: "heroku_ab34a5deaa3b4fb"
   });
 
   con.connect(function(err){
@@ -74,7 +85,7 @@ function receivedMessage(event) {
     console.log('Connection established');
   });
 
-  con.query('SELECT * FROM announcement',function(err,rows){
+  con.query('SELECT * FROM person',function(err,rows){
     if(err) throw err;
 
     console.log('Data received from Db:\n');
@@ -82,6 +93,11 @@ function receivedMessage(event) {
 
       con.end();
   });
+
+/*database.ref('/').once('value').then(function(snapshot) {
+  var username = snapshot.val().username;
+  // ...
+});*/
 
   var messageData = {
     recipient: { id: senderID },
