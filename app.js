@@ -74,7 +74,7 @@ function receivedMessage(event) {
 
   var messageText = "Echo: " + event.message.text;
   //Insert api logic here
-  con.query('SELECT * FROM employees',function(err,rows){
+  con.query('SELECT * FROM announcement',function(err,rows){
     if(err) throw err;
 
     console.log('Data received from Db:\n');
