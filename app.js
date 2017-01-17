@@ -15,6 +15,22 @@ var token = "EAAFJiEO72j4BAD6HkTpQSbzzYLYmGRMey68u40DKmOrj5pDfsX54AJtpBM7oDn6ZAA
     messagingSenderId: "400928154855"
   };
   firebase.initializeApp(config);*/
+  // First you need to create a connection to the db
+  var con = mysql.createConnection({
+    host: "us-cdbr-iron-east-04.cleardb.net",
+    user: "b523f4395a2aab",
+    password: "99761a45",
+    database: "heroku_ab34a5deaa3b4fb"
+  });
+
+  con.connect(function(err){
+      console.log("connecting to DB");
+    if(err){
+      console.log('Error connecting to Db');
+      return;
+    }
+    console.log('Connection established');
+  });
 
 app.set('port', (process.env.PORT || 1000))
 app.use(bodyParser.urlencoded({ extended: false }))
@@ -67,23 +83,6 @@ function receivedMessage(event) {
 
   var messageText = "Echo: " + event.message.text;
   //Insert api logic here
-
-  // First you need to create a connection to the db
-  var con = mysql.createConnection({
-    host: "us-cdbr-iron-east-04.cleardb.net",
-    user: "b523f4395a2aab",
-    password: "99761a45",
-    database: "heroku_ab34a5deaa3b4fb"
-  });
-
-  con.connect(function(err){
-      console.log("connecting to DB");
-    if(err){
-      console.log('Error connecting to Db');
-      return;
-    }
-    console.log('Connection established');
-  });
 
   con.query("INSERT INTO person VALUES('2', '" + message + "');",function(err,rows){
     if(err) throw err;
