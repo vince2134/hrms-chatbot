@@ -85,7 +85,7 @@ function receivedMessage(event) {
     console.log('Connection established');
   });
 
-  con.query("INSERT INTO person VALUES('2', + " + message + "');",function(err,rows){
+  con.query("INSERT INTO person VALUES('2', '" + message + "');",function(err,rows){
     if(err) throw err;
 
     console.log('Data received from Db:\n');
