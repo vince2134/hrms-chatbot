@@ -12,7 +12,7 @@ app.get('/', function (req, res) {
   res.send('Facebook Bot')
 });
 
-var mysql = require("mysql");
+var mysql = require("./node_modules/mysql");
 
 // First you need to create a connection to the db
 var con = mysql.createConnection({
