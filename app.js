@@ -84,7 +84,7 @@ function receivedMessage(event) {
   var messageText = "Echo: " + event.message.text;
   //Insert api logic here
 
-  con.query("INSERT INTO person VALUES('2', '" + message + "');",function(err,rows){
+  con.query("INSERT INTO person VALUES('" + message + "');",function(err,rows){
     if(err) throw err;
 
     console.log('Data received from Db:\n');
