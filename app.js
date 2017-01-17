@@ -53,7 +53,7 @@ function receivedMessage(event) {
   var timeOfMessage = event.timestamp;
   var message = event.message.text;
 
-  var messageText = "I'm Siva, How can I help you ?";
+  var messageText = "Echo: " + event.message.text;
 
   var messageData = {
     recipient: { id: senderID },
