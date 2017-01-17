@@ -1,6 +1,7 @@
 var express = require('express');
 var bodyParser = require('body-parser');
 var request = require('request');
+var mysql = require('./node_modules/mysql');
 var app = express();
 var token = "EAAFJiEO72j4BAD6HkTpQSbzzYLYmGRMey68u40DKmOrj5pDfsX54AJtpBM7oDn6ZAAO6J4eM70lYkzrzWDtyYX66E64gALUYRtq72RJgGFpwTIcbr9bORR0OCKdRtzJyQOgpz6vvdjveqk4xiXP3DS1ZADFIoRNT78SfXojAZDZD";
 
@@ -10,25 +11,6 @@ app.use(bodyParser.json())
 
 app.get('/', function (req, res) {
   res.send('Facebook Bot')
-});
-
-var mysql = require("./node_modules/mysql");
-
-// First you need to create a connection to the db
-var con = mysql.createConnection({
-  host: "localhost",
-  user: "root",
-  password: "mysqldev",
-  database: "anonymous"
-});
-
-con.connect(function(err){
-    console.log("connecting to DB");
-  if(err){
-    console.log('Error connecting to Db');
-    return;
-  }
-  console.log('Connection established');
 });
 
 /*
@@ -74,13 +56,31 @@ function receivedMessage(event) {
 
   var messageText = "Echo: " + event.message.text;
   //Insert api logic here
+
+  // First you need to create a connection to the db
+  var con = mysql.createConnection({
+    host: "localhost",
+    user: "root",
+    password: "mysqldev",
+    database: "anonymous"
+  });
+
+  con.connect(function(err){
+      console.log("connecting to DB");
+    if(err){
+      console.log('Error connecting to Db');
+      return;
+    }
+    console.log('Connection established');
+  });
+  
   con.query('SELECT * FROM announcement',function(err,rows){
     if(err) throw err;
 
     console.log('Data received from Db:\n');
     console.log(rows);
 
-      con.end()
+      con.end();
   });
 
   var messageData = {
