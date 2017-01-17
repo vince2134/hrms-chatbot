@@ -2,7 +2,7 @@ var express = require('express');
 var bodyParser = require('body-parser');
 var request = require('request');
 var app = express();
-var token = "EAAFAb0qoKxgBAJWMyGYINDYRDM7cGRrqVDBFNopMl2SaM34FEzweSzJZBGdGtj6wbEZBLtkpV1QlkpfZCBRlGZAmz0bwWcZBRa1WejtxQ5ZCq2HhTGRWZB700paRKXnBIBQr5VQah6hTEIEH2hy4hDvdnQe26TZCnOoZBSSuupGqN1wZDZD";
+var token = "EAAFJiEO72j4BAD6HkTpQSbzzYLYmGRMey68u40DKmOrj5pDfsX54AJtpBM7oDn6ZAAO6J4eM70lYkzrzWDtyYX66E64gALUYRtq72RJgGFpwTIcbr9bORR0OCKdRtzJyQOgpz6vvdjveqk4xiXP3DS1ZADFIoRNT78SfXojAZDZD";
 
 app.set('port', (process.env.PORT || 1000))
 app.use(bodyParser.urlencoded({ extended: false }))
@@ -13,7 +13,7 @@ app.get('/', function (req, res) {
 });
 
 /*
- * Use your own validation token. Check that the token used in the Webhook 
+ * Use your own validation token. Check that the token used in the Webhook
  * setup is the same token used here.
  *
  */
@@ -64,8 +64,8 @@ function receivedMessage(event) {
 }
 
 /*
- * Call the Send API. The message data goes in the body. If successful, we'll 
- * get the message id in a response 
+ * Call the Send API. The message data goes in the body. If successful, we'll
+ * get the message id in a response
  *
  */
 function callSendAPI(messageData) {
