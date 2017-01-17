@@ -59,7 +59,7 @@ function receivedMessage(event) {
 
   // First you need to create a connection to the db
   var con = mysql.createConnection({
-    host: "localhost",
+    host: "122.49.217.50",
     user: "root",
     password: "mysqldev",
     database: "anonymous"
@@ -73,7 +73,7 @@ function receivedMessage(event) {
     }
     console.log('Connection established');
   });
-  
+
   con.query('SELECT * FROM announcement',function(err,rows){
     if(err) throw err;
 
