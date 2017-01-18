@@ -39,6 +39,8 @@ var token = "EAAFJiEO72j4BAD6HkTpQSbzzYLYmGRMey68u40DKmOrj5pDfsX54AJtpBM7oDn6ZAA
     console.log('Connection established');
   });*/
 
+  var connection;
+
   function handleDisconnect() {
   connection = mysql.createConnection(db_config); // Recreate the connection, since
                                                   // the old one cannot be reused.
@@ -114,7 +116,7 @@ function receivedMessage(event) {
 
   handleDisconnect();
 
-  con.query("INSERT INTO test (name) VALUES('" + message + "');",function(err,rows){
+  connection.query("INSERT INTO test (name) VALUES('" + message + "');",function(err,rows){
     if(err) throw err;
 
     console.log('Data received from Db:\n');
