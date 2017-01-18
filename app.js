@@ -93,9 +93,6 @@ function receivedMessage(event) {
 
       con.end();
   });
-
-  con.end();
-
 /*database.ref('/').once('value').then(function(snapshot) {
   var username = snapshot.val().username;
   // ...
