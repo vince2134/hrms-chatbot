@@ -3,6 +3,8 @@ var bodyParser = require('body-parser');
 var request = require('request');
 var mysql = require('./node_modules/mysql');
 var app = express();
+var apiai = require('apiai');
+var app2 = apiai("6a44d3f36da94292a0ff936d57e298b8");
 //var firebase = require("firebase");
 //var database = firebase.database();
 var token = "EAAFJiEO72j4BAD6HkTpQSbzzYLYmGRMey68u40DKmOrj5pDfsX54AJtpBM7oDn6ZAAO6J4eM70lYkzrzWDtyYX66E64gALUYRtq72RJgGFpwTIcbr9bORR0OCKdRtzJyQOgpz6vvdjveqk4xiXP3DS1ZADFIoRNT78SfXojAZDZD";
@@ -66,6 +68,21 @@ function receivedMessage(event) {
   var timeOfMessage = event.timestamp;
   var message = event.message.text;
 
+  var request = app2.textRequest(message, {
+      sessionId: '<unique session id>'
+  });
+
+  request.on('response', function(response) {
+    console.log("INTENT NAME: " + response.result.metadata.intentName);
+      //console.log(response);
+  });
+
+  request.on('error', function(error) {
+      console.log(error);
+  });
+
+  request.end();
+
   var messageText = "Echo: " + event.message.text;
   //Insert api logic here
 
@@ -85,7 +102,15 @@ function receivedMessage(event) {
     console.log('Connection established');
   });
 
-  con.query("INSERT INTO test (name) VALUES('" + message + "');",function(err,rows){
+  /*con.query("INSERT INTO test (name) VALUES('" + message + "');",function(err,rows){
+    if(err) throw err;
+
+    console.log('Data received from Db:\n');
+    console.log(rows);
+
+      con.end();
+  });*/
+  con.query("SELECT * FROM test;",function(err,rows){
     if(err) throw err;
 
     console.log('Data received from Db:\n');
@@ -93,6 +118,7 @@ function receivedMessage(event) {
 
       con.end();
   });
+
 /*database.ref('/').once('value').then(function(snapshot) {
   var username = snapshot.val().username;
   // ...
