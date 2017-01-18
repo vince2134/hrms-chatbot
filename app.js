@@ -171,7 +171,7 @@ function receivedMessage(event) {
     message: { text: messageText }
   };
 
-  //callSendAPI(messageData);
+  callSendAPI(messageData);
 }
 
 /*
