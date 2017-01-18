@@ -105,7 +105,7 @@ function handleDisconnect() {
   });
 }
 
-function callQuery(var query){
+function callQuery(query){
   con.query(query,function(err,rows){
     if(err) /*//throw err;{}*/{
       handleDisconnect();
