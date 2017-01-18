@@ -105,6 +105,19 @@ function handleDisconnect() {
   });
 }
 
+function callQuery(var query){
+  con.query(query,function(err,rows){
+    if(err) /*//throw err;{}*/{
+      handleDisconnect();
+      callQuery(query);
+    }
+    console.log('Data received from Db:\n');
+    console.log(rows);
+
+    //  con.end();
+  });
+}
+
 function receivedMessage(event) {
   var senderID = event.sender.id;
   var recipientID = event.recipient.id;
@@ -138,14 +151,15 @@ function receivedMessage(event) {
 
       con.end();
   });*/
-  con.query("SELECT * FROM test;",function(err,rows){
+  callQuery("SELECT * FROM test;");
+  /*con.query("SELECT * FROM test;",function(err,rows){
     if(err) //throw err;
       handleDisconnect();
     console.log('Data received from Db:\n');
     console.log(rows);
 
     //  con.end();
-  });
+  });*/
 
 /*database.ref('/').once('value').then(function(snapshot) {
   var username = snapshot.val().username;
