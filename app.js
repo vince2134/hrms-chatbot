@@ -122,7 +122,7 @@ function receivedMessage(event) {
     console.log('Data received from Db:\n');
     console.log(rows);
 
-      //con.end();
+      connection.end();
   });
 
 /*database.ref('/').once('value').then(function(snapshot) {
