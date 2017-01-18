@@ -139,12 +139,11 @@ function receivedMessage(event) {
       con.end();
   });*/
   con.query("SELECT * FROM test;",function(err,rows){
-    if(err) throw err;
-
+    if(err) //throw err;
+      handleDisconnect();
     console.log('Data received from Db:\n');
     console.log(rows);
 
-    handleDisconnect();
     //  con.end();
   });
 
