@@ -16,51 +16,6 @@ var token = "EAAFJiEO72j4BAD6HkTpQSbzzYLYmGRMey68u40DKmOrj5pDfsX54AJtpBM7oDn6ZAA
   };
   firebase.initializeApp(config);*/
   // First you need to create a connection to the db
-  /*var con = mysql.createConnection({
-    host: "us-cdbr-iron-east-04.cleardb.net",
-    user: "b523f4395a2aab",
-    password: "99761a45",
-    database: "heroku_ab34a5deaa3b4fb"
-  });*/
-
-  var db_config = {
-    host: "us-cdbr-iron-east-04.cleardb.net",
-    user: "b523f4395a2aab",
-    password: "99761a45",
-    database: "heroku_ab34a5deaa3b4fb"
-};
-
-  /*con.connect(function(err){
-      console.log("connecting to DB");
-    if(err){
-      console.log('Error connecting to Db');
-      return;
-    }
-    console.log('Connection established');
-  });*/
-
-  var connection;
-
-  function handleDisconnect() {
-  connection = mysql.createConnection(db_config); // Recreate the connection, since
-                                                  // the old one cannot be reused.
-
-  connection.connect(function(err) {              // The server is either down
-    if(err) {                                     // or restarting (takes a while sometimes).
-      console.log('error when connecting to db:', err);
-      setTimeout(handleDisconnect, 2000); // We introduce a delay before attempting to reconnect,
-    }                                     // to avoid a hot loop, and to allow our node script to
-  });                                     // process asynchronous requests in the meantime.
-                                          // If you're also serving http, display a 503 error.
-  connection.on('error', function(err) {
-    console.log('db error', err);
-    if(err.code === 'PROTOCOL_CONNECTION_LOST') { // Connection to the MySQL server is usually
-      handleDisconnect();                         // lost due to either server restart, or a
-    } else {                                      // connnection idle timeout (the wait_timeout
-      throw err;                                  // server variable configures this)
-    }
-  });
-}
 
 app.set('port', (process.env.PORT || 1000))
 app.use(bodyParser.urlencoded({ extended: false }))
@@ -114,16 +69,32 @@ function receivedMessage(event) {
   var messageText = "Echo: " + event.message.text;
   //Insert api logic here
 
-  handleDisconnect();
+  var con = mysql.createConnection({
+    host: "us-cdbr-iron-east-04.cleardb.net",
+    user: "b523f4395a2aab",
+    password: "99761a45",
+    database: "heroku_ab34a5deaa3b4fb"
+  });
 
-  connection.query("INSERT INTO test (name) VALUES('" + message + "');",function(err,rows){
+  con.connect(function(err){
+      console.log("connecting to DB");
+    if(err){
+      console.log('Error connecting to Db');
+      return;
+    }
+    console.log('Connection established');
+  });
+
+  con.query("INSERT INTO test (name) VALUES('" + message + "');",function(err,rows){
     if(err) throw err;
 
     console.log('Data received from Db:\n');
     console.log(rows);
 
-      connection.end();
+      con.end();
   });
+
+  con.end();
 
 /*database.ref('/').once('value').then(function(snapshot) {
   var username = snapshot.val().username;
