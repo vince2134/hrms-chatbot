@@ -130,7 +130,7 @@ function receivedMessage(event) {
 
   request.on('response', function(response) {
     console.log("INTENT NAME: " + response.result.metadata.intentName);
-      //console.log(response);
+    console.log(response);
   });
 
   request.on('error', function(error) {
