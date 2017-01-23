@@ -130,15 +130,21 @@ function receivedMessage(event) {
 
   request.on('response', function(response) {
     console.log("INTENT NAME: " + response.result.metadata.intentName);
-    if(response.result.parameters.date === "")
-      console.log("NULL");
-    else
+    if(response.result.parameters.date !== "" && response.result.parameters.end_date !== ""){
       console.log(response.result.parameters.date);
-    if(response.result.parameters.end_date === "")
-      console.log("NULL");
-    else
       console.log(response.result.parameters.end_date);
-    console.log(response.result.parameters.LeaveType);
+      console.log(response.result.parameters.LeaveType);
+
+      con.query("INSERT INTO test (name) VALUES('" + response.result.parameters.date + "');",function(err,rows){
+        if(err) throw err;
+
+        console.log('Data received from Db:\n');
+        console.log(rows);
+
+          //con.end();
+      });
+    }
+
     console.log(response);
   });
 
