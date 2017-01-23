@@ -130,7 +130,11 @@ function receivedMessage(event) {
 
   request.on('response', function(response) {
     console.log("INTENT NAME: " + response.result.metadata.intentName);
-    var count = Object.keys(response.result.parameters).length;
+    count = Object.keys(response.result.parameters.date).length;
+    console.log(count);
+    var count = Object.keys(response.result.parameters.end_date).length;
+    console.log(count);
+    count = Object.keys(response.result.parameters.LeaveType).length;
     console.log(count);
     console.log(response);
   });
