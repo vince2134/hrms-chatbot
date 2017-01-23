@@ -151,7 +151,7 @@ function receivedMessage(event) {
 
       con.end();
   });*/
-  callQuery("SELECT * FROM test;");
+  //callQuery("SELECT * FROM test;");
   /*con.query("SELECT * FROM test;",function(err,rows){
     if(err) //throw err;
       handleDisconnect();
