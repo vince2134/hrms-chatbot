@@ -130,8 +130,14 @@ function receivedMessage(event) {
 
   request.on('response', function(response) {
     console.log("INTENT NAME: " + response.result.metadata.intentName);
-    console.log(response.result.parameters.date);
-    console.log(response.result.parameters.end_date);
+    if(response.result.parameters.date === "")
+      console.log("NULL");
+    else
+      console.log(response.result.parameters.date);
+    if(response.result.parameters.end_date === "")
+      console.log("NULL");
+    else
+      console.log(response.result.parameters.end_date);
     console.log(response.result.parameters.LeaveType);
     console.log(response);
   });
