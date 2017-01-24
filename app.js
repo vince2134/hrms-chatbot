@@ -40,6 +40,7 @@ var token = "EAAFJiEO72j4BAD6HkTpQSbzzYLYmGRMey68u40DKmOrj5pDfsX54AJtpBM7oDn6ZAA
 
       function myTimer() {
           var d = new Date();
+          console.log(notified);
           if(d.getHours() + 8 == 14 && !notified){
             notified = true;
             console.log("IT'S 10 AM!");
