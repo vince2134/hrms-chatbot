@@ -38,8 +38,7 @@ var token = "EAAFJiEO72j4BAD6HkTpQSbzzYLYmGRMey68u40DKmOrj5pDfsX54AJtpBM7oDn6ZAA
 
       function myTimer() {
           var d = new Date();
-          if(d.getHours() == 10)
-            console.log("IT'S 10 AM!");
+            console.log(d.getHours());
 
           console.log("tick");
       }
