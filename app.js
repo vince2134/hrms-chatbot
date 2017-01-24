@@ -186,6 +186,7 @@ function receivedMessage(event) {
 
         console.log('Data received from Db:\n');
         console.log(rows);
+        console.log(rows.affectedRows);
           //con.end();
       });
 
