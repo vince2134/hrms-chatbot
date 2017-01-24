@@ -136,7 +136,7 @@ function receivedMessage(event) {
       var dates = response.result.parameters.date_period.split("/");
       var start_date = dates[0];
       var end_date = dates[1];
-      //console.log(response);
+      console.log(response);
       console.log("START DATE: " + start_date);
       console.log("END DATE: " + end_date);
       console.log("LEAVE TYPE: " + response.result.parameters.leave_type);
