@@ -186,7 +186,22 @@ function receivedMessage(event) {
 
         console.log('Data received from Db:\n');
         console.log(rows);
-        console.log(rows.affectedRows);
+        if(rows.affectedRows > 0){
+          var messageData = {
+            recipient: { id: senderID },
+            message: { text: "Registration successful! I can now please you for today." }
+          };
+
+          callSendAPI(messageData);
+        }
+        else{
+          var messageData = {
+            recipient: { id: senderID },
+            message: { text: "Invalid token please try registering again." }
+          };
+
+          callSendAPI(messageData);
+        }
           //con.end();
       });
 
