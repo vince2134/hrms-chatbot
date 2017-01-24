@@ -132,8 +132,8 @@ function receivedMessage(event) {
     console.log("INTENT NAME: " + response.result.metadata.intentName);
 
     if(response.result.metadata.intentName === "file_leave"){
-      console.log(response.result.parameters.date-period);
-      var dates = response.result.parameters.date-period.split("/");
+      console.log(response.result.parameters.date_period);
+      var dates = response.result.parameters.date_period.split("/");
       var start_date = dates[0];
       var end_date = dates[1];
       console.log("START DATE: " + start_date);
