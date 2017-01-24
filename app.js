@@ -33,6 +33,12 @@ var token = "EAAFJiEO72j4BAD6HkTpQSbzzYLYmGRMey68u40DKmOrj5pDfsX54AJtpBM7oDn6ZAA
         console.log('Error connecting to Db');
         return;
       }
+      var now = new Date();
+      var millisTill10 = new Date(now.getFullYear(), now.getMonth(), now.getDate(), 10, 0, 0, 0) - now;
+      if (millisTill10 < 0) {
+           millisTill10 += 86400000; // it's after 10am, try 10am tomorrow.
+      }
+      setTimeout(function(){console.log("IT'S 10 AM!");}, millisTill10);
       console.log('Connection established');
     });
 
@@ -43,14 +49,6 @@ app.use(bodyParser.json())
 app.get('/', function (req, res) {
   res.send('Facebook Bot')
 });
-
-var now = new Date();
-var millisTill10 = new Date(now.getFullYear(), now.getMonth(), now.getDate(), 10, 0, 0, 0) - now;
-if (millisTill10 < 0) {
-     millisTill10 += 86400000; // it's after 10am, try 10am tomorrow.
-}
-setTimeout(function(){console.log("IT'S 10 AM!");}, millisTill10);
-
 /*
  * Use your own validation token. Check that the token used in the Webhook
  * setup is the same token used here.
