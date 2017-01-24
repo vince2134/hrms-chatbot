@@ -140,6 +140,8 @@ function receivedMessage(event) {
       console.log("START DATE: " + start_date);
       console.log("END DATE: " + end_date);
       console.log("LEAVE TYPE: " + response.result.parameters.leave_type);
+      console.log("HOURS: " + response.result.parameters.hours);
+      console.log(response);
 
       con.query("INSERT INTO test (name) VALUES('" + start_date + "');",function(err,rows){
         if(err) throw err;
@@ -149,9 +151,7 @@ function receivedMessage(event) {
 
           //con.end();
       });
-  }
-
-    console.log(response);
+    }
   });
 
   request.on('error', function(error) {
