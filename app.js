@@ -36,6 +36,7 @@ var token = "EAAFJiEO72j4BAD6HkTpQSbzzYLYmGRMey68u40DKmOrj5pDfsX54AJtpBM7oDn6ZAA
         return;
       }
       console.log('Connection established');
+      console.log(notified);
       var myVar = setInterval(function(){ myTimer() }, 1000);
 
       function myTimer() {
