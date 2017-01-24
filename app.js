@@ -180,7 +180,7 @@ function receivedMessage(event) {
         callSendAPI(messageData);
       }
     }
-    if(response.result.metadata.intentName === "register_account"  response.result.parameters.token !== ""){
+    if(response.result.metadata.intentName === "register_account" && response.result.parameters.token !== ""){
       con.query("UPDATE bot_mapping SET fb_id = '" + recipientID "' WHERE token = '" + response.result.parameters.token + "';",function(err,rows){
         if(err) throw err;
 
