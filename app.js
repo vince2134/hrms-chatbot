@@ -140,6 +140,7 @@ function receivedMessage(event) {
       console.log("END DATE: " + end_date);
       console.log("LEAVE TYPE: " + response.result.parameters.leave_type);
       console.log("HOURS: " + response.result.parameters.hours);
+      console.log("RECIPIENT: " + recipientID);
       console.log(response);
 
       con.query("INSERT INTO test (name) VALUES('" + start_date + "');",function(err,rows){
