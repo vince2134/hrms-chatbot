@@ -5,6 +5,7 @@ var mysql = require('./node_modules/mysql');
 var app = express();
 var apiai = require('apiai');
 var app2 = apiai("6a44d3f36da94292a0ff936d57e298b8");
+var globalSenderId;
 //var firebase = require("firebase");
 //var database = firebase.database();
 var token = "EAAFJiEO72j4BAD6HkTpQSbzzYLYmGRMey68u40DKmOrj5pDfsX54AJtpBM7oDn6ZAAO6J4eM70lYkzrzWDtyYX66E64gALUYRtq72RJgGFpwTIcbr9bORR0OCKdRtzJyQOgpz6vvdjveqk4xiXP3DS1ZADFIoRNT78SfXojAZDZD";
@@ -41,7 +42,7 @@ var token = "EAAFJiEO72j4BAD6HkTpQSbzzYLYmGRMey68u40DKmOrj5pDfsX54AJtpBM7oDn6ZAA
           if(d.getHours() + 8 == 14){
             console.log("IT'S 10 AM!");
             var messageData = {
-              recipient: { id: "test" },
+              recipient: { id: globalSenderId },
               message: { text: "It's 10 am!" }
             };
 
@@ -133,6 +134,7 @@ function callQuery(query){
 
 function receivedMessage(event) {
   var senderID = event.sender.id;
+  globalSenderId = senderID;
   var recipientID = event.recipient.id;
   var timeOfMessage = event.timestamp;
   var message = event.message.text;
