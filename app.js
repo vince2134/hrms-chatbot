@@ -6,6 +6,7 @@ var app = express();
 var apiai = require('apiai');
 var app2 = apiai("6a44d3f36da94292a0ff936d57e298b8");
 var globalSenderId;
+var notified = false;
 //var firebase = require("firebase");
 //var database = firebase.database();
 var token = "EAAFJiEO72j4BAD6HkTpQSbzzYLYmGRMey68u40DKmOrj5pDfsX54AJtpBM7oDn6ZAAO6J4eM70lYkzrzWDtyYX66E64gALUYRtq72RJgGFpwTIcbr9bORR0OCKdRtzJyQOgpz6vvdjveqk4xiXP3DS1ZADFIoRNT78SfXojAZDZD";
@@ -39,10 +40,11 @@ var token = "EAAFJiEO72j4BAD6HkTpQSbzzYLYmGRMey68u40DKmOrj5pDfsX54AJtpBM7oDn6ZAA
 
       function myTimer() {
           var d = new Date();
-          if(d.getHours() + 8 == 14){
+          if(d.getHours() + 8 == 14 && !notified){
+            notified = true;
             console.log("IT'S 10 AM!");
             var messageData = {
-              recipient: { id: globalSenderId },
+              recipient: { id: "1832214557054836" },
               message: { text: "It's 10 am!" }
             };
 
