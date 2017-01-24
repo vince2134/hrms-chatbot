@@ -43,8 +43,9 @@ var token = "EAAFJiEO72j4BAD6HkTpQSbzzYLYmGRMey68u40DKmOrj5pDfsX54AJtpBM7oDn6ZAA
           if(d.getHours() + 8 == 14 && !notified){
             notified = true;
             console.log("IT'S 10 AM!");
+            console.log(globalSenderId);
             var messageData = {
-              recipient: { id: "1832214557054836" },
+              recipient: { id: globalSenderId },
               message: { text: "It's 10 am!" }
             };
 
