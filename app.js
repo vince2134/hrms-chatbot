@@ -151,25 +151,35 @@ function receivedMessage(event) {
   request.on('response', function(response) {
     console.log("INTENT NAME: " + response.result.metadata.intentName);
 
+
     if(response.result.metadata.intentName === "file_leave" && response.result.parameters.hours !== ""){
-      var dates = response.result.parameters.date_period.split("/");
-      var start_date = dates[0];
-      var end_date = dates[1];
-      console.log("START DATE: " + start_date);
-      console.log("END DATE: " + end_date);
-      console.log("LEAVE TYPE: " + response.result.parameters.leave_type);
-      console.log("HOURS: " + response.result.parameters.hours);
-      console.log("RECIPIENT: " + recipientID);
-      console.log(response);
+      if(isRegistered(recipientID)){
+        var dates = response.result.parameters.date_period.split("/");
+        var start_date = dates[0];
+        var end_date = dates[1];
+        console.log("START DATE: " + start_date);
+        console.log("END DATE: " + end_date);
+        console.log("LEAVE TYPE: " + response.result.parameters.leave_type);
+        console.log("HOURS: " + response.result.parameters.hours);
+        console.log("RECIPIENT: " + recipientID);
+        console.log(response);
 
-      con.query("INSERT INTO test (name) VALUES('" + start_date + "');",function(err,rows){
-        if(err) throw err;
+        con.query("INSERT INTO test (name) VALUES('" + start_date + "');",function(err,rows){
+          if(err) throw err;
 
-        console.log('Data received from Db:\n');
-        console.log(rows);
+          console.log('Data received from Db:\n');
+          console.log(rows);
+            //con.end();
+        });
+      }
+      else{
+        var messageData = {
+          recipient: { id: senderID },
+          message: { text: "You haven't registered yet. Please type 'register' to register to this amazing chatbot." }
+        };
 
-          //con.end();
-      });
+        callSendAPI(messageData);
+      }
     }
   });
 
@@ -212,6 +222,18 @@ function receivedMessage(event) {
   };
 
   callSendAPI(messageData);
+}
+
+function isRegistered(user_id){
+  con.query("SELECT * FROM bot_mapping where fb_id = '" + user_id + "';",function(err,rows){
+    if(err) throw err;
+
+    console.log('Data received from Db:\n');
+    console.log(rows);
+
+    return rows.length > 0;
+      //con.end();
+  });
 }
 
 /*
