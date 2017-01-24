@@ -130,12 +130,17 @@ function receivedMessage(event) {
 
   request.on('response', function(response) {
     console.log("INTENT NAME: " + response.result.metadata.intentName);
-    if(response.result.parameters.date !== "" && response.result.parameters.end_date !== ""){
-      console.log(response.result.parameters.date);
-      console.log(response.result.parameters.end_date);
-      console.log(response.result.parameters.LeaveType);
 
-      con.query("INSERT INTO test (name) VALUES('" + response.result.parameters.date + "');",function(err,rows){
+    if(response.result.metadata.intentName === "file_leave"){
+      console.log(response.result.parameters.date-period);
+      var dates = response.result.parameters.date-period.split("/");
+      var start_date = dates[0];
+      var end_date = dates[1];
+      console.log("START DATE: " + start_date);
+      console.log("END DATE: " + end_date);
+      console.log("LEAVE TYPE: " + response.result.parameters.leave_type);
+
+      con.query("INSERT INTO test (name) VALUES('" + start_date + "');",function(err,rows){
         if(err) throw err;
 
         console.log('Data received from Db:\n');
@@ -143,7 +148,7 @@ function receivedMessage(event) {
 
           //con.end();
       });
-    }
+  }
 
     console.log(response);
   });
