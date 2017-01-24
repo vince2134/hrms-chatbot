@@ -181,7 +181,7 @@ function receivedMessage(event) {
       }
     }
     if(response.result.metadata.intentName === "register_account" && response.result.parameters.token !== ""){
-      con.query("UPDATE bot_mapping SET fb_id = '" + recipientID + "' WHERE token = '" + response.result.parameters.token + "';",function(err,rows){
+      con.query("UPDATE bot_mapping SET fb_id = '" + senderID + "' WHERE token = '" + response.result.parameters.token + "';",function(err,rows){
         if(err) throw err;
 
         console.log('Data received from Db:\n');
