@@ -151,7 +151,6 @@ function receivedMessage(event) {
   request.on('response', function(response) {
     console.log("INTENT NAME: " + response.result.metadata.intentName);
 
-
     if(response.result.metadata.intentName === "file_leave" && response.result.parameters.hours !== ""){
       if(isRegistered(recipientID)){
         var dates = response.result.parameters.date_period.split("/");
@@ -180,6 +179,9 @@ function receivedMessage(event) {
 
         callSendAPI(messageData);
       }
+    }
+    if(response.result.metadata.intentName === "register_account"){
+      console.log(response);
     }
   });
 
