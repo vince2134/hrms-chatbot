@@ -38,10 +38,15 @@ var token = "EAAFJiEO72j4BAD6HkTpQSbzzYLYmGRMey68u40DKmOrj5pDfsX54AJtpBM7oDn6ZAA
 
       function myTimer() {
           var d = new Date();
-            console.log(d.getHours() + 8);
-            console.log(d.getMinutes());
-            console.log(d.getSeconds());
-          console.log("tick");
+          if(d.getHours() + 8 == 14){
+            console.log("IT'S 10 AM!");
+            var messageData = {
+              recipient: { id: "test" },
+              message: { text: "It's 10 am!" }
+            };
+
+            callSendAPI(messageData);
+          }
       }
     });
 
