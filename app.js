@@ -185,7 +185,7 @@ function receivedMessage(event) {
         if(err) throw err;
 
         console.log('Data received from Db:\n');
-        console.log(rows);
+        //console.log(rows);
           //con.end();
       });
     }
