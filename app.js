@@ -275,7 +275,7 @@ function isRegistered(user_id) {
     con.query("SELECT * FROM bot_mapping where fb_id = '" + user_id + "';", function(err, rows) {
         if (err) throw err;
 
-        console.log('Data received from Db:\n');
+        console.log('CHECK REGISTER Data received from Db:\n');
         console.log(rows);
 
         return rows.length > 0;
