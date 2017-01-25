@@ -165,7 +165,7 @@ function receivedMessage(event) {
             isRegistered(senderID, response);
         }
         if (response.result.metadata.intentName === "register_account" && token !== "") {
-           con.query("SELECT fb_id FROM bot_mapping WHERE fb_id = '" + senderID + "' AND token = '" + token + "';", function(err, rows) {
+           con.query("SELECT fb_id FROM bot_mapping WHERE fb_id = '" + senderID + "';", function(err, rows) {
                if (err) throw err;
 
                console.log('CHECK IF REGISTERED: Data received from Db:\n');
