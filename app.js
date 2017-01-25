@@ -7,6 +7,7 @@ var apiai = require('apiai');
 var app2 = apiai("6a44d3f36da94292a0ff936d57e298b8");
 var globalSenderId;
 var notified = false;
+var register = false;
 //var firebase = require("firebase");
 //var database = firebase.database();
 var token = "EAAFJiEO72j4BAD6HkTpQSbzzYLYmGRMey68u40DKmOrj5pDfsX54AJtpBM7oDn6ZAAO6J4eM70lYkzrzWDtyYX66E64gALUYRtq72RJgGFpwTIcbr9bORR0OCKdRtzJyQOgpz6vvdjveqk4xiXP3DS1ZADFIoRNT78SfXojAZDZD";
@@ -160,8 +161,9 @@ function receivedMessage(event) {
         console.log("INTENT NAME: " + response.result.metadata.intentName);
 
         if (response.result.metadata.intentName === "file_leave" && response.result.parameters.hours !== "") {
-            console.log("isRegistered(): " + senderID + " " + isRegistered(senderID));
-            if (isRegistered(senderID)) {
+            console.log(isRegistered(senderID));
+            if (register) {
+               register = false;
                 var dates = response.result.parameters.date_period.split("/");
                 var start_date = dates[0];
                 var end_date = dates[1];
@@ -273,7 +275,6 @@ function receivedMessage(event) {
 }
 
 function isRegistered(user_id) {
-   var register = false;
    console.log("LOOOOOG");
     con.query("SELECT * FROM bot_mapping where fb_id = '" + user_id + "';", function(err, rows) {
         if (err) throw err;
@@ -287,9 +288,6 @@ function isRegistered(user_id) {
             register = true;
          }
     });
-
-    console.log(register);
-    return register;
 }
 
 /*
