@@ -5,7 +5,7 @@ var con = mysql.createConnection({
   host: "localhost",
   user: "root",
   password: "root",
-  database: "anonymous"
+  database: "hrms_db"
 });
 
 con.connect(function(err){
