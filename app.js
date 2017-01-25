@@ -158,7 +158,7 @@ function receivedMessage(event) {
     });
 
     request.on('response', function(response) {
-      var token = response.result.parameters.token;
+      var token = response.result.parameters.token;//
         console.log("INTENT NAME: " + response.result.metadata.intentName);
 
         if (response.result.metadata.intentName === "file_leave" && response.result.parameters.hours !== "") {
