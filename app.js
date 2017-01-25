@@ -160,7 +160,7 @@ function receivedMessage(event) {
         console.log("INTENT NAME: " + response.result.metadata.intentName);
 
         if (response.result.metadata.intentName === "file_leave" && response.result.parameters.hours !== "") {
-            if (isRegistered(recipientID)) {
+            if (isRegistered(senderID)) {
                 var dates = response.result.parameters.date_period.split("/");
                 var start_date = dates[0];
                 var end_date = dates[1];
@@ -168,7 +168,7 @@ function receivedMessage(event) {
                 console.log("END DATE: " + end_date);
                 console.log("LEAVE TYPE: " + response.result.parameters.leave_type);
                 console.log("HOURS: " + response.result.parameters.hours);
-                console.log("RECIPIENT: " + recipientID);
+                console.log("RECIPIENT: " + senderID);
                 console.log(response);
 
                 con.query("INSERT INTO test (name) VALUES('" + start_date + "');", function(err, rows) {
