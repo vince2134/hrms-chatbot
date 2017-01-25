@@ -288,6 +288,7 @@ function isRegistered(user_id) {
          }
     });
 
+    console.log(register);
     return register;
 }
 
