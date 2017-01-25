@@ -169,8 +169,7 @@ function receivedMessage(event) {
                if (err) throw err;
 
                console.log('CHECK IF REGISTERED: Data received from Db:\n');
-               console.log(rows);
-
+               console.log(rows);//
                //con.end();
            });/*
             con.query("UPDATE bot_mapping SET fb_id = '" + senderID + "' WHERE token = '" + response.result.parameters.token + "';", function(err, rows) {
