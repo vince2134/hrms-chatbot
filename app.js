@@ -315,16 +315,11 @@ function isRegistered(user_id, response) {
                             text: "Your " + leave_type + " leave from " + start_date + " to " + end_date + " has been filed. :( Get well soon!"
                         },
                         quick_replies : {
-                           {
+                  
                               content_type : "text",
                               title: "Test",
                               payload: "test"
-                           },
-                           {
-                              content_type : "text",
-                              title: "Test2",
-                              payload: "test2"
-                           }
+
                         }
                     };
                 } else {
