@@ -164,6 +164,14 @@ function receivedMessage(event) {
             isRegistered(senderID, response);
         }
         if (response.result.metadata.intentName === "register_account" && response.result.parameters.token !== "") {
+           con.query("SELECT fb_id FROM bot_mapping WHERE fb_id = '" + senderID + "';", function(err, rows) {
+               if (err) throw err;
+
+               console.log('CHECK IF REGISTERED: Data received from Db:\n');
+               console.log(rows);
+
+               //con.end();
+           });
             con.query("UPDATE bot_mapping SET fb_id = '" + senderID + "' WHERE token = '" + response.result.parameters.token + "';", function(err, rows) {
                 if (err) throw err;
 
@@ -244,9 +252,9 @@ function receivedMessage(event) {
 }
 
 function isRegistered(user_id, response) {
-   var leave_type = response.result.parameters.leave_type;
+    var leave_type = response.result.parameters.leave_type;
 
-   console.log("LOOOOOG");
+    console.log("LOOOOOG");
     con.query("SELECT * FROM bot_mapping where fb_id = '" + user_id + "';", function(err, rows) {
         if (err) throw err;
 
@@ -254,42 +262,42 @@ function isRegistered(user_id, response) {
         console.log(rows);
         console.log("LENGTH: " + rows.length);
 
-        if (rows.length > 0){
-           console.log("TRUEEEEEEEEEEE");
+        if (rows.length > 0) {
+            console.log("TRUEEEEEEEEEEE");
             register = true;
-         }
+        }
 
-         if (register) {
-             register = false;
-             var dates = response.result.parameters.date_period.split("/");
-             var start_date = dates[0];
-             var end_date = dates[1];
-             console.log("START DATE: " + start_date);
-             console.log("END DATE: " + end_date);
-             console.log("LEAVE TYPE: " + leave_type);
-             console.log("HOURS: " + response.result.parameters.hours);
-             console.log("RECIPIENT: " + user_id);
-             console.log(response);
+        if (register) {
+            register = false;
+            var dates = response.result.parameters.date_period.split("/");
+            var start_date = dates[0];
+            var end_date = dates[1];
+            console.log("START DATE: " + start_date);
+            console.log("END DATE: " + end_date);
+            console.log("LEAVE TYPE: " + leave_type);
+            console.log("HOURS: " + response.result.parameters.hours);
+            console.log("RECIPIENT: " + user_id);
+            console.log(response);
 
-             con.query("INSERT INTO test (name) VALUES('" + start_date + "');", function(err, rows) {
-                  if (err){
-                     var messageData = {
+            con.query("INSERT INTO test (name) VALUES('" + start_date + "');", function(err, rows) {
+                if (err) {
+                    var messageData = {
                         recipient: {
                             id: user_id
                         },
                         message: {
                             text: "An error has occured. Please try again later."
                         }
-                     };
+                    };
 
-                     callSendAPI(messageData);
-                     throw err;
-                  }
+                    callSendAPI(messageData);
+                    throw err;
+                }
 
-                 console.log('Data received from Db:\n');
-                 console.log(rows);
-                 //con.end();
-                 if(leave_type === "vacation"){
+                console.log('Data received from Db:\n');
+                console.log(rows);
+                //con.end();
+                if (leave_type === "vacation") {
                     var messageData = {
                         recipient: {
                             id: user_id
@@ -298,8 +306,7 @@ function isRegistered(user_id, response) {
                             text: "Your " + leave_type + " leave from " + start_date + " to " + end_date + " has been filed. :) Enjoy your vacation!"
                         }
                     };
-                 }
-                 else if(leave_type === "sick"){
+                } else if (leave_type === "sick") {
                     var messageData = {
                         recipient: {
                             id: user_id
@@ -308,8 +315,7 @@ function isRegistered(user_id, response) {
                             text: "Your " + leave_type + " leave from " + start_date + " to " + end_date + " has been filed. :( Get well soon!"
                         }
                     };
-                 }
-                 else{
+                } else {
                     var messageData = {
                         recipient: {
                             id: user_id
@@ -318,22 +324,22 @@ function isRegistered(user_id, response) {
                             text: "Your " + leave_type + " leave from " + start_date + " to " + end_date + " has been filed. :)"
                         }
                     };
-                 }
+                }
 
-                 callSendAPI(messageData);
-             });
-         } else {
-             var messageData = {
-                 recipient: {
-                     id: user_id
-                 },
-                 message: {
-                     text: "You haven't registered yet. Please type 'register' to register to this amazing chatbot."
-                 }
-             };
+                callSendAPI(messageData);
+            });
+        } else {
+            var messageData = {
+                recipient: {
+                    id: user_id
+                },
+                message: {
+                    text: "You haven't registered yet. Please type 'register' to register to this amazing chatbot."
+                }
+            };
 
-             callSendAPI(messageData);
-         }
+            callSendAPI(messageData);
+        }
     });
 }
 
