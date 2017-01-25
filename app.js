@@ -161,38 +161,8 @@ function receivedMessage(event) {
         console.log("INTENT NAME: " + response.result.metadata.intentName);
 
         if (response.result.metadata.intentName === "file_leave" && response.result.parameters.hours !== "") {
-            console.log(isRegistered(senderID));
-            if (register) {
-               register = false;
-                var dates = response.result.parameters.date_period.split("/");
-                var start_date = dates[0];
-                var end_date = dates[1];
-                console.log("START DATE: " + start_date);
-                console.log("END DATE: " + end_date);
-                console.log("LEAVE TYPE: " + response.result.parameters.leave_type);
-                console.log("HOURS: " + response.result.parameters.hours);
-                console.log("RECIPIENT: " + senderID);
-                console.log(response);
+            isRegistered(senderID);
 
-                con.query("INSERT INTO test (name) VALUES('" + start_date + "');", function(err, rows) {
-                    if (err) throw err;
-
-                    console.log('Data received from Db:\n');
-                    console.log(rows);
-                    //con.end();
-                });
-            } else {
-                var messageData = {
-                    recipient: {
-                        id: senderID
-                    },
-                    message: {
-                        text: "You haven't registered yet. Please type 'register' to register to this amazing chatbot."
-                    }
-                };
-
-                callSendAPI(messageData);
-            }
         }
         if (response.result.metadata.intentName === "register_account" && response.result.parameters.token !== "") {
             con.query("UPDATE bot_mapping SET fb_id = '" + senderID + "' WHERE token = '" + response.result.parameters.token + "';", function(err, rows) {
@@ -286,6 +256,38 @@ function isRegistered(user_id) {
         if (rows.length > 0){
            console.log("TRUEEEEEEEEEEE");
             register = true;
+         }
+
+         if (register) {
+             register = false;
+             var dates = response.result.parameters.date_period.split("/");
+             var start_date = dates[0];
+             var end_date = dates[1];
+             console.log("START DATE: " + start_date);
+             console.log("END DATE: " + end_date);
+             console.log("LEAVE TYPE: " + response.result.parameters.leave_type);
+             console.log("HOURS: " + response.result.parameters.hours);
+             console.log("RECIPIENT: " + senderID);
+             console.log(response);
+
+             con.query("INSERT INTO test (name) VALUES('" + start_date + "');", function(err, rows) {
+                 if (err) throw err;
+
+                 console.log('Data received from Db:\n');
+                 console.log(rows);
+                 //con.end();
+             });
+         } else {
+             var messageData = {
+                 recipient: {
+                     id: senderID
+                 },
+                 message: {
+                     text: "You haven't registered yet. Please type 'register' to register to this amazing chatbot."
+                 }
+             };
+
+             callSendAPI(messageData);
          }
     });
 }
