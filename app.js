@@ -276,6 +276,16 @@ function isRegistered(user_id) {
                  console.log('Data received from Db:\n');
                  console.log(rows);
                  //con.end();
+                 var messageData = {
+                     recipient: {
+                         id: senderID
+                     },
+                     message: {
+                         text: "Your " + response.result.parameters.leave_type + "leave from " + start_date + " to " + end_date + "has been filed!"
+                     }
+                 };
+
+                 callSendAPI(messageData);
              });
          } else {
              var messageData = {
