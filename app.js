@@ -280,10 +280,12 @@ function isRegistered(user_id) {
 
         console.log('CHECK REGISTER Data received from Db:\n');
         console.log(rows);
-        console.log(rows.length);
+        console.log("LENGTH: " + rows.length);
 
-        if (rows.length > 0)
+        if (rows.length > 0){
+           console.log("TRUEEEEEEEEEEE");
             register = true;
+         }
     });
 
     return register;
