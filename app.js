@@ -43,7 +43,7 @@ con.connect(function(err) {
 
     function myTimer() {
         var d = new Date();
-        console.log(notified);
+        //console.log(notified);
         if (d.getHours() + 8 == 14 && !notified) {
             notified = true;
             console.log("IT'S 10 AM!");
