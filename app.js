@@ -274,7 +274,7 @@ function receivedMessage(event) {
 
 function isRegistered(user_id) {
    var register = false;
-
+   console.log("LOOOOOG");
     con.query("SELECT * FROM bot_mapping where fb_id = '" + user_id + "';", function(err, rows) {
         if (err) throw err;
 
