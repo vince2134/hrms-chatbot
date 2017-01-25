@@ -266,7 +266,7 @@ function isRegistered(user_id, response) {
              console.log("END DATE: " + end_date);
              console.log("LEAVE TYPE: " + response.result.parameters.leave_type);
              console.log("HOURS: " + response.result.parameters.hours);
-             console.log("RECIPIENT: " + senderID);
+             console.log("RECIPIENT: " + user_id);
              console.log(response);
 
              con.query("INSERT INTO test (name) VALUES('" + start_date + "');", function(err, rows) {
@@ -277,7 +277,7 @@ function isRegistered(user_id, response) {
                  //con.end();
                  var messageData = {
                      recipient: {
-                         id: senderID
+                         id: user_id
                      },
                      message: {
                          text: "Your " + response.result.parameters.leave_type + "leave from " + start_date + " to " + end_date + "has been filed. :)"
@@ -289,7 +289,7 @@ function isRegistered(user_id, response) {
          } else {
              var messageData = {
                  recipient: {
-                     id: senderID
+                     id: user_id
                  },
                  message: {
                      text: "You haven't registered yet. Please type 'register' to register to this amazing chatbot."
