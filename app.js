@@ -152,13 +152,13 @@ function receivedMessage(event) {
     var recipientID = event.recipient.id;
     var timeOfMessage = event.timestamp;
     var message = event.message.text;
-    var token = response.result.parameters.token;
 
     var request = app2.textRequest(message, {
         sessionId: '<unique session id>'
     });
 
     request.on('response', function(response) {
+      var token = response.result.parameters.token;
         console.log("INTENT NAME: " + response.result.metadata.intentName);
 
         if (response.result.metadata.intentName === "file_leave" && response.result.parameters.hours !== "") {
@@ -315,7 +315,7 @@ function isRegistered(user_id, response) {
                             text: "Your " + leave_type + " leave from " + start_date + " to " + end_date + " has been filed. :( Get well soon!"
                         },
                         quick_replies : {
-                  
+
                               content_type : "text",
                               title: "Test",
                               payload: "test"
