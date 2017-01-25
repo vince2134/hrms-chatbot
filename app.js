@@ -277,6 +277,7 @@ function isRegistered(user_id) {
 
         console.log('CHECK REGISTER Data received from Db:\n');
         console.log(rows);
+        console.log(rows.length);
 
         return rows.length > 0;
         //con.end();
