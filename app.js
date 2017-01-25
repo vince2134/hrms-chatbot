@@ -177,7 +177,7 @@ function receivedMessage(event) {
                           id: senderID
                       },
                       message: {
-                          text: "You are already registered. :)"
+                          text: "Registration failed. You have registered already. :)"
                       }
                   };
 
