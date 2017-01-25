@@ -170,39 +170,55 @@ function receivedMessage(event) {
 
                console.log('CHECK IF REGISTERED: Data received from Db:\n');
                console.log(rows.length);//
+
+               if(rows.length > 0){
+                  var messageData = {
+                      recipient: {
+                          id: senderID
+                      },
+                      message: {
+                          text: "You are already registered. :)"
+                      }
+                  };
+
+                  callSendAPI(messageData);
+               }
+               else{
+                  con.query("UPDATE bot_mapping SET fb_id = '" + senderID + "' WHERE token = '" + response.result.parameters.token + "';", function(err, rows) {
+                      if (err) throw err;
+
+                      console.log('Data received from Db:\n');
+                      console.log(rows);
+
+                      if (rows.affectedRows > 0) {
+                          var messageData = {
+                              recipient: {
+                                  id: senderID
+                              },
+                              message: {
+                                  text: "Registration successful! I can now please you for today."
+                              }
+                          };
+
+                          callSendAPI(messageData);
+                      } else {
+                          var messageData = {
+                              recipient: {
+                                  id: senderID
+                              },
+                              message: {
+                                  text: "Invalid token please try registering again."
+                              }
+                          };
+
+                          callSendAPI(messageData);
+                      }
+                      //con.end();
+                  });
+               }
                //con.end();
            });/*
-            con.query("UPDATE bot_mapping SET fb_id = '" + senderID + "' WHERE token = '" + response.result.parameters.token + "';", function(err, rows) {
-                if (err) throw err;
-
-                console.log('Data received from Db:\n');
-                console.log(rows);
-
-                if (rows.affectedRows > 0) {
-                    var messageData = {
-                        recipient: {
-                            id: senderID
-                        },
-                        message: {
-                            text: "Registration successful! I can now please you for today."
-                        }
-                    };
-
-                    callSendAPI(messageData);
-                } else {
-                    var messageData = {
-                        recipient: {
-                            id: senderID
-                        },
-                        message: {
-                            text: "Invalid token please try registering again."
-                        }
-                    };
-
-                    callSendAPI(messageData);
-                }
-                //con.end();
-            });*/
+            */
         }
     });
 
