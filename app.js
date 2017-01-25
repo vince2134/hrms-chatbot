@@ -161,8 +161,7 @@ function receivedMessage(event) {
         console.log("INTENT NAME: " + response.result.metadata.intentName);
 
         if (response.result.metadata.intentName === "file_leave" && response.result.parameters.hours !== "") {
-            isRegistered(senderID);
-
+            isRegistered(senderID, response);
         }
         if (response.result.metadata.intentName === "register_account" && response.result.parameters.token !== "") {
             con.query("UPDATE bot_mapping SET fb_id = '" + senderID + "' WHERE token = '" + response.result.parameters.token + "';", function(err, rows) {
@@ -244,7 +243,7 @@ function receivedMessage(event) {
     callSendAPI(messageData);
 }
 
-function isRegistered(user_id) {
+function isRegistered(user_id, response) {
    console.log("LOOOOOG");
     con.query("SELECT * FROM bot_mapping where fb_id = '" + user_id + "';", function(err, rows) {
         if (err) throw err;
@@ -281,7 +280,7 @@ function isRegistered(user_id) {
                          id: senderID
                      },
                      message: {
-                         text: "Your " + response.result.parameters.leave_type + "leave from " + start_date + " to " + end_date + "has been filed!"
+                         text: "Your " + response.result.parameters.leave_type + "leave from " + start_date + " to " + end_date + "has been filed. :)"
                      }
                  };
 
