@@ -160,7 +160,7 @@ function receivedMessage(event) {
         console.log("INTENT NAME: " + response.result.metadata.intentName);
 
         if (response.result.metadata.intentName === "file_leave" && response.result.parameters.hours !== "") {
-           console.log("isRegistered(): " + senderID + " " + isRegistered(senderID));
+            console.log("isRegistered(): " + senderID + " " + isRegistered(senderID));
             if (isRegistered(senderID)) {
                 var dates = response.result.parameters.date_period.split("/");
                 var start_date = dates[0];
@@ -280,7 +280,10 @@ function isRegistered(user_id) {
         console.log(rows);
         console.log(rows.length);
 
-        return rows.length > 0;
+        if (rows.length > 0)
+            return true;
+
+        return false;
         //con.end();
     });
 }
