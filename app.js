@@ -152,6 +152,7 @@ function receivedMessage(event) {
     var recipientID = event.recipient.id;
     var timeOfMessage = event.timestamp;
     var message = event.message.text;
+    var token = response.result.parameters.token;
 
     var request = app2.textRequest(message, {
         sessionId: '<unique session id>'
@@ -163,15 +164,15 @@ function receivedMessage(event) {
         if (response.result.metadata.intentName === "file_leave" && response.result.parameters.hours !== "") {
             isRegistered(senderID, response);
         }
-        if (response.result.metadata.intentName === "register_account" && response.result.parameters.token !== "") {
-           con.query("SELECT fb_id FROM bot_mapping WHERE fb_id = '" + senderID + "';", function(err, rows) {
+        if (response.result.metadata.intentName === "register_account" && token !== "") {
+           con.query("SELECT fb_id FROM bot_mapping WHERE fb_id = '" + senderID + "' AND token = '" + token + "';", function(err, rows) {
                if (err) throw err;
 
                console.log('CHECK IF REGISTERED: Data received from Db:\n');
                console.log(rows);
 
                //con.end();
-           });
+           });/*
             con.query("UPDATE bot_mapping SET fb_id = '" + senderID + "' WHERE token = '" + response.result.parameters.token + "';", function(err, rows) {
                 if (err) throw err;
 
@@ -202,7 +203,7 @@ function receivedMessage(event) {
                     callSendAPI(messageData);
                 }
                 //con.end();
-            });
+            });*/
         }
     });
 
