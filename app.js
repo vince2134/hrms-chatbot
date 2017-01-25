@@ -244,6 +244,8 @@ function receivedMessage(event) {
 }
 
 function isRegistered(user_id, response) {
+   var leave_type = response.result.parameters.leave_type;
+
    console.log("LOOOOOG");
     con.query("SELECT * FROM bot_mapping where fb_id = '" + user_id + "';", function(err, rows) {
         if (err) throw err;
@@ -264,25 +266,59 @@ function isRegistered(user_id, response) {
              var end_date = dates[1];
              console.log("START DATE: " + start_date);
              console.log("END DATE: " + end_date);
-             console.log("LEAVE TYPE: " + response.result.parameters.leave_type);
+             console.log("LEAVE TYPE: " + leave_type);
              console.log("HOURS: " + response.result.parameters.hours);
              console.log("RECIPIENT: " + user_id);
              console.log(response);
 
              con.query("INSERT INTO test (name) VALUES('" + start_date + "');", function(err, rows) {
-                 if (err) throw err;
+                  if (err){
+                     var messageData = {
+                        recipient: {
+                            id: user_id
+                        },
+                        message: {
+                            text: "An error has occured. Please try again later."
+                        }
+                     };
+
+                     callSendAPI(messageData);
+                     throw err;
+                  }
 
                  console.log('Data received from Db:\n');
                  console.log(rows);
                  //con.end();
-                 var messageData = {
-                     recipient: {
-                         id: user_id
-                     },
-                     message: {
-                         text: "Your " + response.result.parameters.leave_type + "leave from " + start_date + " to " + end_date + "has been filed. :)"
-                     }
-                 };
+                 if(leave_type === "vacation"){
+                    var messageData = {
+                        recipient: {
+                            id: user_id
+                        },
+                        message: {
+                            text: "Your " + leave_type + " leave from " + start_date + " to " + end_date + " has been filed. :) Enjoy your vacation!"
+                        }
+                    };
+                 }
+                 else if(leave_type === "sick"){
+                    var messageData = {
+                        recipient: {
+                            id: user_id
+                        },
+                        message: {
+                            text: "Your " + leave_type + " leave from " + start_date + " to " + end_date + " has been filed. :( Get well soon!"
+                        }
+                    };
+                 }
+                 else{
+                    var messageData = {
+                        recipient: {
+                            id: user_id
+                        },
+                        message: {
+                            text: "Your " + leave_type + " leave from " + start_date + " to " + end_date + " has been filed. :)"
+                        }
+                    };
+                 }
 
                  callSendAPI(messageData);
              });
