@@ -273,6 +273,8 @@ function receivedMessage(event) {
 }
 
 function isRegistered(user_id) {
+   var register = false;
+
     con.query("SELECT * FROM bot_mapping where fb_id = '" + user_id + "';", function(err, rows) {
         if (err) throw err;
 
@@ -281,11 +283,10 @@ function isRegistered(user_id) {
         console.log(rows.length);
 
         if (rows.length > 0)
-            return true;
-
-        return false;
-        //con.end();
+            register = true;
     });
+
+    return register;
 }
 
 /*
