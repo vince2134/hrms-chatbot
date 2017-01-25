@@ -177,7 +177,7 @@ function receivedMessage(event) {
                     console.log('Data received from Db:\n');
                     console.log(rows);
                     //con.end();
-                });
+                });//
             } else {
                 var messageData = {
                     recipient: {
