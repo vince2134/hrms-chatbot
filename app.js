@@ -160,6 +160,7 @@ function receivedMessage(event) {
         console.log("INTENT NAME: " + response.result.metadata.intentName);
 
         if (response.result.metadata.intentName === "file_leave" && response.result.parameters.hours !== "") {
+           console.console.log("isRegistered(): " + senderID + " " + isRegistered(senderID));
             if (isRegistered(senderID)) {
                 var dates = response.result.parameters.date_period.split("/");
                 var start_date = dates[0];
