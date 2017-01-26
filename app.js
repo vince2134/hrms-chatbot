@@ -2,9 +2,9 @@ var express = require('express');
 var bodyParser = require('body-parser');
 var request = require('request');
 var mysql = require('./node_modules/mysql');
-var app = express();
+//var app = express();
 var apiai = require('apiai');
-var app2 = apiai("6a44d3f36da94292a0ff936d57e298b8");
+var app2 = apiai("b464d87b79f947bc9197a66b7ff346b2");
 var globalSenderId;
 var notified = false;
 var register = false;
@@ -16,10 +16,10 @@ var token = "EAAFJiEO72j4BAD6HkTpQSbzzYLYmGRMey68u40DKmOrj5pDfsX54AJtpBM7oDn6ZAA
 
 
 var con = mysql.createConnection({
-    host: "us-cdbr-iron-east-04.cleardb.net",
-    user: "b523f4395a2aab",
-    password: "99761a45",
-    database: "heroku_ab34a5deaa3b4fb"
+    host: "localhost",
+    user: "root",
+    password: "ideyatech",
+    database: "hrms_db"
 });
 
 con.connect(function(err) {
@@ -101,11 +101,12 @@ app.post('/webhook', function(req, res) {
 
 function handleDisconnect() {
     con = mysql.createConnection({
-        host: "us-cdbr-iron-east-04.cleardb.net",
-        user: "b523f4395a2aab",
-        password: "99761a45",
-        database: "heroku_ab34a5deaa3b4fb"
-    }); // Recreate the connection, since
+    host: "localhost",
+    user: "root",
+    password: "ideyatech",
+    database: "hrms_db"
+    });
+    // Recreate the connection, since
     // the old one cannot be reused.
 
     con.connect(function(err) { // The server is either down
@@ -223,29 +224,6 @@ function receivedMessage(event) {
     var messageText = "Echo: " + event.message.text;
     //Insert api logic here
 
-
-    /*con.query("INSERT INTO test (name) VALUES('" + message + "');",function(err,rows){
-      if(err) throw err;
-
-      console.log('Data received from Db:\n');
-      console.log(rows);
-
-        con.end();
-    });*/
-    //callQuery("SELECT * FROM test;");
-    /*con.query("SELECT * FROM test;",function(err,rows){
-      if(err) //throw err;
-        handleDisconnect();
-      console.log('Data received from Db:\n');
-      console.log(rows);
-
-      //  con.end();
-    });*/
-
-    /*database.ref('/').once('value').then(function(snapshot) {
-      var username = snapshot.val().username;
-      // ...
-    });*/
 
     var messageData = {
         recipient: {
@@ -387,5 +365,6 @@ function callSendAPI(messageData) {
 }
 
 app.listen(app.get('port'), function() {
-    console.log('running on port', app.get('port'))
+    console.log('running on port', app.get('port'));
+    console.log("The app is done running.");
 })
