@@ -68,9 +68,7 @@ app.get('/', function(req, res) {
 var request = app2.textRequest('file overtime today', {
     sessionId: 'HRMS Chatbot'
 });
-request = app2.textRequest('3 hours', {
-    sessionId: 'HRMS Chatbot'
-});
+
 
 request.on('response', function(response) {
     console.log(response);
@@ -118,6 +116,9 @@ function setIntent(response)
             intent = response.result.metadata.intentName;
             console.log("Intent : FILE UNDERTIME");
     }
+    request = app2.textRequest('3 hours', {
+    sessionId: 'HRMS Chatbot'
+});
 }
 
 function registerUser(response)
