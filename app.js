@@ -65,13 +65,13 @@ app.get('/', function(req, res) {
 });
 ////////////////////////////////////////////////////////////////////////////////////////
 
-var request = app2.textRequest('register nicolle@ideyatech.com bauJDY8', {
+var request = app2.textRequest('register nicolle@ideyatech.com', {
     sessionId: 'HRMS Chatbot'
 });
 
-/*request = app2.textRequest('3 hours', {
+request = app2.textRequest('bauJDY8', {
     sessionId: 'HRMS Chatbot'
-}); */
+}); 
 
 request.on('response', function(response) {
     console.log(response);
