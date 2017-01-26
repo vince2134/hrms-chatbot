@@ -76,9 +76,9 @@ request.on('response', function(response) {
     console.log(response);
     console.log("REQUEST");
     setIntent(response);
-    if(intent == "file_leave")
+    if(intent != "register_account")
     {
-        fileLeave(response);
+        isUserRegistered(response);
     }
 });
 
@@ -119,29 +119,17 @@ function setIntent(response)
             intent = response.result.metadata.intentName;
             console.log("Intent : FILE UNDERTIME");
     }
+    else if (response.result.metadata.intentName === "approve_leave" && response.result.parameters.approve_leave !== "")
+    {
+            intent = response.result.metadata.intentName;
+            console.log("Intent : APPROVE/DECLINE LEAVE");
+    }
     
 }
 
-function registerUser(response)
+function isUserRegistered(response)
 {
-     con.query("SELECT * FROM users where USERNAME = '" + "clapore" + "';", function(err, rows) {
-           if (err) throw err;
-
-            console.log('CHECK REGISTER Data received from Db:\n');
-            console.log(rows);
-            console.log("LENGTH: " + rows.length);
-
-            if (rows.length > 0) {
-                console.log("Rows returned: " + rows.length);
-                register = true;
-            }
-            console.log("END OF QUERY");  
-            }); 
-}   
-        
-function fileLeave(response)
-{
-    con.query("SELECT * FROM users where USERNAME = '" + "nnnn" + "';", function(err, rows) {
+      con.query("SELECT * FROM users where USERNAME = '" + "atan" + "';", function(err, rows) {
         if (err) throw err;
 
         console.log('CHECK REGISTER Data received from Db:\n');
@@ -156,13 +144,18 @@ function fileLeave(response)
         if(register)
         {
             console.log("User is registered.")
-            registerUser(response);
+            //registerUser(response);
         }
         else
         {
             console.log("You are not registered");
         }
     });
+}   
+        
+function fileLeave(response)
+{
+   
 }
 
 
