@@ -2,7 +2,7 @@ var express = require('express');
 var bodyParser = require('body-parser');
 var request = require('request');
 var mysql = require('./node_modules/mysql');
-//var app = express();
+var app = express();
 var apiai = require('apiai');
 var app2 = apiai("b464d87b79f947bc9197a66b7ff346b2");
 var globalSenderId;
