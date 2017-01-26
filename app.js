@@ -140,7 +140,7 @@ function callQuery(query) {
 }
 
 
-var request = app.textRequest('hi', {
+var request = app2.textRequest('hi', {
     sessionId: '21'
 });
 
