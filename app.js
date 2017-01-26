@@ -65,13 +65,14 @@ app.get('/', function(req, res) {
 });
 ////////////////////////////////////////////////////////////////////////////////////////
 
-var request = app2.textRequest('register nicolle@ideyatech.com nb3nJ8', {
+var request = app2.textRequest('Ill be on sick leave today to tomorrow', {
     sessionId: 'HRMS Chatbot'
 });
 
 
 request.on('response', function(response) {
     console.log(response);
+    console.log(response.result.parameters.date_custom);
     console.log("REQUEST");
     setIntent(response);
     if(intent != "register_account")
