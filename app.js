@@ -65,15 +65,7 @@ app.get('/', function(req, res) {
 });
 ////////////////////////////////////////////////////////////////////////////////////////
 
-var customerName = prompt("Please enter your name", "<name goes here>");
-
-if (customerName!= null) {
-
-    console.log("name entered");
-
-}
-
-var request = app2.textRequest('file sick leave today', {
+var request = app2.textRequest('register abcd1234', {
     sessionId: 'HRMS Chatbot'
 });
 
