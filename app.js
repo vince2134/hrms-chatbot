@@ -8,7 +8,7 @@ var app2 = apiai("b464d87b79f947bc9197a66b7ff346b2");
 var globalSenderId;
 var notified = false;
 var register = false;
-
+var intent = "";
 var token = "EAAFJiEO72j4BAD6HkTpQSbzzYLYmGRMey68u40DKmOrj5pDfsX54AJtpBM7oDn6ZAAO6J4eM70lYkzrzWDtyYX66E64gALUYRtq72RJgGFpwTIcbr9bORR0OCKdRtzJyQOgpz6vvdjveqk4xiXP3DS1ZADFIoRNT78SfXojAZDZD";
 
 // First you need to create a connection to the db
@@ -72,6 +72,7 @@ var request = app2.textRequest('Ill be on leave today', {
 request.on('response', function(response) {
     console.log(response);
     console.log("REQUEST");
+    setIntent();
     con.query("SELECT * FROM users where USERNAME = '" + "atan" + "';", function(err, rows) {
         if (err) throw err;
 
@@ -80,9 +81,10 @@ request.on('response', function(response) {
         console.log("LENGTH: " + rows.length);
 
         if (rows.length > 0) {
-            console.log("TRUEEEEEEEEEEE");
+            console.log("Rows returned: " + rows.length);
             register = true;
         }
+        console.log("END OF QUERY");  
     });
 });
 
@@ -94,7 +96,19 @@ request.on('error', function(error) {
 request.end();
 
 
-console.log("END OF APP");  
+function setIntent(response)
+{
+    if (response.result.metadata.intentName === "register_account" && token !== "")
+    {
+            intent = response.result.metadata.intentName;
+            console.log("Intent : REGISTER");
+    }
+    else if (response.result.metadata.intentName === "file_leave" && response.result.parameters.hours !== "")
+    {
+            intent = response.result.metadata.intentName;
+            console.log("Intent : FILE LEAVE");
+    }
+}
 
 
 
