@@ -8,8 +8,7 @@ var app2 = apiai("b464d87b79f947bc9197a66b7ff346b2");
 var globalSenderId;
 var notified = false;
 var register = false;
-//var firebase = require("firebase");
-//var database = firebase.database();
+
 var token = "EAAFJiEO72j4BAD6HkTpQSbzzYLYmGRMey68u40DKmOrj5pDfsX54AJtpBM7oDn6ZAAO6J4eM70lYkzrzWDtyYX66E64gALUYRtq72RJgGFpwTIcbr9bORR0OCKdRtzJyQOgpz6vvdjveqk4xiXP3DS1ZADFIoRNT78SfXojAZDZD";
 
 // First you need to create a connection to the db
@@ -64,11 +63,43 @@ app.use(bodyParser.json())
 app.get('/', function(req, res) {
     res.send('Facebook Bot')
 });
-/*
- * Use your own validation token. Check that the token used in the Webhook
- * setup is the same token used here.
- *
- */
+////////////////////////////////////////////////////////////////////////////////////////
+
+var request = app2.textRequest('Ill be on leave today', {
+    sessionId: '21'
+});
+
+request.on('response', function(response) {
+    console.log(response);
+    console.log("REQUEST");
+    con.query("SELECT * FROM users where USERNAME = '" + "atan" + "';", function(err, rows) {
+        if (err) throw err;
+
+        console.log('CHECK REGISTER Data received from Db:\n');
+        console.log(rows);
+        console.log("LENGTH: " + rows.length);
+
+        if (rows.length > 0) {
+            console.log("TRUEEEEEEEEEEE");
+            register = true;
+        }
+    });
+});
+
+request.on('error', function(error) {
+    console.log(error);
+    console.log("RESPONSE");
+});
+
+//request.end();
+
+
+console.log("END OF APP");
+
+
+
+
+/////////////////////////////////////////////////////////////////////////////////////
 app.get('/webhook', function(req, res) {
     if (req.query['hub.mode'] === 'subscribe' && req.query['hub.verify_token'] === 'webhooktoken') {
         console.log("Validating webhook");
@@ -79,10 +110,6 @@ app.get('/webhook', function(req, res) {
     }
 });
 
-/*
- * All callbacks for Messenger are POST-ed. They will be sent to the same webhook.
- *
- */
 app.post('/webhook', function(req, res) {
     var data = req.body;
     if (data.object == 'page') {
@@ -138,24 +165,6 @@ function callQuery(query) {
         //  con.end();
     });
 }
-
-
-var request = app2.textRequest('Ill be on leave today', {
-    sessionId: '21'
-});
-
-request.on('response', function(response) {
-    console.log(response);
-    console.log("REQUEST");
-});
-
-request.on('error', function(error) {
-    console.log(error);
-    console.log("RESPONSE");
-});
-
-request.end();
-
 
 function receivedMessage(event) {
     var senderID = event.sender.id;
@@ -233,12 +242,9 @@ function receivedMessage(event) {
     });
 
     request.on('error', function(error) {
-        //console.log(error);
     });
     request.end();
     var messageText = "Echo: " + event.message.text;
-    //Insert api logic here
-
 
     var messageData = {
         recipient: {
@@ -248,14 +254,13 @@ function receivedMessage(event) {
             text: messageText
         }
     };
-
     callSendAPI(messageData);
 }
 
 function isRegistered(user_id, response) {
     var leave_type = response.result.parameters.leave_type;
 
-    console.log("LOOOOOG");
+    console.log("isRegistered");
     con.query("SELECT * FROM bot_mapping where fb_id = '" + user_id + "';", function(err, rows) {
         if (err) throw err;
 
