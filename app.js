@@ -91,10 +91,10 @@ request.on('error', function(error) {
     console.log("RESPONSE");
 });
 
-//request.end();
+request.end();
 
 
-//console.log("END OF APP");  
+console.log("END OF APP");  
 
 
 
