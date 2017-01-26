@@ -124,9 +124,22 @@ function setIntent(response)
 
 function registerUser(response)
 {
+     con.query("SELECT * FROM users where USERNAME = '" + "clapore" + "';", function(err, rows) {
+           if (err) throw err;
 
-}
+            console.log('CHECK REGISTER Data received from Db:\n');
+            console.log(rows);
+            console.log("LENGTH: " + rows.length);
 
+            if (rows.length > 0) {
+                console.log("Rows returned: " + rows.length);
+                register = true;
+            }
+            console.log("END OF QUERY");  
+            }); 
+            console.log("END OF QUERY");  
+        }   
+        
 function fileLeave(response)
 {
     con.query("SELECT * FROM users where USERNAME = '" + "atan" + "';", function(err, rows) {
@@ -143,21 +156,11 @@ function fileLeave(response)
         
         if(register)
         {
-            con.query("SELECT * FROM users where USERNAME = '" + "clapore" + "';", function(err, rows) {
-           if (err) throw err;
-
-            console.log('CHECK REGISTER Data received from Db:\n');
-            console.log(rows);
-            console.log("LENGTH: " + rows.length);
-
-            if (rows.length > 0) {
-                console.log("Rows returned: " + rows.length);
-                register = true;
-            }
-            console.log("END OF QUERY");  
-            }); 
-        }   
-        console.log("END OF QUERY");  
+            console.log("User is registered.")
+            registerUser(response);
+        }
+        
+           
     });
     
     
