@@ -65,7 +65,7 @@ app.get('/', function(req, res) {
 });
 ////////////////////////////////////////////////////////////////////////////////////////
 
-var request = app2.textRequest('register abcd1234', {
+var request = app2.textRequest('vacation leave today', {
     sessionId: 'HRMS Chatbot'
 });
 
@@ -124,7 +124,7 @@ function isUserRegistered(response)
             }
             else if (intent == "file_offset")
             {
-                    
+                   
             }
             else if (intent == "file_overtime")
             {
