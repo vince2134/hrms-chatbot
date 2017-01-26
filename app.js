@@ -65,7 +65,7 @@ app.get('/', function(req, res) {
 });
 ////////////////////////////////////////////////////////////////////////////////////////
 
-var request = app2.textRequest('file leave today', {
+var request = app2.textRequest('file sick leave today', {
     sessionId: 'HRMS Chatbot'
 });
 
