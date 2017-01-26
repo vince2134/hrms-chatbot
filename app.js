@@ -141,7 +141,7 @@ function registerUser(response)
         
 function fileLeave(response)
 {
-    con.query("SELECT * FROM users where USERNAME = '" + "atan" + "';", function(err, rows) {
+    con.query("SELECT * FROM users where USERNAME = '" + "nnnn" + "';", function(err, rows) {
         if (err) throw err;
 
         console.log('CHECK REGISTER Data received from Db:\n');
