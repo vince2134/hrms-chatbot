@@ -65,6 +65,14 @@ app.get('/', function(req, res) {
 });
 ////////////////////////////////////////////////////////////////////////////////////////
 
+var customerName = prompt("Please enter your name", "<name goes here>");
+
+if (customerName!= null) {
+
+    console.log("name entered");
+
+}
+
 var request = app2.textRequest('file sick leave today', {
     sessionId: 'HRMS Chatbot'
 });
@@ -72,6 +80,7 @@ var request = app2.textRequest('file sick leave today', {
 /*request = app2.textRequest('3 hours', {
     sessionId: 'HRMS Chatbot'
 }); */
+
 request.on('response', function(response) {
     console.log(response);
     console.log("REQUEST");
@@ -79,6 +88,10 @@ request.on('response', function(response) {
     if(intent != "register_account")
     {
         isUserRegistered(response);
+    }
+    else
+    {
+        registerUser(response);
     }
 });
 
@@ -88,6 +101,85 @@ request.on('error', function(error) {
 });
 
 request.end();
+
+
+function registerUser(response)
+{
+    console.log("registerUser");
+}
+
+
+function isUserRegistered(response)
+{
+      con.query("SELECT * FROM users where USERNAME = '" + "atan" + "';", function(err, rows) {
+        if (err) throw err;
+
+        console.log('CHECK REGISTER Data received from Db:\n');
+        console.log(rows);
+        console.log("LENGTH: " + rows.length);
+
+        if (rows.length > 0) {
+            console.log("Rows returned: " + rows.length);
+            register = true;
+        }
+        
+        if(register)
+        {
+            console.log("User is registered.")
+            if(intent == "file_leave")
+            {
+                fileLeave(response);
+            }
+            else if (intent == "file_offset")
+            {
+                    
+            }
+            else if (intent == "file_overtime")
+            {
+                    
+            }
+            else if (intent == "file_undertime")
+            {
+                    
+            }
+            else if (intent == "approve_leave")
+            {
+                    
+            }
+        }
+        else
+        {
+            console.log("You are not registered. Please register first.");
+        }
+    });
+}   
+        
+function fileLeave(response)
+{
+    console.log("== fileLeave ==")
+}
+
+function fileOvertime(response)
+{
+    console.log("== fileOvertime ==")
+}
+
+function fileUndertime(response)
+{
+    console.log("== fileUndertime ==")
+}
+
+function fileOffset(response)
+{
+    console.log("== fileOffset ==")
+}
+
+function approveLeave(response)
+{
+    console.log("== approveLeave ==")
+}
+
+
 
 
 function setIntent(response)
@@ -126,41 +218,6 @@ function setIntent(response)
     }
     
 }
-
-function isUserRegistered(response)
-{
-      con.query("SELECT * FROM users where USERNAME = '" + "atan" + "';", function(err, rows) {
-        if (err) throw err;
-
-        console.log('CHECK REGISTER Data received from Db:\n');
-        console.log(rows);
-        console.log("LENGTH: " + rows.length);
-
-        if (rows.length > 0) {
-            console.log("Rows returned: " + rows.length);
-            register = true;
-        }
-        
-        if(register)
-        {
-            console.log("User is registered.")
-            if(intent == "file_leave")
-            {
-                fileLeave(response);
-            }
-        }
-        else
-        {
-            console.log("You are not registered. Please register first.");
-        }
-    });
-}   
-        
-function fileLeave(response)
-{
-    console.log("== fileLeave ==")  
-}
-
 
 
 /////////////////////////////////////////////////////////////////////////////////////
