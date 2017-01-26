@@ -65,7 +65,7 @@ app.get('/', function(req, res) {
 });
 ////////////////////////////////////////////////////////////////////////////////////////
 
-var request = app2.textRequest('Ill be on leave today', {
+var request = app2.textRequest('register abcd1234', {
     sessionId: '21'
 });
 
@@ -75,7 +75,7 @@ request.on('response', function(response) {
     setIntent(response);
     if(intent == "file_leave")
     {
-        yep();
+        fileLeave(response);
     }
 });
 
@@ -90,7 +90,7 @@ request.end();
 function setIntent(response)
 {
     console.log("== Set Intent ==");
-    if (response.result.metadata.intentName === "register_account" && token !== "")
+    if (response.result.metadata.intentName === "register_account" && response.result.parameters.token !== "")
     {
             intent = response.result.metadata.intentName;
             console.log("Intent : REGISTER");
@@ -100,6 +100,21 @@ function setIntent(response)
             intent = response.result.metadata.intentName;
             console.log("Intent : FILE LEAVE");
     }
+    else if (response.result.metadata.intentName === "file_offset" && response.result.parameters.hours !== "")
+    {
+            intent = response.result.metadata.intentName;
+            console.log("Intent : FILE OFFSET");
+    }
+    else if (response.result.metadata.intentName === "file_overtime" && response.result.parameters.hours !== "")
+    {
+            intent = response.result.metadata.intentName;
+            console.log("Intent : FILE OVETIME");
+    }
+    else if (response.result.metadata.intentName === "file_undertime" && response.result.parameters.hours !== "")
+    {
+            intent = response.result.metadata.intentName;
+            console.log("Intent : FILE UNDERTIME");
+    }
 }
 
 function registerUser(response)
@@ -107,7 +122,7 @@ function registerUser(response)
 
 }
 
-function yep()
+function fileLeave(response)
 {
     con.query("SELECT * FROM users where USERNAME = '" + "atan" + "';", function(err, rows) {
         if (err) throw err;
