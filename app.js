@@ -72,7 +72,7 @@ var request = app2.textRequest('Ill be on leave today', {
 request.on('response', function(response) {
     console.log(response);
     console.log("REQUEST");
-    setIntent();
+    setIntent(response);
     con.query("SELECT * FROM users where USERNAME = '" + "atan" + "';", function(err, rows) {
         if (err) throw err;
 
@@ -98,6 +98,7 @@ request.end();
 
 function setIntent(response)
 {
+    console.log("== Set Intent ==");
     if (response.result.metadata.intentName === "register_account" && token !== "")
     {
             intent = response.result.metadata.intentName;
