@@ -65,7 +65,7 @@ app.get('/', function(req, res) {
 });
 ////////////////////////////////////////////////////////////////////////////////////////
 
-var request = app2.textRequest('overtime today for 5 hours', {
+var request = app2.textRequest('sick leave today to tomorrow', {
     sessionId: 'HRMS Chatbot'
 });
 
@@ -172,7 +172,10 @@ function approveLeave(response)
 }
 
 
-
+function checkExistingLeaves()
+{
+    
+}
 
 function setIntent(response)
 {
