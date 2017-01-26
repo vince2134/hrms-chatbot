@@ -228,7 +228,7 @@ function receivedMessage(event) {
                   });
                }
                
-           });/
+           });
         }
     });
 
