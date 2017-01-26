@@ -140,12 +140,10 @@ function fileLeave(response)
             console.log("Rows returned: " + rows.length);
             register = true;
         }
-        console.log("END OF QUERY");  
-    });
-    
-    if(register)
-    {
-           con.query("SELECT * FROM users where USERNAME = '" + "clapore" + "';", function(err, rows) {
+        
+        if(register)
+        {
+            con.query("SELECT * FROM users where USERNAME = '" + "clapore" + "';", function(err, rows) {
            if (err) throw err;
 
             console.log('CHECK REGISTER Data received from Db:\n');
@@ -158,7 +156,11 @@ function fileLeave(response)
             }
             console.log("END OF QUERY");  
             }); 
-    }
+        }   
+        console.log("END OF QUERY");  
+    });
+    
+    
 }
 
 
