@@ -139,11 +139,23 @@ function callQuery(query) {
     });
 }
 
-/*
+
 var request = app.textRequest('hi', {
     sessionId: '21'
 });
-*/
+
+request.on('response', function(response) {
+    console.log(response);
+    console.log("REQUEST");
+});
+
+request.on('error', function(error) {
+    console.log(error);
+    console.log("RESPONSE");
+});
+
+request.end();
+
 
 function receivedMessage(event) {
     var senderID = event.sender.id;
@@ -215,18 +227,15 @@ function receivedMessage(event) {
                       //con.end();
                   });
                }
-               //con.end();
-           });/*
-            */
+               
+           });/
         }
     });
 
     request.on('error', function(error) {
         //console.log(error);
     });
-
     request.end();
-
     var messageText = "Echo: " + event.message.text;
     //Insert api logic here
 
