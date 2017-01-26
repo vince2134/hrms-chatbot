@@ -55,7 +55,7 @@ con.connect(function(err) {
     }
 });
 
-app.set('port', (process.env.PORT || 1000))
+app.set('port', (process.env.PORT || 2000))
 app.use(bodyParser.urlencoded({
     extended: false
 }))
