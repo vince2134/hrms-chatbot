@@ -69,7 +69,9 @@ var request = app2.textRequest('file overtime today', {
     sessionId: 'HRMS Chatbot'
 });
 
-
+ request = app2.textRequest('3 hours', {
+    sessionId: 'HRMS Chatbot'
+}); 
 request.on('response', function(response) {
     console.log(response);
     console.log("REQUEST");
@@ -90,9 +92,7 @@ request.end();
 
 function setIntent(response)
 {
-     request = app2.textRequest('3 hours', {
-    sessionId: 'HRMS Chatbot'
-});
+    
     console.log("== Set Intent ==");
     if (response.result.metadata.intentName === "register_account" && response.result.parameters.token !== "")
     {
