@@ -144,18 +144,21 @@ function isUserRegistered(response)
         if(register)
         {
             console.log("User is registered.")
-            //registerUser(response);
+            if(intent == "file_leave")
+            {
+                fileLeave(response);
+            }
         }
         else
         {
-            console.log("You are not registered");
+            console.log("You are not registered. Please register first.");
         }
     });
 }   
         
 function fileLeave(response)
 {
-   
+    console.log("== fileLeave ==")  
 }
 
 
