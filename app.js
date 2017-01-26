@@ -65,7 +65,7 @@ app.get('/', function(req, res) {
 });
 ////////////////////////////////////////////////////////////////////////////////////////
 
-var request = app2.textRequest('Ill be on sick leave today to tomorrow', {
+var request = app2.textRequest('Ill be on sick leave today', {
     sessionId: 'HRMS Chatbot'
 });
 
