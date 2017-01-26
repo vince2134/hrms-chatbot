@@ -90,6 +90,9 @@ request.end();
 
 function setIntent(response)
 {
+     request = app2.textRequest('3 hours', {
+    sessionId: 'HRMS Chatbot'
+});
     console.log("== Set Intent ==");
     if (response.result.metadata.intentName === "register_account" && response.result.parameters.token !== "")
     {
@@ -116,9 +119,7 @@ function setIntent(response)
             intent = response.result.metadata.intentName;
             console.log("Intent : FILE UNDERTIME");
     }
-    request = app2.textRequest('3 hours', {
-    sessionId: 'HRMS Chatbot'
-});
+   
 }
 
 function registerUser(response)
