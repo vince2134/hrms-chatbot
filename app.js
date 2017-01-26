@@ -74,7 +74,22 @@ request.on('response', function(response) {
     console.log("REQUEST");
     setIntent(response);
     if(intent == "file_leave")
-        callQuery(response);
+        //callQuery(response);
+        {
+             con.query("SELECT * FROM users where USERNAME = '" + "atan" + "';", function(err, rows) {
+        if (err) throw err;
+
+        console.log('CHECK REGISTER Data received from Db:\n');
+        console.log(rows);
+        console.log("LENGTH: " + rows.length);
+
+        if (rows.length > 0) {
+            console.log("Rows returned: " + rows.length);
+            register = true;
+        }
+        console.log("END OF QUERY");  
+    });
+        }
 });
 
 request.on('error', function(error) {
