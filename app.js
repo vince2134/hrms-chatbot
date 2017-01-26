@@ -119,7 +119,7 @@ function setIntent(response)
             intent = response.result.metadata.intentName;
             console.log("Intent : FILE UNDERTIME");
     }
-   
+    
 }
 
 function registerUser(response)
@@ -137,8 +137,7 @@ function registerUser(response)
             }
             console.log("END OF QUERY");  
             }); 
-            console.log("END OF QUERY");  
-        }   
+}   
         
 function fileLeave(response)
 {
@@ -159,11 +158,11 @@ function fileLeave(response)
             console.log("User is registered.")
             registerUser(response);
         }
-        
-           
+        else
+        {
+            console.log("You are not registered");
+        }
     });
-    
-    
 }
 
 
