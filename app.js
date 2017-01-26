@@ -65,7 +65,7 @@ app.get('/', function(req, res) {
 });
 ////////////////////////////////////////////////////////////////////////////////////////
 
-var request = app2.textRequest('vacation leave today', {
+var request = app2.textRequest('overtime today for 5 hours', {
     sessionId: 'HRMS Chatbot'
 });
 
@@ -124,19 +124,19 @@ function isUserRegistered(response)
             }
             else if (intent == "file_offset")
             {
-                   
+                fileOffset(response);
             }
             else if (intent == "file_overtime")
             {
-                    
+                fileOvertime(response);
             }
             else if (intent == "file_undertime")
             {
-                    
+                fileUndertime(response);
             }
             else if (intent == "approve_leave")
             {
-                    
+                approveLeave(response);
             }
         }
         else
