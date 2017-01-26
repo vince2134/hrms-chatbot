@@ -74,7 +74,9 @@ request.on('response', function(response) {
     console.log("REQUEST");
     setIntent(response);
     if(intent == "file_leave")
-    {callQuery(response);}
+    {
+        yep();
+    }
 });
 
 request.on('error', function(error) {
@@ -105,7 +107,7 @@ function registerUser(response)
 
 }
 
-function callQuery(response)
+function yep()
 {
     con.query("SELECT * FROM users where USERNAME = '" + "atan" + "';", function(err, rows) {
         if (err) throw err;
