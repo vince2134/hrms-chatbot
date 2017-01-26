@@ -1,8 +1,40 @@
 var express = require('express');
 var bodyParser = require('body-parser');
 var request = require('request');
+var mysql = require('./node_modules/mysql');
 var app = express();
-var token = "EAAFAb0qoKxgBAJWMyGYINDYRDM7cGRrqVDBFNopMl2SaM34FEzweSzJZBGdGtj6wbEZBLtkpV1QlkpfZCBRlGZAmz0bwWcZBRa1WejtxQ5ZCq2HhTGRWZB700paRKXnBIBQr5VQah6hTEIEH2hy4hDvdnQe26TZCnOoZBSSuupGqN1wZDZD";
+var apiai = require('apiai');
+var app2 = apiai("6a44d3f36da94292a0ff936d57e298b8");
+//var firebase = require("firebase");
+//var database = firebase.database();
+var token = "EAAFJiEO72j4BAD6HkTpQSbzzYLYmGRMey68u40DKmOrj5pDfsX54AJtpBM7oDn6ZAAO6J4eM70lYkzrzWDtyYX66E64gALUYRtq72RJgGFpwTIcbr9bORR0OCKdRtzJyQOgpz6vvdjveqk4xiXP3DS1ZADFIoRNT78SfXojAZDZD";
+// Initialize Firebase
+  /*var config = {
+    apiKey: "AIzaSyANjPZEtg8JXi017TYN5InsDEcNBvXFIco",
+    authDomain: "hrms-database.firebaseapp.com",
+    databaseURL: "https://hrms-database.firebaseio.com",
+    storageBucket: "hrms-database.appspot.com",
+    messagingSenderId: "400928154855"
+  };
+  firebase.initializeApp(config);*/
+  // First you need to create a connection to the db
+
+
+    var con = mysql.createConnection({
+      host: "us-cdbr-iron-east-04.cleardb.net",
+      user: "b523f4395a2aab",
+      password: "99761a45",
+      database: "heroku_ab34a5deaa3b4fb"
+    });
+
+    con.connect(function(err){
+        console.log("connecting to DB");
+      if(err){
+        console.log('Error connecting to Db');
+        return;
+      }
+      console.log('Connection established');
+    });
 
 app.set('port', (process.env.PORT || 2000))
 app.use(bodyParser.urlencoded({ extended: false }))
@@ -22,7 +54,7 @@ app.get('/webhook', function (req, res) {
     console.log("Validating webhook");
     res.status(200).send(req.query['hub.challenge']);
   } else {
-    console.error("Failed validation. Make sure the validation tokens match.");//////
+    console.error("Failed validation. Make sure the validation tokens match.");
     res.sendStatus(403);
   }
 });
@@ -47,13 +79,89 @@ app.post('/webhook', function (req, res) {
   }
 });
 
+function handleDisconnect() {
+  con = mysql.createConnection({
+    host: "us-cdbr-iron-east-04.cleardb.net",
+    user: "b523f4395a2aab",
+    password: "99761a45",
+    database: "heroku_ab34a5deaa3b4fb"
+  }); // Recreate the connection, since
+                                                  // the old one cannot be reused.
+
+  con.connect(function(err) {              // The server is either down
+    if(err) {                                     // or restarting (takes a while sometimes).
+      console.log('error when connecting to db:', err);
+      setTimeout(handleDisconnect, 2000); // We introduce a delay before attempting to reconnect,
+    }                                     // to avoid a hot loop, and to allow our node script to
+  });                                     // process asynchronous requests in the meantime.
+                                          // If you're also serving http, display a 503 error.
+  con.on('error', function(err) {
+    console.log('db error', err);
+    if(err.code === 'PROTOCOL_CONNECTION_LOST') { // Connection to the MySQL server is usually
+      handleDisconnect();                         // lost due to either server restart, or a
+    } else {                                      // connnection idle timeout (the wait_timeout
+      throw err;                                  // server variable configures this)
+    }
+  });
+}
+
+function callQuery(query){
+  con.query(query,function(err,rows){
+    if(err) /*//throw err;{}*/{
+      handleDisconnect();
+      callQuery(query);
+    }
+    console.log('Data received from Db:\n');
+    console.log(rows);
+
+    //  con.end();
+  });
+}
+
 function receivedMessage(event) {
   var senderID = event.sender.id;
   var recipientID = event.recipient.id;
   var timeOfMessage = event.timestamp;
   var message = event.message.text;
 
-  var messageText = "I'm Siva, How can I help you ?";
+  var request = app2.textRequest(message, {
+      sessionId: '<unique session id>'
+  });
+
+  request.on('response', function(response) {
+    console.log("INTENT NAME: " + response.result.metadata.intentName);
+
+    if(response.result.metadata.intentName === "file_leave"){
+      console.log(response.result.parameters.date_period);
+      var dates = response.result.parameters.date_period.split("/");
+      var start_date = dates[0];
+      var end_date = dates[1];
+      console.log(response);
+      console.log("START DATE: " + start_date);
+      console.log("END DATE: " + end_date);
+      console.log("LEAVE TYPE: " + response.result.parameters.leave_type);
+
+      con.query("INSERT INTO test (name) VALUES('" + start_date + "');",function(err,rows){
+        if(err) throw err;
+
+        console.log('Data received from Db:\n');
+        console.log(rows);
+
+          //con.end();
+      });
+  }
+
+    console.log(response);
+  });
+
+  request.on('error', function(error) {
+      console.log(error);
+  });
+
+  request.end();
+
+  var messageText = "Echo: " + event.message.text;
+
 
   var messageData = {
     recipient: { id: senderID },
@@ -80,6 +188,7 @@ function callSendAPI(messageData) {
       var recipientId = body.recipient_id;
       var messageId = body.message_id;
       console.log("Successfully sent generic message with id %s to recipient %s", messageId, recipientId);
+            console.log("Successfully sent generic message: %s", messageData.message.text);
     } else {
       console.error("Unable to send message.");
       console.error(response);
@@ -90,4 +199,5 @@ function callSendAPI(messageData) {
 
 app.listen(app.get('port'), function () {
   console.log('running on port', app.get('port'))
+  console.log("This app is now up and running");
 })
