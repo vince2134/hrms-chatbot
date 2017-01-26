@@ -65,13 +65,13 @@ app.get('/', function(req, res) {
 });
 ////////////////////////////////////////////////////////////////////////////////////////
 
-var request = app2.textRequest('file overtime today', {
+var request = app2.textRequest('file leave today', {
     sessionId: 'HRMS Chatbot'
 });
 
- request = app2.textRequest('3 hours', {
+/*request = app2.textRequest('3 hours', {
     sessionId: 'HRMS Chatbot'
-}); 
+}); */
 request.on('response', function(response) {
     console.log(response);
     console.log("REQUEST");
@@ -142,6 +142,23 @@ function fileLeave(response)
         }
         console.log("END OF QUERY");  
     });
+    
+    if(register)
+    {
+           con.query("SELECT * FROM users where USERNAME = '" + "clapore" + "';", function(err, rows) {
+           if (err) throw err;
+
+            console.log('CHECK REGISTER Data received from Db:\n');
+            console.log(rows);
+            console.log("LENGTH: " + rows.length);
+
+            if (rows.length > 0) {
+                console.log("Rows returned: " + rows.length);
+                register = true;
+            }
+            console.log("END OF QUERY");  
+            }); 
+    }
 }
 
 
