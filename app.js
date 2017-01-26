@@ -65,7 +65,7 @@ app.get('/', function(req, res) {
 });
 ////////////////////////////////////////////////////////////////////////////////////////
 
-var request = app2.textRequest('sick leave today to tomorrow', {
+var request = app2.textRequest('register nicolle@ideyatech.com bauJDY8', {
     sessionId: 'HRMS Chatbot'
 });
 
@@ -174,7 +174,10 @@ function approveLeave(response)
 
 function checkExistingLeaves()
 {
-    
+    /*SELECT * FROM anonymous.leaves
+    WHERE START_DATE BETWEEN '2016-06-03' AND '2016-06-03'
+	AND END_DATE BETWEEN '2016-06-03'AND '2016-06-03'
+    AND EMPLOYEE_ID = 18*/
 }
 
 function setIntent(response)
