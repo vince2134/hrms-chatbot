@@ -29,7 +29,7 @@ con.connect(function(err) {
         return;
     }
     console.log('Connection established');
-    console.log("WAAAAT" + notified);
+   // console.log("WAAAAT" + notified);
     var myVar = setInterval(function() {
         myTimer()
     }, 1000);
@@ -139,6 +139,12 @@ function callQuery(query) {
     });
 }
 
+/*
+var request = app.textRequest('hi', {
+    sessionId: '21'
+});
+*/
+
 function receivedMessage(event) {
     var senderID = event.sender.id;
     globalSenderId = senderID;
@@ -146,7 +152,7 @@ function receivedMessage(event) {
     var timeOfMessage = event.timestamp;
     var message = event.message.text;
 
-    var request = app2.textRequest(message, {
+    var request = app2.textRequest("hi", {
         sessionId: '<unique session id>'
     });
 
@@ -366,5 +372,5 @@ function callSendAPI(messageData) {
 
 app.listen(app.get('port'), function() {
     console.log('running on port', app.get('port'));
-    console.log("The app is done running.");
+    console.log("The app is now up and running.");
 })
