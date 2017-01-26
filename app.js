@@ -65,8 +65,8 @@ app.get('/', function(req, res) {
 });
 ////////////////////////////////////////////////////////////////////////////////////////
 
-var request = app2.textRequest('register abcd1234', {
-    sessionId: '21'
+var request = app2.textRequest('file sick leave today', {
+    sessionId: 'HRMS Chatbot'
 });
 
 request.on('response', function(response) {
@@ -95,22 +95,22 @@ function setIntent(response)
             intent = response.result.metadata.intentName;
             console.log("Intent : REGISTER");
     }
-    else if (response.result.metadata.intentName === "file_leave" && response.result.parameters.hours !== "")
+    else if (response.result.metadata.intentName === "file_leave" && response.result.parameters.date_custom !== "")
     {
             intent = response.result.metadata.intentName;
             console.log("Intent : FILE LEAVE");
     }
-    else if (response.result.metadata.intentName === "file_offset" && response.result.parameters.hours !== "")
+    else if (response.result.metadata.intentName === "file_offset" && response.result.parameters.duration !== "")
     {
             intent = response.result.metadata.intentName;
             console.log("Intent : FILE OFFSET");
     }
-    else if (response.result.metadata.intentName === "file_overtime" && response.result.parameters.hours !== "")
+    else if (response.result.metadata.intentName === "file_overtime" && response.result.parameters.duration !== "")
     {
             intent = response.result.metadata.intentName;
             console.log("Intent : FILE OVETIME");
     }
-    else if (response.result.metadata.intentName === "file_undertime" && response.result.parameters.hours !== "")
+    else if (response.result.metadata.intentName === "file_undertime" && response.result.parameters.duration !== "")
     {
             intent = response.result.metadata.intentName;
             console.log("Intent : FILE UNDERTIME");
