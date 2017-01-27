@@ -8,10 +8,6 @@
     "start": "node app",
     "test": "node app"
   },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/sivasankars"
-  },
   "keywords": [
     "nodejs",
     "facebook",
