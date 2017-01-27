@@ -19,6 +19,7 @@ var sslOptions = {
   key: fs.readFileSync('../ssl-cert/server.key'),
   cert: fs.readFileSync('../ssl-cert/server.crt'),
   ca: fs.readFileSync('../ssl-cert/ca.crt'),
+    passphrase: 'ideyatech',
   requestCert: true,
   rejectUnauthorized: false
 };
