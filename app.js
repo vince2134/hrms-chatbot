@@ -15,7 +15,7 @@ var fs = require('fs');
 
 // First you need to create a connection to the db
 
-cvar sslOptions = {
+var sslOptions = {
   key: fs.readFileSync('../ssl-cert/server.key'),
   cert: fs.readFileSync('../ssl-cert/server.crt'),
   ca: fs.readFileSync('../ssl-cert/ca.crt'),
