@@ -19,7 +19,7 @@ var sslOptions = {
   key: fs.readFileSync('../ssl-cert/server.key'),
   cert: fs.readFileSync('../ssl-cert/server.crt'),
   ca: fs.readFileSync('../ssl-cert/ca.crt'),
-    passphrase: 'ideyatech',
+  passphrase: 'ideyatech',
   requestCert: true,
   rejectUnauthorized: false
 };
@@ -77,7 +77,7 @@ app.use(bodyParser.json())
 
 app.get('/', function(req, res) {
     res.send('Facebook Bot')
-});
+}).listen(80);
 
 //\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
 /*
