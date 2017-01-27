@@ -10,22 +10,22 @@ var notified = false;
 var register = false;
 var intent = "";
 var token = "EAAaA4LJeypQBABay9GkjkbF02ri0qx218cby6M3q6ZBGri2qzm9J1XZBIVgxFcRvBpoZCinySRcptTrACfJEki0e9XXMqDMr83Hc5ZBkAX3LNW1p4yPGpiAeyeoZCVCqVK2LyOOCZA53zpV8WXrQZB7mV0gC7PfNyrNRw6sCIikNAZDZD";
+var https = require('https');
+var fs = require('fs');
 
 // First you need to create a connection to the db
 
-const https = require('https');
-const fs = require('fs');
-
-const options = {
-  key: fs.readFileSync('test/fixtures/keys/agent2-key.pem'),
-  cert: fs.readFileSync('test/fixtures/keys/agent2-cert.pem')
+cvar sslOptions = {
+  key: fs.readFileSync('../ssl-cert/server.key'),
+  cert: fs.readFileSync('../ssl-cert/server.crt'),
+  ca: fs.readFileSync('../ssl-cert/ca.crt'),
+  requestCert: true,
+  rejectUnauthorized: false
 };
 
-https.createServer(options, (req, res) => {
-  res.writeHead(200);
-  res.end('hello world\n');
-}).listen(443);
-
+var secureServer = https.createServer(sslOptions, app).listen('3030', function () {
+  console.log("Secure server listening on port 3030");
+});
 
 
 var con = mysql.createConnection({
