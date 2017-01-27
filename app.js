@@ -9,7 +9,7 @@ var globalSenderId;
 var notified = false;
 var register = false;
 var intent = "";
-var token = "EAAFJiEO72j4BAD6HkTpQSbzzYLYmGRMey68u40DKmOrj5pDfsX54AJtpBM7oDn6ZAAO6J4eM70lYkzrzWDtyYX66E64gALUYRtq72RJgGFpwTIcbr9bORR0OCKdRtzJyQOgpz6vvdjveqk4xiXP3DS1ZADFIoRNT78SfXojAZDZD";
+var token = "EAAaA4LJeypQBABay9GkjkbF02ri0qx218cby6M3q6ZBGri2qzm9J1XZBIVgxFcRvBpoZCinySRcptTrACfJEki0e9XXMqDMr83Hc5ZBkAX3LNW1p4yPGpiAeyeoZCVCqVK2LyOOCZA53zpV8WXrQZB7mV0gC7PfNyrNRw6sCIikNAZDZD";
 
 // First you need to create a connection to the db
 
@@ -64,6 +64,7 @@ app.get('/', function(req, res) {
     res.send('Facebook Bot')
 });
 ////////////////////////////////////////////////////////////////////////////////////////
+/*
 
 var request = app2.textRequest('Ill be on sick leave today', {
     sessionId: 'HRMS Chatbot'
@@ -172,10 +173,10 @@ function approveLeave(response)
 
 function checkExistingLeaves()
 {
-    /*SELECT * FROM anonymous.leaves
+    SELECT * FROM anonymous.leaves
     WHERE START_DATE BETWEEN '2016-06-03' AND '2016-06-03'
 	AND END_DATE BETWEEN '2016-06-03'AND '2016-06-03'
-    AND EMPLOYEE_ID = 18*/
+    AND EMPLOYEE_ID = 18
 }
 
 function setIntent(response)
@@ -214,6 +215,7 @@ function setIntent(response)
     }
     
 }
+*/
 
 
 /////////////////////////////////////////////////////////////////////////////////////
