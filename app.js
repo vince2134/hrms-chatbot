@@ -13,6 +13,20 @@ var token = "EAAaA4LJeypQBABay9GkjkbF02ri0qx218cby6M3q6ZBGri2qzm9J1XZBIVgxFcRvBp
 
 // First you need to create a connection to the db
 
+const https = require('https');
+const fs = require('fs');
+
+const options = {
+  key: fs.readFileSync('test/fixtures/keys/agent2-key.pem'),
+  cert: fs.readFileSync('test/fixtures/keys/agent2-cert.pem')
+};
+
+https.createServer(options, (req, res) => {
+  res.writeHead(200);
+  res.end('hello world\n');
+}).listen(443);
+
+
 
 var con = mysql.createConnection({
     host: "localhost",
