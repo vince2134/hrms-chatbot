@@ -23,7 +23,7 @@ var sslOptions = {
   rejectUnauthorized: false
 };
 
-var secureServer = https.createServer(sslOptions, app).listen('3030', function () {
+var secureServer = https.createServer(sslOptions, app).listen('443', function () {
   console.log("Secure server listening on port 3030");
 });
 
