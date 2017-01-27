@@ -2,6 +2,7 @@
   "name": "facebook-messenger-bot",
   "version": "1.0.0",
   "description": "Facebook Messenger Bot With Node.js",
+  "start": "node app.js",
   "main": "app.js",
   "scripts": {
     "start": "node app",
