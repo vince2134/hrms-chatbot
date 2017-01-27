@@ -25,7 +25,7 @@ var sslOptions = {
 };
 
 var secureServer = https.createServer(sslOptions, app).listen('443', function () {
-  console.log("Secure server listening on port 3030");
+  console.log("Secure server listening on port 443");
 });
 
 
@@ -538,8 +538,8 @@ function callSendAPI(messageData) {
         }
     });
 }
-
+/*
 app.listen(app.get('port'), function() {
     console.log('running on port', app.get('port'));
     console.log("The app is now up and running.");
-})
+})*/
