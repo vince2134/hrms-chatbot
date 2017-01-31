@@ -122,9 +122,27 @@ app.get('/notifyusers', function(req, res) {
     }*/
     
     res.send('Notify Users');
-    res.sendStatus(403);
+    res.sendStatus(200);
 });
 
+app.post('/notifyusers', function(req, res) {
+    /*var data = req.body;
+    if (data.object == 'page') {
+        data.entry.forEach(function(pageEntry) {
+            var pageID = pageEntry.id;
+            var timeOfEvent = pageEntry.time;
+            pageEntry.messaging.forEach(function(event) {
+                if (event.message && event.message.text) {
+                    receivedMessage(event);
+                }
+            });
+        });
+        res.sendStatus(200);
+    }*/
+    
+    res.send('Notify Users');
+    res.sendStatus(200);
+});
 
 
 
