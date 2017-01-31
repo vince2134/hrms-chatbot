@@ -122,6 +122,7 @@ app.get('/notifyusers', function(req, res) {
     }*/
     
     res.send('Notify Users');
+    res.sendStatus(403);
 });
 
 
