@@ -14,21 +14,6 @@ var https = require('https');
 var fs = require('fs');
 
 // First you need to create a connection to the db
-
-var sslOptions = {
-  key: fs.readFileSync('../ssl-cert/server.key'),
-  cert: fs.readFileSync('../ssl-cert/server.crt'),
-  ca: fs.readFileSync('../ssl-cert/ca.crt'),
-  passphrase: 'ideyatech',
-  requestCert: true,
-  rejectUnauthorized: false
-};
-
-var secureServer = https.createServer(sslOptions, app).listen('443', function () {
-  console.log("Secure server listening on port 443");
-});
-
-
 var con = mysql.createConnection({
     host: "localhost",
     user: "root",
@@ -43,7 +28,6 @@ con.connect(function(err) {
         return;
     }
     console.log('Connection established');
-   // console.log("WAAAAT" + notified);
     var myVar = setInterval(function() {
         myTimer()
     }, 1000);
@@ -68,6 +52,8 @@ con.connect(function(err) {
         }
     }
 });
+
+
 
 app.set('port', (process.env.PORT || 443))
 app.use(bodyParser.urlencoded({
@@ -144,7 +130,7 @@ app.post('/notifyusers', function(req, res) {
     res.sendStatus(200);
 });
 
-
+window.open("http://13.76.85.160/notifyusers");
 
 function handleDisconnect() {
     con = mysql.createConnection({
