@@ -1,4 +1,4 @@
-export.answer = 42;
+export.answer = "gahshdv42";
 
 export.try(function() 
           {
