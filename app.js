@@ -78,183 +78,6 @@ app.use(bodyParser.json())
 app.get('/', function(req, res) {
     res.send('Facebook Bot')
 }).listen(80);
-
-//\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
-/*
-// curl -k https://localhost:8000/
-const https = require('https');
-const fs = require('fs');
-
-const options = {
-  key: fs.readFileSync('test/fixtures/keys/agent2-key.pem'),
-  cert: fs.readFileSync('test/fixtures/keys/agent2-cert.pem')
-};
-
-https.createServer(options, (req, res) => {
-  res.writeHead(200);
-  res.end('hello world\n');
-}).listen(8000);
-*/
-//\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
-
-
-
-////////////////////////////////////////////////////////////////////////////////////////
-/*
-
-var request = app2.textRequest('Ill be on sick leave today', {
-    sessionId: 'HRMS Chatbot'
-});
-
-
-request.on('response', function(response) {
-    console.log(response);
-    console.log(response.result.parameters.date_custom);
-    console.log("REQUEST");
-    setIntent(response);
-    if(intent != "register_account")
-    {
-        isUserRegistered(response);
-    }
-    else
-    {
-        registerUser(response);
-    }
-});
-
-request.on('error', function(error) {
-    console.log(error);
-    console.log("RESPONSE");
-});
-
-request.end();
-
-
-function registerUser(response)
-{
-    console.log("registerUser");
-}
-
-
-function isUserRegistered(response)
-{
-      con.query("SELECT * FROM users where USERNAME = '" + "atan" + "';", function(err, rows) {
-        if (err) throw err;
-
-        console.log('CHECK REGISTER Data received from Db:\n');
-        console.log(rows);
-        console.log("LENGTH: " + rows.length);
-
-        if (rows.length > 0) {
-            console.log("Rows returned: " + rows.length);
-            register = true;
-        }
-        
-        if(register)
-        {
-            console.log("User is registered.")
-            if(intent == "file_leave")
-            {
-                fileLeave(response);
-            }
-            else if (intent == "file_offset")
-            {
-                fileOffset(response);
-            }
-            else if (intent == "file_overtime")
-            {
-                fileOvertime(response);
-            }
-            else if (intent == "file_undertime")
-            {
-                fileUndertime(response);
-            }
-            else if (intent == "approve_leave")
-            {
-                approveLeave(response);
-            }
-        }
-        else
-        {
-            console.log("You are not registered. Please register first.");
-        }
-    });
-}   
-        
-function fileLeave(response)
-{
-    console.log("== fileLeave ==")
-}
-
-function fileOvertime(response)
-{
-    console.log("== fileOvertime ==")
-}
-
-function fileUndertime(response)
-{
-    console.log("== fileUndertime ==")
-}
-
-function fileOffset(response)
-{
-    console.log("== fileOffset ==")
-}
-
-function approveLeave(response)
-{
-    console.log("== approveLeave ==")
-}
-
-
-function checkExistingLeaves()
-{
-    SELECT * FROM anonymous.leaves
-    WHERE START_DATE BETWEEN '2016-06-03' AND '2016-06-03'
-	AND END_DATE BETWEEN '2016-06-03'AND '2016-06-03'
-    AND EMPLOYEE_ID = 18
-}
-
-function setIntent(response)
-{
-    
-    console.log("== Set Intent ==");
-    if (response.result.metadata.intentName === "register_account" && response.result.parameters.token !== "")
-    {
-            intent = response.result.metadata.intentName;
-            console.log("Intent : REGISTER");
-    }
-    else if (response.result.metadata.intentName === "file_leave" && response.result.parameters.date_custom !== "")
-    {
-            intent = response.result.metadata.intentName;
-            console.log("Intent : FILE LEAVE");
-    }
-    else if (response.result.metadata.intentName === "file_offset" && response.result.parameters.duration !== "")
-    {
-            intent = response.result.metadata.intentName;
-            console.log("Intent : FILE OFFSET");
-    }
-    else if (response.result.metadata.intentName === "file_overtime" && response.result.parameters.duration !== "")
-    {
-            intent = response.result.metadata.intentName;
-            console.log("Intent : FILE OVETIME");
-    }
-    else if (response.result.metadata.intentName === "file_undertime" && response.result.parameters.duration !== "")
-    {
-            intent = response.result.metadata.intentName;
-            console.log("Intent : FILE UNDERTIME");
-    }
-    else if (response.result.metadata.intentName === "approve_leave" && response.result.parameters.approve_leave !== "")
-    {
-            intent = response.result.metadata.intentName;
-            console.log("Intent : APPROVE/DECLINE LEAVE");
-    }
-    
-}
-*/
-
-
-/////////////////////////////////////////////////////////////////////////////////////
 app.get('/webhook', function(req, res) {
     if (req.query['hub.mode'] === 'subscribe' && req.query['hub.verify_token'] === 'webhooktoken') {
         console.log("Validating webhook");
@@ -280,6 +103,27 @@ app.post('/webhook', function(req, res) {
         res.sendStatus(200);
     }
 });
+
+
+/*
+app.post('/notifyusers', function(req, res) {
+    var data = req.body;
+    if (data.object == 'page') {
+        data.entry.forEach(function(pageEntry) {
+            var pageID = pageEntry.id;
+            var timeOfEvent = pageEntry.time;
+            pageEntry.messaging.forEach(function(event) {
+                if (event.message && event.message.text) {
+                    receivedMessage(event);
+                }
+            });
+        });
+        res.sendStatus(200);
+    }
+});
+*/
+
+
 
 function handleDisconnect() {
     con = mysql.createConnection({
@@ -543,3 +387,163 @@ app.listen(app.get('port'), function() {
     console.log('running on port', app.get('port'));
     console.log("The app is now up and running.");
 })*/
+
+
+
+
+
+////////////////////////////////////////////////////////////////////////////////////////
+/*
+
+var request = app2.textRequest('Ill be on sick leave today', {
+    sessionId: 'HRMS Chatbot'
+});
+
+
+request.on('response', function(response) {
+    console.log(response);
+    console.log(response.result.parameters.date_custom);
+    console.log("REQUEST");
+    setIntent(response);
+    if(intent != "register_account")
+    {
+        isUserRegistered(response);
+    }
+    else
+    {
+        registerUser(response);
+    }
+});
+
+request.on('error', function(error) {
+    console.log(error);
+    console.log("RESPONSE");
+});
+
+request.end();
+
+
+function registerUser(response)
+{
+    console.log("registerUser");
+}
+
+
+function isUserRegistered(response)
+{
+      con.query("SELECT * FROM users where USERNAME = '" + "atan" + "';", function(err, rows) {
+        if (err) throw err;
+
+        console.log('CHECK REGISTER Data received from Db:\n');
+        console.log(rows);
+        console.log("LENGTH: " + rows.length);
+
+        if (rows.length > 0) {
+            console.log("Rows returned: " + rows.length);
+            register = true;
+        }
+        
+        if(register)
+        {
+            console.log("User is registered.")
+            if(intent == "file_leave")
+            {
+                fileLeave(response);
+            }
+            else if (intent == "file_offset")
+            {
+                fileOffset(response);
+            }
+            else if (intent == "file_overtime")
+            {
+                fileOvertime(response);
+            }
+            else if (intent == "file_undertime")
+            {
+                fileUndertime(response);
+            }
+            else if (intent == "approve_leave")
+            {
+                approveLeave(response);
+            }
+        }
+        else
+        {
+            console.log("You are not registered. Please register first.");
+        }
+    });
+}   
+        
+function fileLeave(response)
+{
+    console.log("== fileLeave ==")
+}
+
+function fileOvertime(response)
+{
+    console.log("== fileOvertime ==")
+}
+
+function fileUndertime(response)
+{
+    console.log("== fileUndertime ==")
+}
+
+function fileOffset(response)
+{
+    console.log("== fileOffset ==")
+}
+
+function approveLeave(response)
+{
+    console.log("== approveLeave ==")
+}
+
+
+function checkExistingLeaves()
+{
+    SELECT * FROM anonymous.leaves
+    WHERE START_DATE BETWEEN '2016-06-03' AND '2016-06-03'
+	AND END_DATE BETWEEN '2016-06-03'AND '2016-06-03'
+    AND EMPLOYEE_ID = 18
+}
+
+function setIntent(response)
+{
+    
+    console.log("== Set Intent ==");
+    if (response.result.metadata.intentName === "register_account" && response.result.parameters.token !== "")
+    {
+            intent = response.result.metadata.intentName;
+            console.log("Intent : REGISTER");
+    }
+    else if (response.result.metadata.intentName === "file_leave" && response.result.parameters.date_custom !== "")
+    {
+            intent = response.result.metadata.intentName;
+            console.log("Intent : FILE LEAVE");
+    }
+    else if (response.result.metadata.intentName === "file_offset" && response.result.parameters.duration !== "")
+    {
+            intent = response.result.metadata.intentName;
+            console.log("Intent : FILE OFFSET");
+    }
+    else if (response.result.metadata.intentName === "file_overtime" && response.result.parameters.duration !== "")
+    {
+            intent = response.result.metadata.intentName;
+            console.log("Intent : FILE OVETIME");
+    }
+    else if (response.result.metadata.intentName === "file_undertime" && response.result.parameters.duration !== "")
+    {
+            intent = response.result.metadata.intentName;
+            console.log("Intent : FILE UNDERTIME");
+    }
+    else if (response.result.metadata.intentName === "approve_leave" && response.result.parameters.approve_leave !== "")
+    {
+            intent = response.result.metadata.intentName;
+            console.log("Intent : APPROVE/DECLINE LEAVE");
+    }
+    
+}
+*/
+
+
