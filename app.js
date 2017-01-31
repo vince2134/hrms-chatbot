@@ -105,9 +105,9 @@ app.post('/webhook', function(req, res) {
 });
 
 
-/*
+
 app.post('/notifyusers', function(req, res) {
-    var data = req.body;
+    /*var data = req.body;
     if (data.object == 'page') {
         data.entry.forEach(function(pageEntry) {
             var pageID = pageEntry.id;
@@ -119,9 +119,11 @@ app.post('/notifyusers', function(req, res) {
             });
         });
         res.sendStatus(200);
-    }
+    }*/
+    
+    res.send('Notify Users');
 });
-*/
+
 
 
 
