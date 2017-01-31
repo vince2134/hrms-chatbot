@@ -127,10 +127,11 @@ app.post('/notifyusers', function(req, res) {
     }*/
     
     res.send('Notify Users');
+    console.log("app post notify");
     res.sendStatus(200);
 });
 
-window.open("http://13.76.85.160/notifyusers");
+
 
 function handleDisconnect() {
     con = mysql.createConnection({
