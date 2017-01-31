@@ -106,7 +106,7 @@ app.post('/webhook', function(req, res) {
 
 
 
-app.post('/notifyusers', function(req, res) {
+app.get('/notifyusers', function(req, res) {
     /*var data = req.body;
     if (data.object == 'page') {
         data.entry.forEach(function(pageEntry) {
