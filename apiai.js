@@ -2,7 +2,7 @@ var apiai = require('apiai');
 
 var app = apiai("b464d87b79f947bc9197a66b7ff346b2");
 
-var request = app.textRequest('hi', {
+var request = app.textRequest('ill be on sick leave today', {
     sessionId: 'request'
 });
 
