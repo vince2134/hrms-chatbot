@@ -1,5 +1,6 @@
+//Connection for chatbot conversation using API.AI ***INSERT APIAI DASHBOARD URL HERE***
 var apiai = require('apiai');
-
+//API.AI Client Access Token
 var app = apiai("b464d87b79f947bc9197a66b7ff346b2");
 
 var request = app.textRequest('register kervi@ideyatech.com', {
@@ -29,7 +30,8 @@ request.on('response', function(response) {
     var val = response[key];
     console.log(val);
   }
-}
+    }
+
 });
 
 request.on('error', function(error) {
