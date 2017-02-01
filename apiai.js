@@ -19,6 +19,8 @@ request.on('response', function(response) {
     //response.result.parameters.token = "null"
     console.log(response);
     console.log("REQUEST");
+    if(response.result.parameters.token == "")
+        token();
 });
 
 request.on('error', function(error) {
