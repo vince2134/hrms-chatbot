@@ -27,7 +27,7 @@ console.log("TIMEEEER");
         //console.log(notified);
         console.log(d.getHours());
         console.log(!notified);
-        if (d.getHours() + 8 == 14 && notified == false) {
+        if (d.getHours() == 14 && notified == false) {
             notified = true;
             console.log("IT'S 10 AM!");
             //console.log(globalSenderId);
