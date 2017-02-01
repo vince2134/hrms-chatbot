@@ -16,21 +16,15 @@ var https = require('https');
 var fs = require('fs');
 
 //////////////////////////////////////////
-console.log("TIMEEEER");
-//myVar();
 var myVar = setInterval(function() {
         myTimer()
     }, 1000);
-console.log("TIMEEEER");
+var ctr = 0;
     function myTimer() {
         var d = new Date();
-        //console.log(notified);
-        console.log(d.getHours());
-        console.log(!notified);
         if (d.getHours() == 14 && notified == false) {
             notified = true;
-            console.log("IT'S 10 AM!");
-            //console.log(globalSenderId);
+            console.log("IT'S 10 AM!     " + ctr);
            /* var messageData = {
                 recipient: {
                     id: globalSenderId
@@ -38,14 +32,11 @@ console.log("TIMEEEER");
                 message: {
                     text: "It's 10 am!"
                 }*/
+            ctr++;
             };
 
             //callSendAPI(messageData);
     }
-    
-
-
-
 
 //////////////////////////////////////////
 
