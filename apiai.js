@@ -6,9 +6,16 @@ var request = app.textRequest('register kervi@ideyatech.com', {
     sessionId: 'request'
 });
 
+
+function token ()
+{
+    request = app.textRequest('sBs8jgUH', {
+    sessionId: 'request'
+}
+                              
 request.on('response', function(response) {
    // console.log(response);
-    response.result.parameters.token = "null"
+    //response.result.parameters.token = "null"
     console.log(response);
     console.log("REQUEST");
 });
