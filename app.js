@@ -23,7 +23,7 @@ var ctr = 0;
     function myTimer() {
         var d = new Date();
         if (d.getHours() == 14 && notified == false) {
-            notified = true;
+            //notified = true;
             console.log("IT'S 10 AM!     " + ctr);
            /* var messageData = {
                 recipient: {
