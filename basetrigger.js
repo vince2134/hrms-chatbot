@@ -16,9 +16,7 @@ var body = JSON.stringify({
     foo: "bar"
 })
 
-http.connect('http://13.76.85.160:443/notifyusers');
-
-http.get('http://13.76.85.160:443/notifyusers', function(res){
+http.get('http://localhost:443/notifyusers', function(res){
     assert(200, res.statusCode)
     done();
 });
