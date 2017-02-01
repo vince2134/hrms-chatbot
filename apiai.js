@@ -29,7 +29,7 @@ request.on('response', function(response) {
     var val = response[key];
     console.log(val);
   }
-
+}
 });
 
 request.on('error', function(error) {
