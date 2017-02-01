@@ -6,9 +6,7 @@ var request = app.textRequest('register kervi@ideyatech.com', {
     sessionId: 'request'
 });
 
-var request2 = app.textRequest('sBs8jgUH', {
-    sessionId: 'request'
-});
+
 
 
 
@@ -25,6 +23,9 @@ request.on('response', function(response) {
     console.log(response);
     console.log("REQUEST");
     //if(response.result.parameters.token == "")
+    var request2 = app.textRequest('sBs8jgUH', {
+    sessionId: 'request'
+});
 });
 
 request.on('error', function(error) {
