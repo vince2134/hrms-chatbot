@@ -8,19 +8,24 @@ var apiai = require('apiai');
 //API.AI Client Access Token
 var app2 = apiai("b464d87b79f947bc9197a66b7ff346b2");
 var globalSenderId;
-//Indicator used to know whether employees have already been notified
+//notifier - indicator used to know whether employees have already been notified
 var notified = false;
 var register = false;
 var intent = "";
+//FB Page Access Token
 var token = "EAAaA4LJeypQBABay9GkjkbF02ri0qx218cby6M3q6ZBGri2qzm9J1XZBIVgxFcRvBpoZCinySRcptTrACfJEki0e9XXMqDMr83Hc5ZBkAX3LNW1p4yPGpiAeyeoZCVCqVK2LyOOCZA53zpV8WXrQZB7mV0gC7PfNyrNRw6sCIikNAZDZD";
 var https = require('https');
 var fs = require('fs');
 
 //////////////////////////////////////////
+// Function that ticks every 1 second.
 var myVar = setInterval(function() {
         myTimer()
     }, 1000);
 var ctr = 0;
+    /* Function being called every second.
+     * Calls HRMS method and asks for the list of people to be notified.
+    */
     function myTimer() {
         var d = new Date();
         if (d.getHours() == 14 && !notified) {
@@ -38,7 +43,6 @@ var ctr = 0;
 
             //callSendAPI(messageData);
     }
-
 //////////////////////////////////////////
 
 // First you need to create a connection to the db
@@ -99,47 +103,17 @@ app.post('/webhook', function(req, res) {
 
 
 app.get('/notifyusers', function(req, res) {
-    /*var data = req.body;
-    if (data.object == 'page') {
-        data.entry.forEach(function(pageEntry) {
-            var pageID = pageEntry.id;
-            var timeOfEvent = pageEntry.time;
-            pageEntry.messaging.forEach(function(event) {
-                if (event.message && event.message.text) {
-                    receivedMessage(event);
-                }
-            });
-        });
-        res.sendStatus(200);
-    }*/
-    
+  
     res.send('Notify Users');
     res.sendStatus(200);
 });
 
 app.post('/notifyusers', function(req, res) {
-    /*var data = req.body;
-    if (data.object == 'page') {
-        data.entry.forEach(function(pageEntry) {
-            var pageID = pageEntry.id;
-            var timeOfEvent = pageEntry.time;
-            pageEntry.messaging.forEach(function(event) {
-                if (event.message && event.message.text) {
-                    receivedMessage(event);
-                }
-            });
-        });
-        res.sendStatus(200);
-    }*/
     
     res.send('Notify Users');
     console.log("app post notify");
     res.sendStatus(200);
 });
-
-
-
-
 
 
 
