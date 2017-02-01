@@ -8,6 +8,7 @@ var apiai = require('apiai');
 //API.AI Client Access Token
 var app2 = apiai("b464d87b79f947bc9197a66b7ff346b2");
 var globalSenderId;
+//Indicator used to know whether employees have already been notified
 var notified = false;
 var register = false;
 var intent = "";
@@ -22,7 +23,7 @@ var myVar = setInterval(function() {
 var ctr = 0;
     function myTimer() {
         var d = new Date();
-        if (d.getHours() == 14 && notified == false) {
+        if (d.getHours() == 14 && !notified) {
             //notified = true;
             console.log("IT'S 10 AM!     " + ctr);
            /* var messageData = {
