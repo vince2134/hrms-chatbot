@@ -8,6 +8,7 @@ var request = app.textRequest('hi', {
 
 request.on('response', function(response) {
     console.log(response);
+    response.trial = "Added Object"
     console.log("REQUEST");
 });
 
