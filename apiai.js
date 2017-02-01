@@ -7,8 +7,8 @@ var request = app.textRequest('ill be on sick leave today', {
 });
 
 request.on('response', function(response) {
-    console.log(response);
-    response.trial = "Added Object"
+   // console.log(response);
+    response.result.parameters.trial = "Added Object"
     console.log(response);
     console.log("REQUEST");
 });
