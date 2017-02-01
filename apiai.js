@@ -3,7 +3,7 @@ var apiai = require('apiai');
 var app = apiai("b464d87b79f947bc9197a66b7ff346b2");
 
 var request = app.textRequest('hi', {
-    sessionId: '21'
+    sessionId: 'request'
 });
 
 request.on('response', function(response) {
