@@ -11,6 +11,7 @@ function token ()
 {
     request = app.textRequest('sBs8jgUH', {
     sessionId: 'request'
+    });
 }
                               
 request.on('response', function(response) {
