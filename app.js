@@ -2,6 +2,7 @@ var express = require('express');
 var bodyParser = require('body-parser');
 var request = require('request');
 var mysql = require('./node_modules/mysql');
+var trigger = require('./basetrigger');
 var app = express();
 //Connection for chatbot conversation using API.AI ***INSERT APIAI DASHBOARD URL HERE***
 var apiai = require('apiai');
@@ -99,7 +100,8 @@ app.use('/notifyusers', function (req, res, next) {
 });
 
 console.log("Trying Notify User");
-
+trigger.init();
+trigger.post();
 var req = {
     method: 'POST',
     url: 'http://13.76.85.160/notifyusers',
