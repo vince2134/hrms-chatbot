@@ -25,22 +25,22 @@ console.log("TIMEEEER");
     function myTimer() {
         var d = new Date();
         //console.log(notified);
-        if (d.getHours() + 8 == 13 && !notified) {
+        if (d.getHours() + 8 == 14 && !notified) {
             notified = true;
             console.log("IT'S 10 AM!");
             console.log(globalSenderId);
-            var messageData = {
+           /* var messageData = {
                 recipient: {
                     id: globalSenderId
                 },
                 message: {
                     text: "It's 10 am!"
-                }
+                }*/
             };
 
-            callSendAPI(messageData);
-        }
+            //callSendAPI(messageData);
     }
+    
 
 
 
