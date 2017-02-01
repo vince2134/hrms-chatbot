@@ -81,7 +81,7 @@ app.get('/notifyusers', function(req, res) {
   
     res.send('Notify Users');
     console.log("Notify GET");
-    res.redirect
+    console.log(res);
     res.sendStatus(200);
 });
 
@@ -106,7 +106,7 @@ var req = {
     headers : {
         'Content-Type' : 'application/json'
     },
-    //data: JSON.stringify({ test: 'test' })
+    data: JSON.stringify({ test: 'test' })
 };
 
 
