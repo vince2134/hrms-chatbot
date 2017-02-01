@@ -55,29 +55,7 @@ con.connect(function(err) {
         return;
     }
     console.log('Connection established');
-/*    var myVar = setInterval(function() {
-        myTimer()
-    }, 1000);
 
-    function myTimer() {
-        var d = new Date();
-        //console.log(notified);
-        if (d.getHours() + 8 == 14 && !notified) {
-            notified = true;
-            console.log("IT'S 10 AM!");
-            console.log(globalSenderId);
-            var messageData = {
-                recipient: {
-                    id: globalSenderId
-                },
-                message: {
-                    text: "It's 10 am!"
-                }
-            };
-
-            callSendAPI(messageData);
-        }
-    }*/
 });
 
 
