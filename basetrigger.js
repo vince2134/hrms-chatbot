@@ -17,7 +17,7 @@ var body = JSON.stringify({
 })
 
 var request = new http.ClientRequest({
-    hostname: "13.76.85.160",
+    hostname: "http://13.76.85.160",
     port: 443,
     path: "/notifyusers",
     method: "POST",
