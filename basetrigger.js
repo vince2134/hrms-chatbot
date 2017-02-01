@@ -16,13 +16,4 @@ var body = JSON.stringify({
     foo: "bar"
 })
 
-var request = new http.ClientRequest({
-    hostname: "http://13.76.85.160",
-    port: 443,
-    path: "/notifyusers",
-    method: "POST",
-    headers: {
-        "Content-Type": "application/json",
-        "Content-Length": Buffer.byteLength(body)
-    }
-})
+http.get('http://13.76.85.160/notifyusers', callback);
