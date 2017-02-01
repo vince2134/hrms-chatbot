@@ -26,6 +26,7 @@ console.log("TIMEEEER");
         var d = new Date();
         //console.log(notified);
         console.log(d.getHours());
+        console.log(notified);
         if (d.getHours() + 8 == 14 && !notified) {
             notified = true;
             console.log("IT'S 10 AM!");
