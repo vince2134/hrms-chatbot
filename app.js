@@ -18,6 +18,7 @@ var https = require('https');
 var fs = require('fs');
 
 // Function that ticks every 1 second.
+console.log("Start Timer");
 var myVar = setInterval(function() {
         myTimer()
     }, 1000);
@@ -27,7 +28,7 @@ var ctr = 0;
     */
     function myTimer() {
         var d = new Date();
-        if (d.getHours() == 15 && !notified) {
+        if (d.getHours() == 16 && !notified) {
             //notified = true;
             console.log("IT'S 10 AM!     " + ctr);
            /* var messageData = {
@@ -90,6 +91,11 @@ app.post('/notifyusers', function(req, res) {
     res.sendStatus(200);
 });
 
+app.use('/notifyusers', function (req, res, next) {
+    console.log("USE NOTIFY");
+  next();
+    
+});
 function receivedMessage(event) {
     var senderID = event.sender.id;
     globalSenderId = senderID;
