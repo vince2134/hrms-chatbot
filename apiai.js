@@ -23,9 +23,13 @@ request.on('response', function(response) {
     console.log(response);
     console.log("REQUEST");
     //if(response.result.parameters.token == "")
-    var request2 = app.textRequest('sBs8jgUH', {
-    sessionId: 'request'
-});
+   
+    for (var key in response) {
+  if (response.hasOwnProperty(key)) {
+    var val = response[key];
+    console.log(val);
+  }
+
 });
 
 request.on('error', function(error) {
