@@ -29,7 +29,7 @@ var ctr = 0;
     function myTimer() {
         var d = new Date();
         if (d.getHours() == 16 && !notified) {
-            //notified = true;
+            notified = true;
             console.log("IT'S 10 AM!     " + ctr);
            /* var messageData = {
                 recipient: {
@@ -81,6 +81,7 @@ app.get('/notifyusers', function(req, res) {
   
     res.send('Notify Users');
     console.log("Notify GET");
+    res.redirect
     res.sendStatus(200);
 });
 
@@ -96,6 +97,20 @@ app.use('/notifyusers', function (req, res, next) {
   next();
     
 });
+
+console.log("Trying Notify User");
+
+var req = {
+    method: 'POST',
+    url: 'http://13.76.85.160/notifyusers',
+    headers : {
+        'Content-Type' : 'application/json'
+    },
+    //data: JSON.stringify({ test: 'test' })
+};
+
+
+
 function receivedMessage(event) {
     var senderID = event.sender.id;
     globalSenderId = senderID;
