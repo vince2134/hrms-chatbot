@@ -1,6 +1,11 @@
-export.answer = "gahshdv42";
+exports.answer = 42;
 
-export.try(function() 
-          {
-    console.log("whoooo");
-})
+exports.init = function()
+{
+    console.log("FROM BASE TRIGGER");
+}
+
+exports.post = function()
+{
+    console.log("POST FROM BASE TRIGGER");
+}
