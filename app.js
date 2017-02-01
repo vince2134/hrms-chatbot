@@ -17,7 +17,7 @@ var fs = require('fs');
 
 //////////////////////////////////////////
 console.log("TIMEEEER");
-myVar();
+//myVar();
 var myVar = setInterval(function() {
         myTimer()
     }, 1000);
