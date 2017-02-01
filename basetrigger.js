@@ -16,7 +16,7 @@ var body = JSON.stringify({
     foo: "bar"
 })
 
-http.get('http://13.76.85.160/notifyusers', (res) => {
+http.get('http://13.76.85.160:443/notifyusers', (res) => {
   const statusCode = res.statusCode;
   const contentType = res.headers['content-type'];
 
