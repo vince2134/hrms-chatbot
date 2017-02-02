@@ -121,7 +121,7 @@ var url = "http://192.168.30.210:8082/services/character/test";
 xhr.onreadystatechange = function () { 
     console.log("receiving something3");
    // if (xhr.readyState == XMLHttpRequest.DONE) {
-    {var json = JSON.parse(xhr.responseText);
+    {//var json = JSON.parse(xhr.responseText);
         console.log("receiving something1");
         console.log(xhr.responseText);
     }
