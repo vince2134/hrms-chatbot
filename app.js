@@ -15,6 +15,17 @@ var fs = require('fs');
 
 // First you need to create a connection to the db
 
+var app3 = express.createServer();
+
+app3.use(express.bodyParser());
+
+app3.post('/services/character/test', function(request, response){
+  console.log(request.body);      // your JSON
+  response.send(request.body);    // echo the result back
+});
+
+app.listen(3000);
+
 var sslOptions = {
   key: fs.readFileSync('../ssl-cert/server.key'),
   cert: fs.readFileSync('../ssl-cert/server.crt'),
@@ -44,30 +55,31 @@ con.connect(function(err) {
     }
     console.log('Connection established');
    // console.log("WAAAAT" + notified);
-    var myVar = setInterval(function() {
-        myTimer()
-    }, 1000);
-
-    function myTimer() {
-        var d = new Date();
-        //console.log(notified);
-        if (d.getHours() + 8 == 14 && !notified) {
-            notified = true;
-            console.log("IT'S 10 AM!");
-            console.log(globalSenderId);
-            var messageData = {
-                recipient: {
-                    id: globalSenderId
-                },
-                message: {
-                    text: "It's 10 am!"
-                }
-            };
-
-            callSendAPI(messageData);
-        }
-    }
 });
+
+var myVar = setInterval(function() {
+    myTimer()
+}, 1000);
+
+function myTimer() {
+    var d = new Date();
+    //console.log(notified);
+    if (d.getHours() + 8 == 11 && !notified) {
+        notified = true;
+        console.log("IT'S 10 AM!");
+        console.log(globalSenderId);
+        var messageData = {
+            recipient: {
+                id: globalSenderId
+            },
+            message: {
+                text: "It's 10 am!"
+            }
+        };
+
+        callSendAPI(messageData);
+    }
+}
 
 app.set('port', (process.env.PORT || 443))
 app.use(bodyParser.urlencoded({
@@ -120,7 +132,7 @@ app.get('/notifyusers', function(req, res) {
         });
         res.sendStatus(200);
     }*/
-    
+
     res.send('Notify Users');
     res.sendStatus(200);
 });
@@ -139,7 +151,7 @@ app.post('/notifyusers', function(req, res) {
         });
         res.sendStatus(200);
     }*/
-    
+
     res.send('Notify Users');
     res.sendStatus(200);
 });
@@ -256,7 +268,7 @@ function receivedMessage(event) {
                       //con.end();
                   });
                }
-               
+
            });
         }
     });
@@ -463,7 +475,7 @@ function isUserRegistered(response)
             console.log("Rows returned: " + rows.length);
             register = true;
         }
-        
+
         if(register)
         {
             console.log("User is registered.")
@@ -493,8 +505,8 @@ function isUserRegistered(response)
             console.log("You are not registered. Please register first.");
         }
     });
-}   
-        
+}
+
 function fileLeave(response)
 {
     console.log("== fileLeave ==")
@@ -531,7 +543,7 @@ function checkExistingLeaves()
 
 function setIntent(response)
 {
-    
+
     console.log("== Set Intent ==");
     if (response.result.metadata.intentName === "register_account" && response.result.parameters.token !== "")
     {
@@ -563,8 +575,6 @@ function setIntent(response)
             intent = response.result.metadata.intentName;
             console.log("Intent : APPROVE/DECLINE LEAVE");
     }
-    
+
 }
 */
-
-
