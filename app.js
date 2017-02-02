@@ -25,7 +25,6 @@ var myVar = setInterval(function() {
     myTimer()
 }, 1000);
 var ctr = 0;
-<<<<<<< HEAD
 /* Function being called every second.
  * Calls HRMS method and asks for the list of people to be notified.
  */
@@ -43,18 +42,6 @@ function myTimer() {
              }*/
     };
 }
-=======
-    /* Function being called every second.
-     * Calls HRMS method and asks for the list of people to be notified.
-    */
-    function myTimer() {
-        var d = new Date();
-        if (d.getHours() == 11 && !notified) {
-            notified = true;
-            console.log("IT'S 11 AM!     " + ctr);
-            };
-    }
->>>>>>> 5de3721724e022a02ecf55ae50bc9ea82a247072
 
 app.set('port', (process.env.PORT || 443))
 app.use(bodyParser.urlencoded({
@@ -91,16 +78,16 @@ app.post('/webhook', function(req, res) {
         res.sendStatus(200);
     }
 });
- 
+
 app.get('/notifyusers', function(req, res) {
-  
-   // res.send('Notify Users');
+
+    // res.send('Notify Users');
     console.log("Notify GET");
     res.sendStatus(200);
 });
 
 app.post('/notifyusers', function(req, res) {
-    
+
     res.send('Notify Users');
     console.log("app post notify");
     res.sendStatus(200);
@@ -122,26 +109,18 @@ var url = "http://192.168.30.210:8082/services/character/test";
 
 xhr.withCredentials = true;
 
-<<<<<<< HEAD
 xhr.addEventListener("readystatechange", function() {
+    console.log(this.responseText);
     if (this.readyState === 4) {
         console.log("Ready State 4");
         console.log(this.responseText);
     }
-=======
-xhr.addEventListener("readystatechange", function () {
-    console.log(this.responseText);
-  if (this.readyState === 4) {
-    console.log("Ready State 4");
-    console.log(this.responseText);
-  }
     console.log("ReadyState checking done");
->>>>>>> 5de3721724e022a02ecf55ae50bc9ea82a247072
 });
 
 xhr.open("GET", url, true);
 xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-/*xhr.onreadystatechange = function () { 
+/*xhr.onreadystatechange = function () {
     console.log("receiving something3");
    //if (xhr.readyState == XMLHttpRequest.DONE) {
     {
@@ -215,7 +194,6 @@ function callSendAPI(messageData) {
         }
     });
 }
-<<<<<<< HEAD
 
 var options = {
     url: 'http://192.168.30.210:8082/services/character/test',
@@ -231,11 +209,9 @@ request(options, function(error, response, body) {
 https.get("http://192.168.30.210:8082/services/character/test", function(res) {
     console.log("Got response: " + res.statusCode);
 });
-=======
->>>>>>> 5de3721724e022a02ecf55ae50bc9ea82a247072
+
 /*
 app.listen(app.get('port'), function() {
     console.log('running on port', app.get('port'));
     console.log("The app is now up and running.");
 })*/
-
