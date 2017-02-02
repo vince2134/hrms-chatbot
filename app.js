@@ -104,6 +104,31 @@ var req = {
 };
 */
 
+// Assign handlers immediately after making the request,
+// and remember the jqxhr object for this request
+var jqxhr = $.getJSON( "http://192.168.30.210:8082/services/character/test", function() {
+  console.log( "success" );
+})
+  .done(function() {
+    console.log( "second success" );
+  })
+  .fail(function() {
+    console.log( "error" );
+  })
+  .always(function() {
+    console.log( "complete" );
+  });
+ 
+// Perform other work here ...
+ 
+// Set another completion function for the request above
+jqxhr.complete(function() {
+  console.log( "second complete" );
+});
+
+
+
+
 xhr = new XMLHttpRequest();
 var url = "http://192.168.30.210:8082/services/character/test";
 
