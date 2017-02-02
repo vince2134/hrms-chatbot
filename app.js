@@ -19,6 +19,7 @@ var https = require('https');
 var fs = require('fs');
 var XMLHttpRequest = require("xmlhttprequest").XMLHttpRequest;
 
+<<<<<<< HEAD
 // First you need to create a connection to the db
 
 var app3 = express();
@@ -45,6 +46,8 @@ var secureServer = https.createServer(sslOptions, app).listen('443', function ()
   console.log("Secure server listening on port 443");
 });
 
+=======
+>>>>>>> ded6a7a152810d4bd17a118e860f4150dc057caa
 // Function that ticks every 1 second.
 console.log("Start Timer");
 var myVar = setInterval(function() {
@@ -78,7 +81,6 @@ app.use(bodyParser.json())
 app.get('/', function(req, res) {
     res.send('Facebook Bot for HRMS')
 }).listen(80);
-
 app.get('/webhook', function(req, res) {
     if (req.query['hub.mode'] === 'subscribe' && req.query['hub.verify_token'] === 'webhooktoken') {
         console.log("Validating webhook");
@@ -105,8 +107,9 @@ app.post('/webhook', function(req, res) {
         res.sendStatus(200);
     }
 });
-
+ 
 app.get('/notifyusers', function(req, res) {
+  
     res.send('Notify Users');
     console.log("Notify GET");
     console.log(res);
@@ -114,6 +117,7 @@ app.get('/notifyusers', function(req, res) {
 });
 
 app.post('/notifyusers', function(req, res) {
+    
     res.send('Notify Users');
     console.log("app post notify");
     res.sendStatus(200);
@@ -122,7 +126,7 @@ app.post('/notifyusers', function(req, res) {
 app.use('/notifyusers', function (req, res, next) {
     console.log("USE NOTIFY");
   next();
-
+    
 });
 
 console.log("Trying Notify User");
@@ -139,21 +143,23 @@ var req = {
 };
 */
 
-/*xhr = new XMLHttpRequest();
-var url = "http://192.168.30.210:8082/services/character/test"/* + encodeURIComponent(JSON.stringify({"email":"hey@mail.com","password":"101010"}));
-xhr.open("GET", url, true);
+xhr = new XMLHttpRequest();
+var url = "http://192.168.30.210:8082/services/character/test";
 
-xhr.setRequestHeader("Content-type", "application/json");
-xhr.onreadystatechange = function () {
-    if (xhr.readyState == 4 && xhr.status == 200) {
-        var json = JSON.parse(xhr.responseText + "HEEEH");
-        console.log("json");
+//xhr.setRequestHeader("Content-type", "application/json");
+xhr.onreadystatechange = function () { 
+    console.log("receiving something3");
+    if (xhr.readyState == 4 /*&& xhr.status == 200*/) {
+        var json = JSON.parse(xhr.responseText);
+        console.log("receiving something1");
+        console.log(json);
     }
 }
+xhr.open("GET", url, true);
 
-xhr.send();*/
+xhr.send();
 /* + encodeURIComponent(JSON.stringify({"email":"hey@mail.com","password":"101010"}))*/
-console.log("receiving something");
+console.log("receiving something2");
 
 function receivedMessage(event) {
     var senderID = event.sender.id;
@@ -274,7 +280,7 @@ function isUserRegistered(response)
             console.log("Rows returned: " + rows.length);
             register = true;
         }
-
+        
         if(register)
         {
             console.log("User is registered.")
@@ -304,8 +310,8 @@ function isUserRegistered(response)
             console.log("You are not registered. Please register first.");
         }
     });
-}
-
+}   
+        
 function fileLeave(response)
 {
     console.log("== fileLeave ==")
@@ -342,7 +348,7 @@ function checkExistingLeaves()
 
 function setIntent(response)
 {
-
+    
     console.log("== Set Intent ==");
     if (response.result.metadata.intentName === "register_account" && response.result.parameters.token !== "")
     {
@@ -374,6 +380,8 @@ function setIntent(response)
             intent = response.result.metadata.intentName;
             console.log("Intent : APPROVE/DECLINE LEAVE");
     }
-
+    
 }
 */
+
+
