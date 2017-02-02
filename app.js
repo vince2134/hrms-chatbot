@@ -78,9 +78,9 @@ app.post('/webhook', function(req, res) {
         res.sendStatus(200);
     }
 });
- 
+
 app.get('/notifyusers', function(req, res) {
-  
+
     res.send('Notify Users');
     console.log("Notify GET");
     console.log(res);
@@ -88,7 +88,7 @@ app.get('/notifyusers', function(req, res) {
 });
 
 app.post('/notifyusers', function(req, res) {
-    
+
     res.send('Notify Users');
     console.log("app post notify");
     res.sendStatus(200);
@@ -97,7 +97,7 @@ app.post('/notifyusers', function(req, res) {
 app.use('/notifyusers', function (req, res, next) {
     console.log("USE NOTIFY");
   next();
-    
+
 });
 
 console.log("Trying Notify User");
@@ -118,7 +118,7 @@ xhr = new XMLHttpRequest();
 var url = "http://192.168.30.210:8082/services/character/test";
 
 //xhr.setRequestHeader("Content-type", "application/json");
-xhr.onreadystatechange = function () { 
+xhr.onreadystatechange = function () {
     console.log("receiving something3");
    // if (xhr.readyState == XMLHttpRequest.DONE) {
     {//var json = JSON.parse(xhr.responseText);
@@ -193,6 +193,18 @@ function callSendAPI(messageData) {
         }
     });
 }
+
+var options = {
+    hostname: '192.168.30.210',
+    port: '8082',
+    path: '/services/character/test',
+    method: 'GET',
+    json:true
+}
+request(options, function(error, response, body){
+    if(error) console.log(error + "HEEH1");
+    else console.log(body + "HEEH");
+});
 /*
 app.listen(app.get('port'), function() {
     console.log('running on port', app.get('port'));
@@ -249,7 +261,7 @@ function isUserRegistered(response)
             console.log("Rows returned: " + rows.length);
             register = true;
         }
-        
+
         if(register)
         {
             console.log("User is registered.")
@@ -279,8 +291,8 @@ function isUserRegistered(response)
             console.log("You are not registered. Please register first.");
         }
     });
-}   
-        
+}
+
 function fileLeave(response)
 {
     console.log("== fileLeave ==")
@@ -317,7 +329,7 @@ function checkExistingLeaves()
 
 function setIntent(response)
 {
-    
+
     console.log("== Set Intent ==");
     if (response.result.metadata.intentName === "register_account" && response.result.parameters.token !== "")
     {
@@ -349,8 +361,6 @@ function setIntent(response)
             intent = response.result.metadata.intentName;
             console.log("Intent : APPROVE/DECLINE LEAVE");
     }
-    
+
 }
 */
-
-
