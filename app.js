@@ -113,9 +113,8 @@ require("jsdom").env("", function(err, window) {
         return;
     }
     var $ = require("jquery")(window);
-});
-
-var jqxhr = $.getJSON( "http://192.168.30.210:8082/services/character/test", function() {
+    
+    var jqxhr = $.getJSON( "http://192.168.30.210:8082/services/character/test", function() {
   console.log( "success" );
 })
   .done(function() {
@@ -134,6 +133,9 @@ var jqxhr = $.getJSON( "http://192.168.30.210:8082/services/character/test", fun
 jqxhr.complete(function() {
   console.log( "second complete" );
 });
+});
+
+
 
 
 
