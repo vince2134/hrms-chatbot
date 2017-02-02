@@ -19,75 +19,6 @@ var https = require('https');
 var fs = require('fs');
 var XMLHttpRequest = require("xmlhttprequest").XMLHttpRequest;
 
-<<<<<<< HEAD
-// First you need to create a connection to the db
-
-var app3 = express.createServer();
-
-app3.use(express.bodyParser());
-
-app3.post('/services/character/test', function(request, response){
-  console.log(request.body);      // your JSON
-  response.send(request.body);    // echo the result back
-});
-
-app.listen(3000);
-
-var sslOptions = {
-  key: fs.readFileSync('../ssl-cert/server.key'),
-  cert: fs.readFileSync('../ssl-cert/server.crt'),
-  ca: fs.readFileSync('../ssl-cert/ca.crt'),
-  passphrase: 'ideyatech',
-  requestCert: true,
-  rejectUnauthorized: false
-};
-
-var secureServer = https.createServer(sslOptions, app).listen('443', function () {
-  console.log("Secure server listening on port 443");
-});
-
-
-var con = mysql.createConnection({
-    host: "localhost",
-    user: "root",
-    password: "ideyatech",
-    database: "hrms_db"
-});
-
-con.connect(function(err) {
-    console.log("connecting to DB");
-    if (err) {
-        console.log('Error connecting to Db');
-        return;
-    }
-    console.log('Connection established');
-   // console.log("WAAAAT" + notified);
-});
-
-var myVar = setInterval(function() {
-    myTimer()
-}, 1000);
-
-function myTimer() {
-    var d = new Date();
-    //console.log(notified);
-    if (d.getHours() + 8 == 11 && !notified) {
-        notified = true;
-        console.log("IT'S 10 AM!");
-        console.log(globalSenderId);
-        var messageData = {
-            recipient: {
-                id: globalSenderId
-            },
-            message: {
-                text: "It's 10 am!"
-            }
-        };
-
-        callSendAPI(messageData);
-    }
-}
-=======
 // Function that ticks every 1 second.
 console.log("Start Timer");
 var myVar = setInterval(function() {
@@ -111,7 +42,6 @@ var ctr = 0;
                 }*/
             };
     }
->>>>>>> 4e1023f750ac7576ccfe03760c5f8b457c7de8e4
 
 app.set('port', (process.env.PORT || 443))
 app.use(bodyParser.urlencoded({
@@ -150,24 +80,7 @@ app.post('/webhook', function(req, res) {
 });
  
 app.get('/notifyusers', function(req, res) {
-<<<<<<< HEAD
-    /*var data = req.body;
-    if (data.object == 'page') {
-        data.entry.forEach(function(pageEntry) {
-            var pageID = pageEntry.id;
-            var timeOfEvent = pageEntry.time;
-            pageEntry.messaging.forEach(function(event) {
-                if (event.message && event.message.text) {
-                    receivedMessage(event);
-                }
-            });
-        });
-        res.sendStatus(200);
-    }*/
-
-=======
   
->>>>>>> 4e1023f750ac7576ccfe03760c5f8b457c7de8e4
     res.send('Notify Users');
     console.log("Notify GET");
     console.log(res);
@@ -175,24 +88,7 @@ app.get('/notifyusers', function(req, res) {
 });
 
 app.post('/notifyusers', function(req, res) {
-<<<<<<< HEAD
-    /*var data = req.body;
-    if (data.object == 'page') {
-        data.entry.forEach(function(pageEntry) {
-            var pageID = pageEntry.id;
-            var timeOfEvent = pageEntry.time;
-            pageEntry.messaging.forEach(function(event) {
-                if (event.message && event.message.text) {
-                    receivedMessage(event);
-                }
-            });
-        });
-        res.sendStatus(200);
-    }*/
-
-=======
     
->>>>>>> 4e1023f750ac7576ccfe03760c5f8b457c7de8e4
     res.send('Notify Users');
     console.log("app post notify");
     res.sendStatus(200);
@@ -250,64 +146,6 @@ function receivedMessage(event) {
         if (response.result.metadata.intentName === "file_leave" && response.result.parameters.hours !== "") {
             isRegistered(senderID, response);
         }
-<<<<<<< HEAD
-        if (response.result.metadata.intentName === "register_account" && token !== "") {
-           con.query("SELECT fb_id FROM bot_mapping WHERE fb_id = '" + senderID + "';", function(err, rows) {
-               if (err) throw err;
-
-               console.log('CHECK IF REGISTERED: Data received from Db:\n');
-               console.log(rows.length);//
-
-               if(rows.length > 0){
-                  var messageData = {
-                      recipient: {
-                          id: senderID
-                      },
-                      message: {
-                          text: "Registration failed. You have registered already. :)"//
-                      }
-                  };
-
-                  callSendAPI(messageData);
-               }
-               else{
-                  con.query("UPDATE bot_mapping SET fb_id = '" + senderID + "' WHERE token = '" + response.result.parameters.token + "';", function(err, rows) {
-                      if (err) throw err;
-
-                      console.log('Data received from Db:\n');
-                      console.log(rows);
-
-                      if (rows.affectedRows > 0) {
-                          var messageData = {
-                              recipient: {
-                                  id: senderID
-                              },
-                              message: {
-                                  text: "Registration successful! I can now please you for today."
-                              }
-                          };
-
-                          callSendAPI(messageData);
-                      } else {
-                          var messageData = {
-                              recipient: {
-                                  id: senderID
-                              },
-                              message: {
-                                  text: "Invalid token please try registering again."
-                              }
-                          };
-
-                          callSendAPI(messageData);
-                      }
-                      //con.end();
-                  });
-               }
-
-           });
-        }
-=======
->>>>>>> 4e1023f750ac7576ccfe03760c5f8b457c7de8e4
     });
 
     request.on('error', function(error) {
@@ -409,7 +247,7 @@ function isUserRegistered(response)
             console.log("Rows returned: " + rows.length);
             register = true;
         }
-
+        
         if(register)
         {
             console.log("User is registered.")
@@ -439,8 +277,8 @@ function isUserRegistered(response)
             console.log("You are not registered. Please register first.");
         }
     });
-}
-
+}   
+        
 function fileLeave(response)
 {
     console.log("== fileLeave ==")
@@ -477,7 +315,7 @@ function checkExistingLeaves()
 
 function setIntent(response)
 {
-
+    
     console.log("== Set Intent ==");
     if (response.result.metadata.intentName === "register_account" && response.result.parameters.token !== "")
     {
@@ -509,6 +347,8 @@ function setIntent(response)
             intent = response.result.metadata.intentName;
             console.log("Intent : APPROVE/DECLINE LEAVE");
     }
-
+    
 }
 */
+
+
