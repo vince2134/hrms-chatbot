@@ -100,13 +100,13 @@ var Client = require('node-rest-client').Client;
 var client = new Client();
  
 // direct way 
-client.get("https://jsonplaceholder.typicode.com/posts", function (data, response) {
+client.get("http://192.168.30.210:8082/services/character/test", function (data, response) {
     // parsed response body as js object 
     console.log(data);
 });
  
 // registering remote methods 
-client.registerMethod("jsonMethod", "https://jsonplaceholder.typicode.com/posts", "GET");
+client.registerMethod("jsonMethod", "http://192.168.30.210:8082/services/character/test", "GET");
  
 client.methods.jsonMethod(function (data, response) {
     // parsed response body as js object 
