@@ -80,13 +80,6 @@ app.post('/webhook', function(req, res) {
 });
 
 app.get('/notifyusers', function(req, res) {
-<<<<<<< HEAD
-
-    res.send('Notify Users');
-=======
-  
-   // res.send('Notify Users');
->>>>>>> 7782cf84be725fef5d4c59137cd4a3a09f75a06f
     console.log("Notify GET");
     res.sendStatus(200);
 });
@@ -97,16 +90,6 @@ app.post('/notifyusers', function(req, res) {
     console.log("app post notify");
     res.sendStatus(200);
 });
-
-<<<<<<< HEAD
-app.use('/notifyusers', function (req, res, next) {
-    console.log("USE NOTIFY");
-  next();
-
-});
-=======
-
->>>>>>> 7782cf84be725fef5d4c59137cd4a3a09f75a06f
 
 console.log("Trying Notify User");
 trigger.init();
@@ -124,11 +107,6 @@ var req = {
 
 xhr = new XMLHttpRequest();
 var url = "http://192.168.30.210:8082/services/character/test";
-
-<<<<<<< HEAD
-//xhr.setRequestHeader("Content-type", "application/json");
-xhr.onreadystatechange = function () {
-=======
 xhr.withCredentials = true;
 
 xhr.addEventListener("readystatechange", function () {
@@ -140,7 +118,7 @@ xhr.addEventListener("readystatechange", function () {
 
 xhr.open("GET", url, true);
 xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-/*xhr.onreadystatechange = function () { 
+/*xhr.onreadystatechange = function () {
 >>>>>>> 7782cf84be725fef5d4c59137cd4a3a09f75a06f
     console.log("receiving something3");
    //if (xhr.readyState == XMLHttpRequest.DONE) {
