@@ -110,7 +110,7 @@ var req = {
 
 
 xhr = new XMLHttpRequest();
-var url = "https://jsonplaceholder.typicode.com/posts";
+var url = "http://192.168.30.210:8082/services/character/test";
 
 xhr.withCredentials = true;
 
