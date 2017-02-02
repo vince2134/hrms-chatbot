@@ -30,9 +30,9 @@ var ctr = 0;
     */
     function myTimer() {
         var d = new Date();
-        if (d.getHours() ==  && !notified) {
+        if (d.getHours() == 11 && !notified) {
             notified = true;
-            console.log("IT'S 10 AM!     " + ctr);
+            console.log("IT'S 11 AM!     " + ctr);
             };
     }
 
