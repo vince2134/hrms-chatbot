@@ -140,17 +140,10 @@ var req = {
 */
 
 xhr = new XMLHttpRequest();
-<<<<<<< HEAD
 var url = "http://192.168.30.210:8082/services/character/test"/* + encodeURIComponent(JSON.stringify({"email":"hey@mail.com","password":"101010"}))*/;
-xhr.open("GET", url, true);
+
 xhr.setRequestHeader("Content-type", "application/json");
 xhr.onreadystatechange = function () {
-=======
-var url = "http://192.168.30.210:8082/services/character/test";
-
-//xhr.setRequestHeader("Content-type", "application/json");
-xhr.onreadystatechange = function () { 
->>>>>>> f41d761c0bcad287e7019ad808121c79f4f10b38
     if (xhr.readyState == 4 && xhr.status == 200) {
         var json = JSON.parse(xhr.responseText);
         console.log(json);
