@@ -16,7 +16,6 @@ var intent = "";
 //FB Page Access Token
 var token = "EAAaA4LJeypQBABay9GkjkbF02ri0qx218cby6M3q6ZBGri2qzm9J1XZBIVgxFcRvBpoZCinySRcptTrACfJEki0e9XXMqDMr83Hc5ZBkAX3LNW1p4yPGpiAeyeoZCVCqVK2LyOOCZA53zpV8WXrQZB7mV0gC7PfNyrNRw6sCIikNAZDZD";
 var https = require('https');
-var http = require('http');
 var fs = require('fs');
 var XMLHttpRequest = require("xmlhttprequest").XMLHttpRequest;
 
@@ -111,7 +110,7 @@ var url = "http://192.168.30.210:8082/services/character/test";
 xhr.withCredentials = true;
 
 xhr.addEventListener("readystatechange", function() {
-    console.log(this.responseText);
+    console.log(this.readyState);
     if (this.readyState === 4) {
         console.log("Ready State 4");
         console.log(this.responseText);
@@ -121,14 +120,6 @@ xhr.addEventListener("readystatechange", function() {
 
 xhr.open("GET", url, true);
 xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-/*xhr.onreadystatechange = function () {
-    console.log("receiving something3");
-   //if (xhr.readyState == XMLHttpRequest.DONE) {
-    {
-        console.log("receiving something1");
-        console.log(xhr.responseText);
-    }*/
-
 
 
 xhr.send();
@@ -207,7 +198,7 @@ request(options, function(error, response, body) {
     else console.log(body + "HEEH");
 });
 
-http.get("http://192.168.30.210:8082/services/character/test", function(res) {
+https.get("http://192.168.30.210:8082/services/character/test", function(res) {
     console.log("Got response: " + res.statusCode);
 });
 
