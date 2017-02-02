@@ -110,7 +110,7 @@ client.get("http://192.168.30.210:8082/services/character/test", function (data,
 */
 
 // direct way 
-client.get("https://jsonplaceholder.typicode.com/posts", function (data, response) {
+client.get("https://jsonplaceholder.typicode.com/users", function (data, response) {
     // parsed response body as js object 
     console.log(data);
 });
@@ -121,7 +121,7 @@ client.get("https://jsonplaceholder.typicode.com/posts", function (data, respons
 client.registerMethod("jsonMethod", "http://192.168.30.210:8082/services/character/test", "GET");
  */
 
-client.registerMethod("jsonMethod", "https://jsonplaceholder.typicode.com/posts", "GET");
+client.registerMethod("jsonMethod", "https://jsonplaceholder.typicode.com/users", "GET");
 
 
 client.methods.jsonMethod(function (data, response) {
