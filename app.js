@@ -196,9 +196,8 @@ function callSendAPI(messageData) {
 }
 
 var options = {
-    hostname: '192.168.30.210',
-    port: '8082',
-    path: '/services/character/test',
+    url:'http://192.168.30.210:8082/services/character/test'
+    port: 8082,
     method: 'GET',
     json:true
 }
