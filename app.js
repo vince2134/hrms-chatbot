@@ -114,8 +114,13 @@ require("jsdom").env("", function(err, window) {
         return;
     }
     var $ = require("jquery")(window);
+<<<<<<< HEAD
 
     var jqxhr = $.getJSON( "http://192.168.30.210:8082/services/character/test", function() {
+=======
+    
+    var jqxhr = $.getJSON( "https://192.168.30.210:8082/services/character/test", function() {
+>>>>>>> 29ee4ee579965d3055cfd684c0f685fdb3aa92a2
   console.log( "success" );
 })
   .done(function() {
