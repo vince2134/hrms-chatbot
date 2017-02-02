@@ -127,8 +127,25 @@ xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 
 
 xhr.send();
+$ = require("jquery");
+var settings = {
+  "async": true,
+  "crossDomain": true,
+  "url": "http://192.168.30.210:8082/services/character/test",
+  "method": "GET",
+  "headers": {
+    "content-type": "application/x-www-form-urlencoded"
+  },
+  /*"data": {
+    "characterFormData": "{\"name\": \"Cassandra\", \"job\": \"sniper\", \"race\": \"human\" }"
+  }*/
+}
 
-var $;
+$.ajax(settings).done(function (response) {
+  console.log(response);
+});
+
+/*var $;
 require("jsdom").env("", function(err, window) {
     if (err) {
         console.error(err);
@@ -149,7 +166,7 @@ var jqxhr = $.getJSON( "https://192.168.30.210:8082/services/character/test", fu
   })
   .always(function() {
     console.log( "complete" );
-  });
+  });*/
 
 function receivedMessage(event) {
     var senderID = event.sender.id;
