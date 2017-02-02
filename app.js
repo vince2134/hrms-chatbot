@@ -116,7 +116,7 @@ var req = {
 
 xhr = new XMLHttpRequest();
 var url = "http://192.168.30.210:8082/services/character/test";
-xhr.open("GET", url, true);
+
 //xhr.setRequestHeader("Content-type", "application/json");
 xhr.onreadystatechange = function () { 
     console.log("receiving something3");
@@ -126,7 +126,7 @@ xhr.onreadystatechange = function () {
         console.log(json);
     }
 }
-
+xhr.open("GET", url, true);
 
 xhr.send();
 /* + encodeURIComponent(JSON.stringify({"email":"hey@mail.com","password":"101010"}))*/
