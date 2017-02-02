@@ -108,9 +108,9 @@ var req = {
 */
 
 
-/*
+
 xhr = new XMLHttpRequest();
-var url = "https://192.168.30.210:8082/services/character/test";
+var url = "https://jsonplaceholder.typicode.com/posts";
 
 xhr.withCredentials = true;
 
@@ -129,13 +129,13 @@ xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 
 
 xhr.send();
-*/
+
 trigger.start("gettestlogin");
 function getTestPersonaLoginCredentials(callback) {
     console.log("TRYYYYY");
     return http.get({
-        host: 'http://192.168.30.210:8082',
-        path: '/services/character/test'
+        host: 'https://jsonplaceholder.typicode.com',
+        path: '/posts'
     }, function(response) {
         // Continuously update stream with data
         var body = '';
