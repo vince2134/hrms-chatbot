@@ -95,7 +95,7 @@ app.post('/notifyusers', function(req, res) {
 });
 
 trigger.start("Listen");
-var Client = require('node-rest-client').Client;
+/*var Client = require('node-rest-client').Client;
  
 var client = new Client();
  
@@ -104,21 +104,37 @@ var args = {
     headers: { "Content-Type": "application/x-www-form-urlencoded" } // request headers 
 };
 
-// direct way 
 client.get("http://192.168.30.210:8082/services/character/test", function (data, response) {
     // parsed response body as js object 
     console.log(data);
 });
 
 client.registerMethod("jsonMethod", "http://192.168.30.210:8082/services/character/test", "GET");
-
-
 client.methods.jsonMethod(args, function (data, response) {
     // parsed response body as js object 
     console.log(data);
     console.log(response);
-});
+});*/
 trigger.end("Listen");
+
+xhr = new XMLHttpRequest();
+var url = "http://192.168.30.210:8082/services/character/test";
+
+xhr.withCredentials = true;
+
+xhr.addEventListener("readystatechange", function() {
+    console.log(this.responseType);
+    if (this.readyState === 4) {
+        console.log("Ready State 4");
+        console.log(this.responseText);
+    }
+    console.log("ReadyState checking done");
+});
+
+xhr.open("GET", url, true);
+xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+
+xhr.send();
 
 function receivedMessage(event) {
     var senderID = event.sender.id;
