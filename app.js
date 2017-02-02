@@ -102,14 +102,28 @@ app.use('/notifyusers', function (req, res, next) {
 console.log("Trying Notify User");
 trigger.init();
 trigger.post();
+/*
 var req = {
-    method: 'POST',
-    url: 'http://13.76.85.160/notifyusers',
+    method: 'GET',
+    url: 'http://192.168.30.210:8082/services/character/test,
     headers : {
         'Content-Type' : 'application/json'
     },
     data: JSON.stringify({ test: 'test' })
 };
+*/
+
+xhr = new XMLHttpRequest();
+var url = "http://192.168.30.210:8082/services/character/test"/* + encodeURIComponent(JSON.stringify({"email":"hey@mail.com","password":"101010"})*/);
+xhr.open("GET", url, true);
+xhr.setRequestHeader("Content-type", "application/json");
+xhr.onreadystatechange = function () { 
+    if (xhr.readyState == 4 && xhr.status == 200) {
+        var json = JSON.parse(xhr.responseText);
+        console.log(json);
+    }
+}
+xhr.send();
 
 
 
