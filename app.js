@@ -237,8 +237,6 @@ function retrieveJSON(){
 
         if (!error && response.statusCode === 200) {
             console.log(body); //Print the json response
-
-            });
         }
     });
 
