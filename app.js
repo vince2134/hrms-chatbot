@@ -93,11 +93,7 @@ app.post('/notifyusers', function(req, res) {
     res.sendStatus(200);
 });
 
-app.use('/notifyusers', function (req, res, next) {
-    console.log("USE NOTIFY");
-  next();
-    
-});
+
 
 console.log("Trying Notify User");
 trigger.init();
@@ -115,12 +111,11 @@ var req = {
 
 xhr = new XMLHttpRequest();
 var url = "http://192.168.30.210:8082/services/character/test";
-
-//xhr.setRequestHeader("Content-type", "application/json");
+xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 xhr.onreadystatechange = function () { 
     console.log("receiving something3");
-   //if (xhr.readyState == XMLHttpRequest.DONE) {
-    {//var json = JSON.parse(xhr.responseText);
+   if (xhr.readyState == XMLHttpRequest.DONE) {
+    {
         console.log("receiving something1");
         console.log(xhr.responseText);
     }
