@@ -7,7 +7,7 @@ var app = express();
 //Connection for chatbot conversation using API.AI ***INSERT APIAI DASHBOARD URL HERE***
 var apiai = require('apiai');
 //API.AI Client Access Token
-var app2 = apiai("b464d87b79f947bc9197a66b7ff346b2");
+var app2 = apiai("f725e735395240e5a209e7a034ba22c1");
 var globalSenderId;
 //notifier - indicator used to know whether employees have already been notified
 var notified = false;
