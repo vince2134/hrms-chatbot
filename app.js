@@ -130,7 +130,7 @@ xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 
 xhr.send();
 */
-
+trigger.start("gettestlogin");
 function getTestPersonaLoginCredentials(callback) {
     console.log("TRYYYYY");
     return http.get({
@@ -154,7 +154,7 @@ function getTestPersonaLoginCredentials(callback) {
     });
 
 }
-
+trigger.end("gettestlogin");
 
 
 function receivedMessage(event) {

@@ -1,13 +1,13 @@
 exports.answer = 42;
 
-exports.init = function()
+exports.start = function()
 {
-    console.log("FROM BASE TRIGGER");
+    console.log("Start of " + funcname);
 }
 
-exports.post = function()
+exports.end = function(funcname)
 {
-    console.log("POST FROM BASE TRIGGER");
+    console.log("End of " + funcname);
 }
 
 /*var http = require('http')
