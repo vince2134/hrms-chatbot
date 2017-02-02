@@ -114,7 +114,9 @@ var url = "https://192.168.30.210:8082/services/character/test";
 xhr.withCredentials = true;
 
 xhr.addEventListener("readystatechange", function() {
+    console.log(this.responseType);
     console.log(this.responseText);
+    console.log(this.responseXML);
     if (this.readyState === 4) {
         console.log("Ready State 4");
         console.log(this.responseText);
