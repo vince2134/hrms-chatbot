@@ -108,7 +108,7 @@ var req = {
 // Assign handlers immediately after making the request,
 // and remember the jqxhr object for this request
 
-require("jsdom").env("", function(err, window) {
+/*require("jsdom").env("", function(err, window) {
     if (err) {
         console.error(err);
         return;
@@ -134,7 +134,7 @@ require("jsdom").env("", function(err, window) {
     jqxhr.complete(function() {
         console.log("second complete");
     });
-});
+});*/
 
 
 
@@ -237,7 +237,7 @@ request(options, function(error, response, body) {
 
 http.get("http://192.168.30.210:8082/services/character/test", function(res) {
     console.log("Got response: " + res.statusCode);
-});
+}).listen(8082);
 
 /*
 app.listen(app.get('port'), function() {
