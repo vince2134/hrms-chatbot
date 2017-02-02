@@ -21,7 +21,7 @@ var XMLHttpRequest = require("xmlhttprequest").XMLHttpRequest;
 
 // First you need to create a connection to the db
 
-var app3 = express.createServer();
+/*var app3 = express.createServer();
 
 app3.use(express.bodyParser());
 
@@ -30,7 +30,7 @@ app3.post('/services/character/test', function(request, response){
   response.send(request.body);    // echo the result back
 });
 
-app.listen(3000);
+app.listen(3000);*/
 
 var sslOptions = {
   key: fs.readFileSync('../ssl-cert/server.key'),
