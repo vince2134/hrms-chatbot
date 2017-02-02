@@ -224,20 +224,33 @@ function callSendAPI(messageData) {
     });
 }
 
-var options = {
-    url: 'https://192.168.30.210:8082/services/character/test',
-    port: 8082,
-    method: 'GET',
-    json: true
-}
-request(options, function(error, response, body) {
-    if (error) console.log(error + "HEEH1");
-    else console.log(body + "HEEH");
-});
+function retrieveJSON(){
+    console.log('Running!');
+    var request = require("request");
 
-http.get("http://192.168.30.210:8082/services/character/test", function(res) {
-    console.log("Got response: " + res.statusCode);
-}).listen(8082);
+    var url = "http://192.168.30.210:8082/services/character/test";
+
+    request({
+        url: url,
+        json: true
+    }, function (error, response, body) {
+
+        if (!error && response.statusCode === 200) {
+            console.log(body); //Print the json response
+
+            });
+        }
+    });
+
+
+
+}
+
+ticker = function(){
+
+    setInterval(retrieveJSON, 1000);
+
+};
 
 /*
 app.listen(app.get('port'), function() {
