@@ -140,8 +140,8 @@ var req = {
 */
 
 xhr = new XMLHttpRequest();
-xhr.open("GET", url, true);
 var url = "http://192.168.30.210:8082/services/character/test"/* + encodeURIComponent(JSON.stringify({"email":"hey@mail.com","password":"101010"}))*/;
+xhr.open("GET", url, true);
 
 xhr.setRequestHeader("Content-type", "application/json");
 xhr.onreadystatechange = function () {
