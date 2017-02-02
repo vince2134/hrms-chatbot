@@ -136,7 +136,7 @@ client.get("https://jsonplaceholder.typicode.com/posts", function (data, respons
     // parsed response body as js object 
     console.log(data);
     // raw response 
-    console.log(response);
+    //console.log(response);
 });
  
 // registering remote methods 
@@ -146,7 +146,7 @@ client.methods.jsonMethod(function (data, response) {
     // parsed response body as js object 
     console.log(data);
     // raw response 
-    console.log(response);
+    //console.log(response);
 });
 
 
