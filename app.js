@@ -116,6 +116,7 @@ xhr.withCredentials = true;
 
 xhr.addEventListener("readystatechange", function () {
   if (this.readyState === 4) {
+    console.log("Ready State 4");
     console.log(this.responseText);
   }
 });
