@@ -104,7 +104,7 @@ var args = {
     /*data: { test: "hello" }, // data passed to REST method (only useful in POST, PUT or PATCH methods) 
     path: { "id": 120 }, // path substitution var */
    /* parameters: { arg1: "hello", arg2: "world" },*/ // query parameter substitution vars 
-    headers: { "Content-Type", "application/x-www-form-urlencoded" } // request headers 
+    headers: { "Content-Type": "application/x-www-form-urlencoded" } // request headers 
 };
  
  
