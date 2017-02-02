@@ -2,17 +2,24 @@ var express = require('express');
 var bodyParser = require('body-parser');
 var request = require('request');
 var mysql = require('./node_modules/mysql');
+var trigger = require('./basetrigger');
 var app = express();
+//Connection for chatbot conversation using API.AI ***INSERT APIAI DASHBOARD URL HERE***
 var apiai = require('apiai');
+//API.AI Client Access Token
 var app2 = apiai("b464d87b79f947bc9197a66b7ff346b2");
 var globalSenderId;
+//notifier - indicator used to know whether employees have already been notified
 var notified = false;
 var register = false;
 var intent = "";
+//FB Page Access Token
 var token = "EAAaA4LJeypQBABay9GkjkbF02ri0qx218cby6M3q6ZBGri2qzm9J1XZBIVgxFcRvBpoZCinySRcptTrACfJEki0e9XXMqDMr83Hc5ZBkAX3LNW1p4yPGpiAeyeoZCVCqVK2LyOOCZA53zpV8WXrQZB7mV0gC7PfNyrNRw6sCIikNAZDZD";
 var https = require('https');
 var fs = require('fs');
+var XMLHttpRequest = require("xmlhttprequest").XMLHttpRequest;
 
+<<<<<<< HEAD
 // First you need to create a connection to the db
 
 var app3 = express.createServer();
@@ -80,6 +87,31 @@ function myTimer() {
         callSendAPI(messageData);
     }
 }
+=======
+// Function that ticks every 1 second.
+console.log("Start Timer");
+var myVar = setInterval(function() {
+        myTimer()
+    }, 1000);
+var ctr = 0;
+    /* Function being called every second.
+     * Calls HRMS method and asks for the list of people to be notified.
+    */
+    function myTimer() {
+        var d = new Date();
+        if (d.getHours() == 16 && !notified) {
+            notified = true;
+            console.log("IT'S 10 AM!     " + ctr);
+           /* var messageData = {
+                recipient: {
+                    id: globalSenderId
+                },
+                message: {
+                    text: "It's 10 am!"
+                }*/
+            };
+    }
+>>>>>>> 4e1023f750ac7576ccfe03760c5f8b457c7de8e4
 
 app.set('port', (process.env.PORT || 443))
 app.use(bodyParser.urlencoded({
@@ -100,6 +132,7 @@ app.get('/webhook', function(req, res) {
     }
 });
 
+//Function that connects the FB Chatbot to NodeJS
 app.post('/webhook', function(req, res) {
     var data = req.body;
     if (data.object == 'page') {
@@ -115,10 +148,9 @@ app.post('/webhook', function(req, res) {
         res.sendStatus(200);
     }
 });
-
-
-
+ 
 app.get('/notifyusers', function(req, res) {
+<<<<<<< HEAD
     /*var data = req.body;
     if (data.object == 'page') {
         data.entry.forEach(function(pageEntry) {
@@ -133,11 +165,17 @@ app.get('/notifyusers', function(req, res) {
         res.sendStatus(200);
     }*/
 
+=======
+  
+>>>>>>> 4e1023f750ac7576ccfe03760c5f8b457c7de8e4
     res.send('Notify Users');
+    console.log("Notify GET");
+    console.log(res);
     res.sendStatus(200);
 });
 
 app.post('/notifyusers', function(req, res) {
+<<<<<<< HEAD
     /*var data = req.body;
     if (data.object == 'page') {
         data.entry.forEach(function(pageEntry) {
@@ -152,51 +190,47 @@ app.post('/notifyusers', function(req, res) {
         res.sendStatus(200);
     }*/
 
+=======
+    
+>>>>>>> 4e1023f750ac7576ccfe03760c5f8b457c7de8e4
     res.send('Notify Users');
+    console.log("app post notify");
     res.sendStatus(200);
 });
 
+app.use('/notifyusers', function (req, res, next) {
+    console.log("USE NOTIFY");
+  next();
+    
+});
 
+console.log("Trying Notify User");
+trigger.init();
+trigger.post();
+/*
+var req = {
+    method: 'GET',
+    url: 'http://192.168.30.210:8082/services/character/test,
+    headers : {
+        'Content-Type' : 'application/json'
+    },
+    data: JSON.stringify({ test: 'test' })
+};
+*/
 
-function handleDisconnect() {
-    con = mysql.createConnection({
-    host: "localhost",
-    user: "root",
-    password: "ideyatech",
-    database: "hrms_db"
-    });
-    // Recreate the connection, since
-    // the old one cannot be reused.
-
-    con.connect(function(err) { // The server is either down
-        if (err) { // or restarting (takes a while sometimes).
-            console.log('error when connecting to db:', err);
-            setTimeout(handleDisconnect, 2000); // We introduce a delay before attempting to reconnect,
-        } // to avoid a hot loop, and to allow our node script to
-    }); // process asynchronous requests in the meantime.
-    // If you're also serving http, display a 503 error.
-    con.on('error', function(err) {
-        console.log('db error', err);
-        if (err.code === 'PROTOCOL_CONNECTION_LOST') { // Connection to the MySQL server is usually
-            handleDisconnect(); // lost due to either server restart, or a
-        } else { // connnection idle timeout (the wait_timeout
-            throw err; // server variable configures this)
-        }
-    });
+xhr = new XMLHttpRequest();
+var url = "http://192.168.30.210:8082/services/character/test"/* + encodeURIComponent(JSON.stringify({"email":"hey@mail.com","password":"101010"}))*/;
+xhr.open("GET", url, true);
+xhr.setRequestHeader("Content-type", "application/json");
+xhr.onreadystatechange = function () { 
+    if (xhr.readyState == 4 && xhr.status == 200) {
+        var json = JSON.parse(xhr.responseText);
+        console.log(json);
+    }
 }
+xhr.send();
 
-function callQuery(query) {
-    con.query(query, function(err, rows) {
-        if (err) /*//throw err;{}*/ {
-            handleDisconnect();
-            callQuery(query);
-        }
-        console.log('Data received from Db:\n');
-        console.log(rows);
 
-        //  con.end();
-    });
-}
 
 function receivedMessage(event) {
     var senderID = event.sender.id;
@@ -216,6 +250,7 @@ function receivedMessage(event) {
         if (response.result.metadata.intentName === "file_leave" && response.result.parameters.hours !== "") {
             isRegistered(senderID, response);
         }
+<<<<<<< HEAD
         if (response.result.metadata.intentName === "register_account" && token !== "") {
            con.query("SELECT fb_id FROM bot_mapping WHERE fb_id = '" + senderID + "';", function(err, rows) {
                if (err) throw err;
@@ -271,6 +306,8 @@ function receivedMessage(event) {
 
            });
         }
+=======
+>>>>>>> 4e1023f750ac7576ccfe03760c5f8b457c7de8e4
     });
 
     request.on('error', function(error) {
@@ -287,105 +324,6 @@ function receivedMessage(event) {
         }
     };
     callSendAPI(messageData);
-}
-
-function isRegistered(user_id, response) {
-    var leave_type = response.result.parameters.leave_type;
-
-    console.log("isRegistered");
-    con.query("SELECT * FROM bot_mapping where fb_id = '" + user_id + "';", function(err, rows) {
-        if (err) throw err;
-
-        console.log('CHECK REGISTER Data received from Db:\n');
-        console.log(rows);
-        console.log("LENGTH: " + rows.length);
-
-        if (rows.length > 0) {
-            console.log("TRUEEEEEEEEEEE");
-            register = true;
-        }
-
-        if (register) {
-            register = false;
-            var dates = response.result.parameters.date_period.split("/");
-            var start_date = dates[0];
-            var end_date = dates[1];
-            console.log("START DATE: " + start_date);
-            console.log("END DATE: " + end_date);
-            console.log("LEAVE TYPE: " + leave_type);
-            console.log("HOURS: " + response.result.parameters.hours);
-            console.log("RECIPIENT: " + user_id);
-            console.log(response);
-
-            con.query("INSERT INTO test (name) VALUES('" + start_date + "');", function(err, rows) {
-                if (err) {
-                    var messageData = {
-                        recipient: {
-                            id: user_id
-                        },
-                        message: {
-                            text: "An error has occured. Please try again later."
-                        }
-                    };
-
-                    callSendAPI(messageData);
-                    throw err;
-                }
-
-                console.log('Data received from Db:\n');
-                console.log(rows);
-                //con.end();
-                if (leave_type === "vacation") {
-                    var messageData = {
-                        recipient: {
-                            id: user_id
-                        },
-                        message: {
-                            text: "Your " + leave_type + " leave from " + start_date + " to " + end_date + " has been filed. :) Enjoy your vacation!"
-                        }
-                    };
-                } else if (leave_type === "sick") {
-                    var messageData = {
-                        recipient: {
-                            id: user_id
-                        },
-                        message: {
-                            text: "Your " + leave_type + " leave from " + start_date + " to " + end_date + " has been filed. :( Get well soon!"
-                        },
-                        quick_replies : {
-
-                              content_type : "text",
-                              title: "Test",
-                              payload: "test"
-
-                        }
-                    };
-                } else {
-                    var messageData = {
-                        recipient: {
-                            id: user_id
-                        },
-                        message: {
-                            text: "Your " + leave_type + " leave from " + start_date + " to " + end_date + " has been filed. :)"
-                        }
-                    };
-                }
-
-                callSendAPI(messageData);
-            });
-        } else {
-            var messageData = {
-                recipient: {
-                    id: user_id
-                },
-                message: {
-                    text: "You haven't registered yet. Please type 'register' to register to this amazing chatbot."
-                }
-            };
-
-            callSendAPI(messageData);
-        }
-    });
 }
 
 /*
@@ -420,10 +358,6 @@ app.listen(app.get('port'), function() {
     console.log('running on port', app.get('port'));
     console.log("The app is now up and running.");
 })*/
-
-
-
-
 
 ////////////////////////////////////////////////////////////////////////////////////////
 /*
