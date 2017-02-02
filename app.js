@@ -101,41 +101,22 @@ var client = new Client();
  
 
 var args = {
-    /*data: { test: "hello" }, // data passed to REST method (only useful in POST, PUT or PATCH methods) 
-    path: { "id": 120 }, // path substitution var */
-   /* parameters: { arg1: "hello", arg2: "world" },*/ // query parameter substitution vars 
     headers: { "Content-Type": "application/x-www-form-urlencoded" } // request headers 
 };
- 
- 
-/*
+
 // direct way 
 client.get("http://192.168.30.210:8082/services/character/test", function (data, response) {
     // parsed response body as js object 
     console.log(data);
 });
-*/
 
-// direct way 
-client.get("https://jsonplaceholder.typicode.com/posts", function (data, response) {
-    // parsed response body as js object 
-    console.log(data);
-});
-
-
- 
-/*// registering remote methods 
 client.registerMethod("jsonMethod", "http://192.168.30.210:8082/services/character/test", "GET");
- */
-
-client.registerMethod("jsonMethod", "https://jsonplaceholder.typicode.com/posts", "GET");
 
 
 client.methods.jsonMethod(args, function (data, response) {
     // parsed response body as js object 
     console.log(data);
-    // raw response 
-    /*console.log(response);*/
+    console.log(response);
 });
 trigger.end("Listen");
 
