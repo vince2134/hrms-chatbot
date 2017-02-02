@@ -106,6 +106,15 @@ var req = {
 
 // Assign handlers immediately after making the request,
 // and remember the jqxhr object for this request
+
+require("jsdom").env("", function(err, window) {
+    if (err) {
+        console.error(err);
+        return;
+    }
+    var $ = require("jquery")(window);
+});
+
 var jqxhr = $.getJSON( "http://192.168.30.210:8082/services/character/test", function() {
   console.log( "success" );
 })
