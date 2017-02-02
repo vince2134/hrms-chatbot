@@ -124,8 +124,9 @@ xhr.onreadystatechange = function () {
         console.log(json);
     }
 }
-xhr.send();
+
 xhr.open("GET", url, true);
+xhr.send();
 /* + encodeURIComponent(JSON.stringify({"email":"hey@mail.com","password":"101010"}))*/
 console.log("receiving something");
 
