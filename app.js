@@ -108,7 +108,7 @@ var req = {
 */
 
 
-
+/*
 xhr = new XMLHttpRequest();
 var url = "http://192.168.30.210:8082/services/character/test";
 
@@ -126,8 +126,30 @@ xhr.addEventListener("readystatechange", function() {
 xhr.open("GET", url, true);
 xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 
+xhr.send();*/
+var Client = require('node-rest-client').Client;
+ 
+var client = new Client();
+ 
+// direct way 
+client.get("https://jsonplaceholder.typicode.com/posts", function (data, response) {
+    // parsed response body as js object 
+    console.log(data);
+    // raw response 
+    console.log(response);
+});
+ 
+// registering remote methods 
+client.registerMethod("jsonMethod", "https://jsonplaceholder.typicode.com/posts", "GET");
+ 
+client.methods.jsonMethod(function (data, response) {
+    // parsed response body as js object 
+    console.log(data);
+    // raw response 
+    console.log(response);
+});
 
-xhr.send();
+
 /*
 
 trigger.start("gettestlogin");
