@@ -123,7 +123,7 @@ xhr.onreadystatechange = function () {
    // if (xhr.readyState == XMLHttpRequest.DONE) {
     {var json = JSON.parse(xhr.responseText);
         console.log("receiving something1");
-        console.log(json);
+        console.log(xhr.responseText);
     }
 }
 xhr.open("GET", url, true);
