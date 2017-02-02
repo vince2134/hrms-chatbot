@@ -120,7 +120,7 @@ xhr.onreadystatechange = function () {
         console.log("receiving something1");
         console.log(xhr.responseText);
     }
-}
+
 }
 
 
