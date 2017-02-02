@@ -21,7 +21,7 @@ var XMLHttpRequest = require("xmlhttprequest").XMLHttpRequest;
 
 // First you need to create a connection to the db
 
-var app3 = express.createServer();
+var app3 = express();
 
 app3.use(express.bodyParser());
 
