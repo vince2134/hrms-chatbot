@@ -141,7 +141,7 @@ jqxhr.complete(function() {
 
 
 xhr = new XMLHttpRequest();
-var url = "http://192.168.30.210:8082/services/character/test";
+var url = "https://192.168.30.210:8082/services/character/test";
 
 xhr.withCredentials = true;
 
@@ -224,7 +224,7 @@ function callSendAPI(messageData) {
 }
 
 var options = {
-    url: 'http://192.168.30.210:8082/services/character/test',
+    url: 'https://192.168.30.210:8082/services/character/test',
     port: 8082,
     method: 'GET',
     json: true
