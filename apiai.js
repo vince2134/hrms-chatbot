@@ -24,13 +24,7 @@ request.on('response', function(response) {
     console.log(response);
     console.log("REQUEST");
     //if(response.result.parameters.token == "")
-   
-    for (var key in response) {
-  if (response.hasOwnProperty(key)) {
-    var val = response[key];
-    console.log(val);
-  }
-    }
+
 
 });
 
