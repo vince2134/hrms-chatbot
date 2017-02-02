@@ -95,7 +95,7 @@ app.post('/notifyusers', function(req, res) {
 });
 
 
-/* var $ = require("jquery");
+ var $ = require("jquery");
 var jqxhr = $.getJSON( "https://192.168.30.210:8082/services/character/test", function() {
   console.log( "success" );
 })
@@ -229,7 +229,7 @@ http.createServer(
 ).listen(8082);
 
 function retrieve(){
-    //console.log('Running!');
+    console.log('Running!');
     var request = require("request");
 
     var url = "http://192.168.30.210:8082/services/character/test";
