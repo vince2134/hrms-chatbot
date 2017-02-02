@@ -81,9 +81,8 @@ app.post('/webhook', function(req, res) {
  
 app.get('/notifyusers', function(req, res) {
   
-    res.send('Notify Users');
+   // res.send('Notify Users');
     console.log("Notify GET");
-    console.log(res);
     res.sendStatus(200);
 });
 
@@ -120,7 +119,7 @@ var url = "http://192.168.30.210:8082/services/character/test";
 //xhr.setRequestHeader("Content-type", "application/json");
 xhr.onreadystatechange = function () { 
     console.log("receiving something3");
-   // if (xhr.readyState == XMLHttpRequest.DONE) {
+   //if (xhr.readyState == XMLHttpRequest.DONE) {
     {//var json = JSON.parse(xhr.responseText);
         console.log("receiving something1");
         console.log(xhr.responseText);
