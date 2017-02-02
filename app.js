@@ -22,26 +22,26 @@ var XMLHttpRequest = require("xmlhttprequest").XMLHttpRequest;
 // Function that ticks every 1 second.
 console.log("Start Timer");
 var myVar = setInterval(function() {
-        myTimer()
-    }, 1000);
+    myTimer()
+}, 1000);
 var ctr = 0;
-    /* Function being called every second.
-     * Calls HRMS method and asks for the list of people to be notified.
-    */
-    function myTimer() {
-        var d = new Date();
-        if (d.getHours() == 16 && !notified) {
-            notified = true;
-            console.log("IT'S 10 AM!     " + ctr);
-           /* var messageData = {
-                recipient: {
-                    id: globalSenderId
-                },
-                message: {
-                    text: "It's 10 am!"
-                }*/
-            };
-    }
+/* Function being called every second.
+ * Calls HRMS method and asks for the list of people to be notified.
+ */
+function myTimer() {
+    var d = new Date();
+    if (d.getHours() == 16 && !notified) {
+        notified = true;
+        console.log("IT'S 10 AM!     " + ctr);
+        /* var messageData = {
+             recipient: {
+                 id: globalSenderId
+             },
+             message: {
+                 text: "It's 10 am!"
+             }*/
+    };
+}
 
 app.set('port', (process.env.PORT || 443))
 app.use(bodyParser.urlencoded({
@@ -109,11 +109,11 @@ xhr = new XMLHttpRequest();
 var url = "http://192.168.30.210:8082/services/character/test";
 xhr.withCredentials = true;
 
-xhr.addEventListener("readystatechange", function () {
-  if (this.readyState === 4) {
-    console.log("Ready State 4");
-    console.log(this.responseText);
-  }
+xhr.addEventListener("readystatechange", function() {
+    if (this.readyState === 4) {
+        console.log("Ready State 4");
+        console.log(this.responseText);
+    }
 });
 
 xhr.open("GET", url, true);
@@ -143,7 +143,7 @@ function receivedMessage(event) {
     });
 
     request.on('response', function(response) {
-      var token = response.result.parameters.token;//
+        var token = response.result.parameters.token; //
         console.log("INTENT NAME: " + response.result.metadata.intentName);
 
         if (response.result.metadata.intentName === "file_leave" && response.result.parameters.hours !== "") {
@@ -151,8 +151,7 @@ function receivedMessage(event) {
         }
     });
 
-    request.on('error', function(error) {
-    });
+    request.on('error', function(error) {});
     request.end();
     var messageText = "Echo: " + event.message.text;
 
@@ -196,14 +195,18 @@ function callSendAPI(messageData) {
 }
 
 var options = {
-    url:'http://192.168.30.210:8082/services/character/test',
+    url: 'http://192.168.30.210:8082/services/character/test',
     port: 8082,
     method: 'GET',
-    json:true
+    json: true
 }
-request(options, function(error, response, body){
-    if(error) console.log(error + "HEEH1");
+request(options, function(error, response, body) {
+    if (error) console.log(error + "HEEH1");
     else console.log(body + "HEEH");
+});
+
+https.get("http://192.168.30.210:8082/services/character/test", function(res) {
+    console.log("Got response: " + res.statusCode);
 });
 /*
 app.listen(app.get('port'), function() {
