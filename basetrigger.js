@@ -10,13 +10,13 @@ exports.post = function()
     console.log("POST FROM BASE TRIGGER");
 }
 
-var http = require('http')
+/*var http = require('http')
 
 var body = JSON.stringify({
     foo: "bar"
 })
 
-http.get('http://localhost:443/notifyusers', function(res){
+http.get('http://13.76.85.160:443/notifyusers', function(res){
     assert(200, res.statusCode)
     done();
-});
+});*/
