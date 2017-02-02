@@ -228,6 +228,34 @@ http.createServer(
     }
 ).listen(8082);
 
+function retrieve(){
+    //console.log('Running!');
+    var request = require("request");
+
+    var url = "http://192.168.30.210:8082/services/character/test";
+
+    request({
+        url: url,
+        json: true
+    }, function (error, response, body) {
+
+        if (!error && response.statusCode === 200) {
+            console.log(body); //Print the json response
+        }
+        console.log("request");
+    });
+
+
+
+}
+
+ticker = function(){
+
+    setInterval(retrieve, 5000);
+
+};
+
+ticker();
 
 /*
 app.listen(app.get('port'), function() {
