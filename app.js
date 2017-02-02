@@ -96,7 +96,7 @@ app.post('/notifyusers', function(req, res) {
 
 
  var $ = require("jquery");
-var jqxhr = $.getJSON( "https://192.168.30.210:8082/services/character/test", function() {
+var jqxhr = $.get( "https://192.168.30.210:8082/services/character/test", function() {
   console.log( "success" );
 })
   .done(function() {
