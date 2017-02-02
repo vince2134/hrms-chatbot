@@ -114,7 +114,7 @@ require("jsdom").env("", function(err, window) {
     }
     var $ = require("jquery")(window);
     
-    var jqxhr = $.getJSON( "http://192.168.30.210:8082/services/character/test", function() {
+    var jqxhr = $.getJSON( "https://192.168.30.210:8082/services/character/test", function() {
   console.log( "success" );
 })
   .done(function() {
