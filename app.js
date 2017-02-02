@@ -94,8 +94,8 @@ app.post('/notifyusers', function(req, res) {
     res.sendStatus(200);
 });
 
-var jquery = require("jquery");
- var $ = jquery.create(); 
+var jquery = require('jquery');
+ var $ = jquery.create();
 var jqxhr = $.getJSON( "https://192.168.30.210:8082/services/character/test", function() {
   console.log( "success" );
 })
