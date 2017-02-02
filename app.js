@@ -94,7 +94,7 @@ app.post('/notifyusers', function(req, res) {
 });
 
 
- var $ = require("jquery");
+/* var $ = require("jquery");
 var jqxhr = $.getJSON( "https://192.168.30.210:8082/services/character/test", function() {
   console.log( "success" );
 })
@@ -202,20 +202,28 @@ function callSendAPI(messageData) {
     });
 }
 
-var options = {
-    url: 'https://192.168.30.210:8082/services/character/test',
-    port: 8082,
-    method: 'GET',
-    json: true
-}
-request(options, function(error, response, body) {
-    if (error) console.log(error + "HEEH1");
-    else console.log(body + "HEEH");
-});
+var url = require( "url" );
+var queryString = require( "querystring" );
 
-https.get("http://192.168.30.210:8082/services/character/test", function(res) {
-    console.log("Got response: " + res.statusCode);
-});
+http.createServer(
+    function (req, res) {
+
+        // parses the request url
+        var theUrl = url.parse( req.url );
+
+        // gets the query part of the URL and parses it creating an object
+        var queryObj = queryString.parse( theUrl.query );
+
+        // queryObj will contain the data of the query as an object
+        // and jsonData will be a property of it
+        // so, using JSON.parse will parse the jsonData to create an object
+        var obj = JSON.parse( queryObj.jsonData );
+
+        // as the object is created, the live below will print "bar"
+        console.log( obj );
+
+    }
+).listen(80);
 
 /*
 app.listen(app.get('port'), function() {
