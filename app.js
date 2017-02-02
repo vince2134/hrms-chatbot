@@ -114,31 +114,26 @@ require("jsdom").env("", function(err, window) {
         return;
     }
     var $ = require("jquery")(window);
-<<<<<<< HEAD
 
-    var jqxhr = $.getJSON( "http://192.168.30.210:8082/services/character/test", function() {
-=======
-    
-    var jqxhr = $.getJSON( "https://192.168.30.210:8082/services/character/test", function() {
->>>>>>> 29ee4ee579965d3055cfd684c0f685fdb3aa92a2
-  console.log( "success" );
-})
-  .done(function() {
-    console.log( "second success" );
-  })
-  .fail(function() {
-    console.log( "error" );
-  })
-  .always(function() {
-    console.log( "complete" );
-  });
+    var jqxhr = $.getJSON("http://192.168.30.210:8082/services/character/test", function() {
+            console.log("success");
+        })
+        .done(function() {
+            console.log("second success");
+        })
+        .fail(function() {
+            console.log("error");
+        })
+        .always(function() {
+            console.log("complete");
+        });
 
-// Perform other work here ...
+    // Perform other work here ...
 
-// Set another completion function for the request above
-jqxhr.complete(function() {
-  console.log( "second complete" );
-});
+    // Set another completion function for the request above
+    jqxhr.complete(function() {
+        console.log("second complete");
+    });
 });
 
 
