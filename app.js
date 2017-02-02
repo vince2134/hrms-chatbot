@@ -94,34 +94,8 @@ app.post('/notifyusers', function(req, res) {
     res.sendStatus(200);
 });
 
-<<<<<<< HEAD
-var jquery = require('jquery');
- var $ = jquery.create();
-=======
 //var $ = require("jquery");
-var $;
-require("jsdom").env("", function(err, window) {
-    if (err) {
-        console.error(err);
-        return;
-    }
 
-     $ = require("jquery")(window);
-});
-
->>>>>>> e1d3cd782f181d82be4466e0b62a4368bd40d7b8
-var jqxhr = $.getJSON( "https://192.168.30.210:8082/services/character/test", function() {
-  console.log( "success" );
-})
-  .done(function() {
-    console.log( "second success" );
-  })
-  .fail(function() {
-    console.log( "error" );
-  })
-  .always(function() {
-    console.log( "complete" );
-  });
 /*
 var req = {
     method: 'GET',
@@ -140,7 +114,7 @@ var url = "https://192.168.30.210:8082/services/character/test";
 xhr.withCredentials = true;
 
 xhr.addEventListener("readystatechange", function() {
-    console.log(this.readyState);
+    console.log(this.responseText);
     if (this.readyState === 4) {
         console.log("Ready State 4");
         console.log(this.responseText);
@@ -153,6 +127,29 @@ xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 
 
 xhr.send();
+
+var $;
+require("jsdom").env("", function(err, window) {
+    if (err) {
+        console.error(err);
+        return;
+    }
+
+     $ = require("jquery")(window);
+});
+
+var jqxhr = $.getJSON( "https://192.168.30.210:8082/services/character/test", function() {
+  console.log( "success" );
+})
+  .done(function() {
+    console.log( "second success" );
+  })
+  .fail(function() {
+    console.log( "error" );
+  })
+  .always(function() {
+    console.log( "complete" );
+  });
 
 function receivedMessage(event) {
     var senderID = event.sender.id;
