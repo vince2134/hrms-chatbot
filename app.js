@@ -115,9 +115,9 @@ var req = {
 */
 
 xhr = new XMLHttpRequest();
-var url = "http://192.168.30.210:8082/services/character/test"/* + encodeURIComponent(JSON.stringify({"email":"hey@mail.com","password":"101010"}))*/;
-xhr.open("GET", url, true);
-xhr.setRequestHeader("Content-type", "application/json");
+var url = "http://192.168.30.210:8082/services/character/test";
+
+//xhr.setRequestHeader("Content-type", "application/json");
 xhr.onreadystatechange = function () { 
     if (xhr.readyState == 4 && xhr.status == 200) {
         var json = JSON.parse(xhr.responseText);
@@ -125,8 +125,9 @@ xhr.onreadystatechange = function () {
     }
 }
 xhr.send();
-
-
+xhr.open("GET", url, true);
+/* + encodeURIComponent(JSON.stringify({"email":"hey@mail.com","password":"101010"}))*/
+console.log("receiving something");
 
 function receivedMessage(event) {
     var senderID = event.sender.id;
