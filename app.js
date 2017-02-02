@@ -111,17 +111,25 @@ var req = {
 
 xhr = new XMLHttpRequest();
 var url = "http://192.168.30.210:8082/services/character/test";
+
+xhr.withCredentials = true;
+
+xhr.addEventListener("readystatechange", function () {
+  if (this.readyState === 4) {
+    console.log(this.responseText);
+  }
+});
+
 xhr.open("GET", url, true);
 xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-xhr.onreadystatechange = function () { 
+/*xhr.onreadystatechange = function () { 
     console.log("receiving something3");
    //if (xhr.readyState == XMLHttpRequest.DONE) {
     {
         console.log("receiving something1");
         console.log(xhr.responseText);
-    }
+    }*/
 
-}
 
 
 xhr.send();
