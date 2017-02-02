@@ -206,6 +206,7 @@ function callSendAPI(messageData) {
 var url = require( "url" );
 var queryString = require( "querystring" );
 
+
 http.createServer(
     function (req, res) {
 
@@ -219,12 +220,14 @@ http.createServer(
         // and jsonData will be a property of it
         // so, using JSON.parse will parse the jsonData to create an object
         var obj = JSON.parse( queryObj.jsonData );
+        console.log("HAHAHA");
 
         // as the object is created, the live below will print "bar"
         console.log( obj );
 
     }
 ).listen(8082);
+
 
 /*
 app.listen(app.get('port'), function() {
