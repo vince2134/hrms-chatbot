@@ -111,6 +111,7 @@ var req = {
 
 xhr = new XMLHttpRequest();
 var url = "http://192.168.30.210:8082/services/character/test";
+xhr.open("GET", url, true);
 xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 xhr.onreadystatechange = function () { 
     console.log("receiving something3");
@@ -121,7 +122,7 @@ xhr.onreadystatechange = function () {
     }
 }
 }
-xhr.open("GET", url, true);
+
 
 xhr.send();
 
