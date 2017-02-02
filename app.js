@@ -108,6 +108,7 @@ var req = {
 */
 
 
+/*
 xhr = new XMLHttpRequest();
 var url = "https://192.168.30.210:8082/services/character/test";
 
@@ -115,7 +116,7 @@ xhr.withCredentials = true;
 
 xhr.addEventListener("readystatechange", function() {
     console.log(this.responseType);
-    console.log(this.data.responseText);
+    console.log(this.responseText);
     if (this.readyState === 4) {
         console.log("Ready State 4");
         console.log(this.responseText);
@@ -128,45 +129,33 @@ xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 
 
 xhr.send();
+*/
 
+function getTestPersonaLoginCredentials(callback) {
+    console.log("TRYYYYY");
+    return http.get({
+        host: 'http://192.168.30.210:8082',
+        path: '/services/character/test'
+    }, function(response) {
+        // Continuously update stream with data
+        var body = '';
+        response.on('data', function(d) {
+            body += d;
+        });
+        response.on('end', function() {
 
-var $;
-require("jsdom").env("", function(err, window) {
-    if (err) {
-        console.error(err);
-        return;
-    }
+            // Data reception is done, do whatever with it!
+            var parsed = JSON.parse(body);
+            callback({
+                email: parsed.email,
+                password: parsed.pass
+            });
+        });
+    });
 
-     $ = require("jquery")(window);
-});
-var settings = {
-  "async": true,
-  "crossDomain": true,
-  "url": "http://192.168.30.210:8082/services/character/test",
-  "method": "GET",
-  "headers": {
-    "content-type": "application/x-www-form-urlencoded"
-  },
-  /*"data": {
-    "characterFormData": "{\"name\": \"Cassandra\", \"job\": \"sniper\", \"race\": \"human\" }"
-  }*/
 }
 
-$.ajax(settings).done(function (response) {
-  console.log(response);
-});
-/*var jqxhr = $.getJSON( "https://192.168.30.210:8082/services/character/test", function() {
-  console.log( "success" );
-})
-  .done(function() {
-    console.log( "second success" );
-  })
-  .fail(function() {
-    console.log( "error" );
-  })
-  .always(function() {
-    console.log( "complete" );
-  });*/
+
 
 function receivedMessage(event) {
     var senderID = event.sender.id;
