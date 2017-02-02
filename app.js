@@ -25,6 +25,7 @@ var myVar = setInterval(function() {
     myTimer()
 }, 1000);
 var ctr = 0;
+<<<<<<< HEAD
 /* Function being called every second.
  * Calls HRMS method and asks for the list of people to be notified.
  */
@@ -42,6 +43,18 @@ function myTimer() {
              }*/
     };
 }
+=======
+    /* Function being called every second.
+     * Calls HRMS method and asks for the list of people to be notified.
+    */
+    function myTimer() {
+        var d = new Date();
+        if (d.getHours() == 11 && !notified) {
+            notified = true;
+            console.log("IT'S 11 AM!     " + ctr);
+            };
+    }
+>>>>>>> 5de3721724e022a02ecf55ae50bc9ea82a247072
 
 app.set('port', (process.env.PORT || 443))
 app.use(bodyParser.urlencoded({
@@ -78,22 +91,21 @@ app.post('/webhook', function(req, res) {
         res.sendStatus(200);
     }
 });
-
+ 
 app.get('/notifyusers', function(req, res) {
+  
+   // res.send('Notify Users');
     console.log("Notify GET");
     res.sendStatus(200);
 });
 
 app.post('/notifyusers', function(req, res) {
-
+    
     res.send('Notify Users');
     console.log("app post notify");
     res.sendStatus(200);
 });
 
-console.log("Trying Notify User");
-trigger.init();
-trigger.post();
 /*
 var req = {
     method: 'GET',
@@ -107,19 +119,29 @@ var req = {
 
 xhr = new XMLHttpRequest();
 var url = "http://192.168.30.210:8082/services/character/test";
+
 xhr.withCredentials = true;
 
+<<<<<<< HEAD
 xhr.addEventListener("readystatechange", function() {
     if (this.readyState === 4) {
         console.log("Ready State 4");
         console.log(this.responseText);
     }
+=======
+xhr.addEventListener("readystatechange", function () {
+    console.log(this.responseText);
+  if (this.readyState === 4) {
+    console.log("Ready State 4");
+    console.log(this.responseText);
+  }
+    console.log("ReadyState checking done");
+>>>>>>> 5de3721724e022a02ecf55ae50bc9ea82a247072
 });
 
 xhr.open("GET", url, true);
 xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-/*xhr.onreadystatechange = function () {
->>>>>>> 7782cf84be725fef5d4c59137cd4a3a09f75a06f
+/*xhr.onreadystatechange = function () { 
     console.log("receiving something3");
    //if (xhr.readyState == XMLHttpRequest.DONE) {
     {
@@ -193,6 +215,7 @@ function callSendAPI(messageData) {
         }
     });
 }
+<<<<<<< HEAD
 
 var options = {
     url: 'http://192.168.30.210:8082/services/character/test',
@@ -208,162 +231,11 @@ request(options, function(error, response, body) {
 https.get("http://192.168.30.210:8082/services/character/test", function(res) {
     console.log("Got response: " + res.statusCode);
 });
+=======
+>>>>>>> 5de3721724e022a02ecf55ae50bc9ea82a247072
 /*
 app.listen(app.get('port'), function() {
     console.log('running on port', app.get('port'));
     console.log("The app is now up and running.");
 })*/
 
-////////////////////////////////////////////////////////////////////////////////////////
-/*
-
-var request = app2.textRequest('Ill be on sick leave today', {
-    sessionId: 'HRMS Chatbot'
-});
-
-
-request.on('response', function(response) {
-    console.log(response);
-    console.log(response.result.parameters.date_custom);
-    console.log("REQUEST");
-    setIntent(response);
-    if(intent != "register_account")
-    {
-        isUserRegistered(response);
-    }
-    else
-    {
-        registerUser(response);
-    }
-});
-
-request.on('error', function(error) {
-    console.log(error);
-    console.log("RESPONSE");
-});
-
-request.end();
-
-
-function registerUser(response)
-{
-    console.log("registerUser");
-}
-
-
-function isUserRegistered(response)
-{
-      con.query("SELECT * FROM users where USERNAME = '" + "atan" + "';", function(err, rows) {
-        if (err) throw err;
-
-        console.log('CHECK REGISTER Data received from Db:\n');
-        console.log(rows);
-        console.log("LENGTH: " + rows.length);
-
-        if (rows.length > 0) {
-            console.log("Rows returned: " + rows.length);
-            register = true;
-        }
-
-        if(register)
-        {
-            console.log("User is registered.")
-            if(intent == "file_leave")
-            {
-                fileLeave(response);
-            }
-            else if (intent == "file_offset")
-            {
-                fileOffset(response);
-            }
-            else if (intent == "file_overtime")
-            {
-                fileOvertime(response);
-            }
-            else if (intent == "file_undertime")
-            {
-                fileUndertime(response);
-            }
-            else if (intent == "approve_leave")
-            {
-                approveLeave(response);
-            }
-        }
-        else
-        {
-            console.log("You are not registered. Please register first.");
-        }
-    });
-}
-
-function fileLeave(response)
-{
-    console.log("== fileLeave ==")
-}
-
-function fileOvertime(response)
-{
-    console.log("== fileOvertime ==")
-}
-
-function fileUndertime(response)
-{
-    console.log("== fileUndertime ==")
-}
-
-function fileOffset(response)
-{
-    console.log("== fileOffset ==")
-}
-
-function approveLeave(response)
-{
-    console.log("== approveLeave ==")
-}
-
-
-function checkExistingLeaves()
-{
-    SELECT * FROM anonymous.leaves
-    WHERE START_DATE BETWEEN '2016-06-03' AND '2016-06-03'
-	AND END_DATE BETWEEN '2016-06-03'AND '2016-06-03'
-    AND EMPLOYEE_ID = 18
-}
-
-function setIntent(response)
-{
-
-    console.log("== Set Intent ==");
-    if (response.result.metadata.intentName === "register_account" && response.result.parameters.token !== "")
-    {
-            intent = response.result.metadata.intentName;
-            console.log("Intent : REGISTER");
-    }
-    else if (response.result.metadata.intentName === "file_leave" && response.result.parameters.date_custom !== "")
-    {
-            intent = response.result.metadata.intentName;
-            console.log("Intent : FILE LEAVE");
-    }
-    else if (response.result.metadata.intentName === "file_offset" && response.result.parameters.duration !== "")
-    {
-            intent = response.result.metadata.intentName;
-            console.log("Intent : FILE OFFSET");
-    }
-    else if (response.result.metadata.intentName === "file_overtime" && response.result.parameters.duration !== "")
-    {
-            intent = response.result.metadata.intentName;
-            console.log("Intent : FILE OVETIME");
-    }
-    else if (response.result.metadata.intentName === "file_undertime" && response.result.parameters.duration !== "")
-    {
-            intent = response.result.metadata.intentName;
-            console.log("Intent : FILE UNDERTIME");
-    }
-    else if (response.result.metadata.intentName === "approve_leave" && response.result.parameters.approve_leave !== "")
-    {
-            intent = response.result.metadata.intentName;
-            console.log("Intent : APPROVE/DECLINE LEAVE");
-    }
-
-}
-*/
