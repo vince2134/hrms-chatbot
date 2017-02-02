@@ -1,6 +1,6 @@
 exports.answer = 42;
 
-exports.start = function()
+exports.start = function(funcname)
 {
     console.log("Start of " + funcname);
 }
