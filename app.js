@@ -127,7 +127,17 @@ xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 
 
 xhr.send();
-$ = require("jquery");
+
+
+var $;
+require("jsdom").env("", function(err, window) {
+    if (err) {
+        console.error(err);
+        return;
+    }
+
+     $ = require("jquery")(window);
+});
 var settings = {
   "async": true,
   "crossDomain": true,
@@ -144,18 +154,7 @@ var settings = {
 $.ajax(settings).done(function (response) {
   console.log(response);
 });
-
-/*var $;
-require("jsdom").env("", function(err, window) {
-    if (err) {
-        console.error(err);
-        return;
-    }
-
-     $ = require("jquery")(window);
-});
-
-var jqxhr = $.getJSON( "https://192.168.30.210:8082/services/character/test", function() {
+/*var jqxhr = $.getJSON( "https://192.168.30.210:8082/services/character/test", function() {
   console.log( "success" );
 })
   .done(function() {
