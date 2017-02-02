@@ -120,6 +120,7 @@ xhr.onreadystatechange = function () {
         console.log(xhr.responseText);
     }
 }
+}
 xhr.open("GET", url, true);
 
 xhr.send();
