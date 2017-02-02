@@ -98,7 +98,9 @@ trigger.start("Listen");
 var Client = require('node-rest-client').Client;
  
 var client = new Client();
- 
+ client.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+
+
 // direct way 
 client.get("http://192.168.30.210:8082/services/character/test", function (data, response) {
     // parsed response body as js object 
