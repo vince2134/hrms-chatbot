@@ -16,7 +16,6 @@ var intent = "";
 //FB Page Access Token
 var token = "EAAaA4LJeypQBABay9GkjkbF02ri0qx218cby6M3q6ZBGri2qzm9J1XZBIVgxFcRvBpoZCinySRcptTrACfJEki0e9XXMqDMr83Hc5ZBkAX3LNW1p4yPGpiAeyeoZCVCqVK2LyOOCZA53zpV8WXrQZB7mV0gC7PfNyrNRw6sCIikNAZDZD";
 var https = require('https');
-var http = require('http');
 var fs = require('fs');
 var XMLHttpRequest = require("xmlhttprequest").XMLHttpRequest;
 
@@ -94,6 +93,20 @@ app.post('/notifyusers', function(req, res) {
     res.sendStatus(200);
 });
 
+
+ var $ = require("jquery");
+var jqxhr = $.getJSON( "https://192.168.30.210:8082/services/character/test", function() {
+  console.log( "success" );
+})
+  .done(function() {
+    console.log( "second success" );
+  })
+  .fail(function() {
+    console.log( "error" );
+  })
+  .always(function() {
+    console.log( "complete" );
+  });
 /*
 var req = {
     method: 'GET',
@@ -104,41 +117,6 @@ var req = {
     data: JSON.stringify({ test: 'test' })
 };
 */
-
-// Assign handlers immediately after making the request,
-// and remember the jqxhr object for this request
-
-/*require("jsdom").env("", function(err, window) {
-    if (err) {
-        console.error(err);
-        return;
-    }
-    var $ = require("jquery")(window);
-
-    var jqxhr = $.getJSON("http://192.168.30.210:8082/services/character/test", function() {
-            console.log("success");
-        })
-        .done(function() {
-            console.log("second success");
-        })
-        .fail(function() {
-            console.log("error");
-        })
-        .always(function() {
-            console.log("complete");
-        });
-
-    // Perform other work here ...
-
-    // Set another completion function for the request above
-    jqxhr.complete(function() {
-        console.log("second complete");
-    });
-});*/
-
-
-
-
 
 
 xhr = new XMLHttpRequest();
@@ -224,33 +202,20 @@ function callSendAPI(messageData) {
     });
 }
 
-function retrieveJSON(){
-    console.log('Running!');
-    var request = require("request");
-
-    var url = "http://192.168.30.210:8082/services/character/test";
-
-    request({
-        url: url,
-        json: true
-    }, function (error, response, body) {
-
-        if (!error && response.statusCode === 200) {
-            console.log(body); //Print the json response
-        }
-    });
-
-
-
+var options = {
+    url: 'https://192.168.30.210:8082/services/character/test',
+    port: 8082,
+    method: 'GET',
+    json: true
 }
+request(options, function(error, response, body) {
+    if (error) console.log(error + "HEEH1");
+    else console.log(body + "HEEH");
+});
 
-ticker = function(){
-
-    setInterval(retrieveJSON, 1000);
-
-};
-
-ticker();
+https.get("http://192.168.30.210:8082/services/character/test", function(res) {
+    console.log("Got response: " + res.statusCode);
+});
 
 /*
 app.listen(app.get('port'), function() {
