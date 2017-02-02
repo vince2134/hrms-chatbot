@@ -91,42 +91,10 @@ app.post('/notifyusers', function(req, res) {
 
     res.send('Notify Users');
     console.log("app post notify");
-    res.sendStatus(200);
+    res.sendStatus(200);    
 });
 
-//var $ = require("jquery");
-
-/*
-var req = {
-    method: 'GET',
-    url: 'http://192.168.30.210:8082/services/character/test,
-    headers : {
-        'Content-Type' : 'application/json'
-    },
-    data: JSON.stringify({ test: 'test' })
-};
-*/
-
-
-/*
-xhr = new XMLHttpRequest();
-var url = "http://192.168.30.210:8082/services/character/test";
-
-xhr.withCredentials = true;
-
-xhr.addEventListener("readystatechange", function() {
-    console.log(this.responseType);
-    if (this.readyState === 4) {
-        console.log("Ready State 4");
-        console.log(this.responseText);
-    }
-    console.log("ReadyState checking done");
-});
-
-xhr.open("GET", url, true);
-xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-
-xhr.send();*/
+trigger.start("Listen");
 var Client = require('node-rest-client').Client;
  
 var client = new Client();
@@ -135,8 +103,6 @@ var client = new Client();
 client.get("https://jsonplaceholder.typicode.com/posts", function (data, response) {
     // parsed response body as js object 
     console.log(data);
-    // raw response 
-    //console.log(response);
 });
  
 // registering remote methods 
@@ -145,39 +111,8 @@ client.registerMethod("jsonMethod", "https://jsonplaceholder.typicode.com/posts"
 client.methods.jsonMethod(function (data, response) {
     // parsed response body as js object 
     console.log(data);
-    // raw response 
-    //console.log(response);
 });
-
-
-/*
-
-trigger.start("gettestlogin");
-function getTestPersonaLoginCredentials(callback) {
-    console.log("TRYYYYY");
-    return http.get({
-        host: 'https://jsonplaceholder.typicode.com',
-        path: '/posts'
-    }, function(response) {
-        // Continuously update stream with data
-        var body = '';
-        response.on('data', function(d) {
-            body += d;
-        });
-        response.on('end', function() {
-
-            // Data reception is done, do whatever with it!
-            var parsed = JSON.parse(body);
-            callback({
-                email: parsed.email,
-                password: parsed.pass
-            });
-        });
-    });
-
-}
-trigger.end("gettestlogin");
-*/
+trigger.end("Listen");
 
 
 function receivedMessage(event) {
@@ -192,7 +127,7 @@ function receivedMessage(event) {
     });
 
     request.on('response', function(response) {
-        var token = response.result.parameters.token; //
+        var token = response.result.parameters.token; 
         console.log("INTENT NAME: " + response.result.metadata.intentName);
 
         if (response.result.metadata.intentName === "file_leave" && response.result.parameters.hours !== "") {
@@ -242,32 +177,6 @@ function callSendAPI(messageData) {
         }
     });
 }
-
-var url = require( "url" );
-var queryString = require( "querystring" );
-
-
-http.createServer(
-    function (req, res) {
-
-        // parses the request url
-        var theUrl = url.parse( req.url );
-
-        // gets the query part of the URL and parses it creating an object
-        var queryObj = queryString.parse( theUrl.query );
-
-        // queryObj will contain the data of the query as an object
-        // and jsonData will be a property of it
-        // so, using JSON.parse will parse the jsonData to create an object
-        var obj = JSON.parse( queryObj.jsonData );
-        console.log("HAHAHA");
-
-        // as the object is created, the live below will print "bar"
-        console.log( obj );
-
-    }
-).listen(8082);
-
 
 /*
 app.listen(app.get('port'), function() {
