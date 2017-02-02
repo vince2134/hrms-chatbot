@@ -115,7 +115,7 @@ xhr.open("GET", url, true);
 xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 xhr.onreadystatechange = function () { 
     console.log("receiving something3");
-   if (xhr.readyState == XMLHttpRequest.DONE) {
+   //if (xhr.readyState == XMLHttpRequest.DONE) {
     {
         console.log("receiving something1");
         console.log(xhr.responseText);
