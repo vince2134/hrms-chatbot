@@ -135,8 +135,10 @@ request.get({
     });
 
 var traverseList = function (list) {
-    for (var key in list) {
-        console.log(list.name);
+    //for (var key in list) 
+    {
+        console.log(list);
+        trigger.end("TRAVERSE LIST");
     }
 }
 
