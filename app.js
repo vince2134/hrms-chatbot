@@ -88,6 +88,7 @@ app.post('/notifyusers', function (req, res) {
 
 var request = http.get("http://192.168.30.210:8080/opentides/request-password-reset/test", function(res){
     res.on('data', function (chunk) {
+        trigger.start("httpget");
         console.log(chunk.toString('utf8'))
       });
 })
