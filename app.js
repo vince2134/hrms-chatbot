@@ -111,6 +111,7 @@ callback = function (response) {
 }
 
 http.request(options, callback).end();*/
+/*
 
 var http = require('http');
 
@@ -120,6 +121,7 @@ var request = http.get("http://192.168.30.210:8080/opentides/request-password-re
       });
 })
 
+*/
 
 //var request = http.get("http://192.168.30.210:8080/opentides/ajax/leave-history", function(res){
 // employeeId = 80
@@ -132,18 +134,18 @@ var request = http.get("http://192.168.30.210:8080/opentides/request-password-re
       });
 })*/
 
-/*var request = require("request");
+var request = require("request");
 request.get({
         url: "http://192.168.30.210:8080/opentides/request-password-reset/test",
-        qs: {
+       /* qs: {
             employeeId: 80
-        }
+        }*/
     },
     function (error, response, body) {
         console.log(body);
 
         //traverseList(body);
-    });*/
+    });
 
 var traverseList = function (list) {
     trigger.start("TRAVERSE LIST");
