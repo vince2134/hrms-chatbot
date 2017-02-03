@@ -32,7 +32,7 @@ function myTimer() {
     var d = new Date();
     if (d.getHours() == 11 && !notified) {
         notified = true;
-        console.log("IT'S 10 AM!     " + ctr);
+        console.log("IT'S 10 AM!     " );
     };
 }
 
@@ -88,7 +88,7 @@ app.post('/notifyusers', function (req, res) {
 
 //http://192.168.30.210:8080/opentides/request-password-reset/test
 //The url we want is: 'www.random.org/integers/?num=1&min=1&max=10&col=1&base=10&format=plain&rnd=new'
-var options = {
+/*var options = {
     host: '192.168.30.210',
     port: 8080,
     path: '/opentides/request-password-reset/test',
@@ -110,7 +110,16 @@ callback = function (response) {
     });
 }
 
-http.request(options, callback).end();
+http.request(options, callback).end();*/
+
+var http = require('http');
+
+var request = http.get("http://192.168.30.210:8080/opentides/request-password-reset/test", function(res){
+    res.on('data', function (chunk) {
+        console.log(chunk.toString('utf8'))
+      });
+})
+
 
 //var request = http.get("http://192.168.30.210:8080/opentides/ajax/leave-history", function(res){
 // employeeId = 80
