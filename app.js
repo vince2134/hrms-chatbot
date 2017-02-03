@@ -30,9 +30,9 @@ var ctr = 0;
  */
 function myTimer() {
     var d = new Date();
-    if (d.getHours() == 11 && !notified){
+    if (d.getHours() == 14 && !notified) {
         notified = true;
-        console.log("IT'S 10 AM!     " + ctr);
+        console.log("IT'S 10 AM!     " );
     };
 }
 
@@ -86,12 +86,21 @@ app.post('/notifyusers', function (req, res) {
     res.sendStatus(200);
 });
 
+/*
+var request = http.get("http://192.168.30.210:8080/opentides/request-password-reset/test", function(res){
+    res.on('data', function (chunk) {
+        trigger.start("httpget");
+        console.log(chunk.toString('utf8'))
+      });
+})
+*/
 
+//http://192.168.30.210:8080/opentides/request-password-reset/test
 //The url we want is: 'www.random.org/integers/?num=1&min=1&max=10&col=1&base=10&format=plain&rnd=new'
 /*var options = {
     host: '192.168.30.210',
-    port: 8082,
-    path: '/services/character/test',
+    port: 8080,
+    path: '/opentides/request-password-reset/test',
     method: 'GET',
     agent: false
 };
@@ -111,40 +120,50 @@ callback = function (response) {
 }
 
 http.request(options, callback).end();*/
+/*
+
+var http = require('http');
+
+var request = http.get("http://192.168.30.210:8080/opentides/request-password-reset/test", function(res){
+    res.on('data', function (chunk) {
+        console.log(chunk.toString('utf8'))
+      });
+})
+
+*/
 
 //var request = http.get("http://192.168.30.210:8080/opentides/ajax/leave-history", function(res){
 // employeeId = 80
 
 //var request = http.get("http://192.168.30.210:8080/opentides/request-password-reset/test", function(res){
 
-var request = http.get("http://192.168.30.210:8080/opentides/request-password-reset/test", function(res){
+/*var request = http.get("http://192.168.30.210:8080/opentides/ajax/leave-history", function(res){
     res.on('data', function (chunk) {
         console.log(chunk.toString('utf8'))
-        console.log("HELLO");
       });
-})
+})*/
 
-// var request = require("request");
-// request.get({
-//         url: "http://192.168.30.210:8080/opentides/request-password-reset/test",
-//         /*qs: {
-//             employeeId: 80
-//         }*/
-//     },
-//     function (error, response, body) {
-//         console.log(body.toString('utf8') + "HUH");
-//
-//         //traverseList(body);
-//     });
+var request = require("request");
+request.get({
+        url: "http://192.168.30.210:8080/opentides/request-password-reset/get",
+       /* qs: {
+            employeeId: 80
+        }*/
+    },
+    function (error, response, body) {
+        console.log(body);
+
+        //traverseList(body);
+    });
 
 var traverseList = function (list) {
     trigger.start("TRAVERSE LIST");
-   /* //for (var key in list)
+    //for (var key in list) 
     {
         console.log(list[0]);
         trigger.end("for loop");
-    }*/
-
+    }
+    
     for(var i = 0; i < list.length; i++)
     {
         console.log(list[i]);
@@ -222,22 +241,22 @@ app.listen(app.get('port'), function() {
 
 
 /*var Client = require('node-rest-client').Client;
-
+ 
 var client = new Client();
-
+ 
 
 var args = {
-    headers: { "Content-Type": "application/x-www-form-urlencoded" } // request headers
+    headers: { "Content-Type": "application/x-www-form-urlencoded" } // request headers 
 };
 
 client.get("http://192.168.30.210:8082/services/character/test", function (data, response) {
-    // parsed response body as js object
+    // parsed response body as js object 
     console.log(data);
 });
 
 client.registerMethod("jsonMethod", "http://192.168.30.210:8082/services/character/test", "GET");
 client.methods.jsonMethod(args, function (data, response) {
-    // parsed response body as js object
+    // parsed response body as js object 
     console.log(data);
     console.log(response);
 });*/
@@ -280,7 +299,7 @@ http.get({
                 email: parsed.email,
                 password: parsed.pass
             });
-
+            
             console.log(body);
         });
     });*/
