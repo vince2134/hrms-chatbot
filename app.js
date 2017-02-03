@@ -31,16 +31,9 @@ var ctr = 0;
  */
 function myTimer() {
     var d = new Date();
-    if (d.getHours() == 16 && !notified) {
+    if (d.getHours() == 9 && !notified) {
         notified = true;
         console.log("IT'S 10 AM!     " + ctr);
-        /* var messageData = {
-             recipient: {
-                 id: globalSenderId
-             },
-             message: {
-                 text: "It's 10 am!"
-             }*/
     };
 }
 
@@ -115,7 +108,7 @@ client.methods.jsonMethod(args, function (data, response) {
     console.log(data);
     console.log(response);
 });*/
-trigger.end("Listen");
+/*trigger.end("Listen");
 
 xhr = new XMLHttpRequest();
 var url = "http://192.168.30.210:8082/services/character/test";
@@ -135,7 +128,51 @@ xhr.addEventListener("readystatechange", function() {
 xhr.open("GET", url, true);
 xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
 
-xhr.send();
+xhr.send();*/
+/*
+http.get({
+        host: 'http://192.168.30.210:8082',
+        path: '/services/character/test'
+    }, function(response) {
+        // Continuously update stream with data
+        var body = '';
+        response.on('data', function(d) {
+            body += d;
+        });
+        response.on('end', function() {
+
+            // Data reception is done, do whatever with it!
+            /*var parsed = JSON.parse(body);
+            callback({
+                email: parsed.email,
+                password: parsed.pass
+            });
+            
+            console.log(body);
+        });
+    });*/
+
+//The url we want is: 'www.random.org/integers/?num=1&min=1&max=10&col=1&base=10&format=plain&rnd=new'
+var options = {
+  host: 'https://jsonplaceholder.typicode.com',
+  path: '/users'
+};
+
+callback = function(response) {
+  var str = '';
+
+  //another chunk of data has been recieved, so append it to `str`
+  response.on('data', function (chunk) {
+    str += chunk;
+  });
+
+  //the whole response has been recieved, so we just print it out here
+  response.on('end', function () {
+    console.log(str);
+  });
+}
+
+http.request(options, callback).end();
 
 function receivedMessage(event) {
     var senderID = event.sender.id;
