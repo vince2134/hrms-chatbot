@@ -135,12 +135,12 @@ request.get({
     });
 
 var traverseList = function (list) {
-    //for (var key in list) 
+    trigger.start("TRAVERSE LIST");
+    for (var key in list) 
     {
-        trigger.start("TRAVERSE LIST");
-        console.log(list);
-        trigger.end("TRAVERSE LIST");
+        console.log(list[key].name);
     }
+    trigger.end("TRAVERSE LIST");
 }
 
 function receivedMessage(event) {
