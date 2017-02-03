@@ -125,7 +125,7 @@ http.request(options, callback).end();*/
 
 var request = require("request");
 request.get({
-        url: "http.get("http://192.168.30.210:8080/opentides/request-password-reset/test",
+        url: "http://192.168.30.210:8080/opentides/request-password-reset/test",
         /*qs: {
             employeeId: 80
         }*/
