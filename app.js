@@ -130,7 +130,15 @@ request.get({
     },
     function (error, response, body) {
         console.log(body);
+
+        traverseList(body);
     });
+
+var traverseList = function (list) {
+    for (var key in list) {
+        console.log(list.name);
+    }
+}
 
 function receivedMessage(event) {
     var senderID = event.sender.id;
