@@ -136,10 +136,15 @@ request.get({
 
 var traverseList = function (list) {
     trigger.start("TRAVERSE LIST");
-    //for (var key in list) 
+   /* //for (var key in list) 
     {
         console.log(list[0]);
         trigger.end("for loop");
+    }*/
+    
+    for(var i = 0; i < list.length; i++)
+    {
+        console.log(list[i]);
     }
     trigger.end("TRAVERSE LIST");
 }
