@@ -20,15 +20,15 @@ var http = require('http');
 var fs = require('fs');
 
 // Function that ticks every 1 second.
-/*console.log("Start Timer");
+console.log("Start Timer");
 var myVar = setInterval(function () {
     myTimer()
 }, 1000);
-var ctr = 0;*/
+var ctr = 0;
 /* Function being called every second.
  * Calls HRMS method and asks for the list of people to be notified.
  */
-/*function myTimer() {
+function myTimer() {
     var d = new Date();
     if (d.getHours() == 11 && !notified) {
         notified = true;
@@ -84,7 +84,7 @@ app.post('/notifyusers', function (req, res) {
     res.send('Notify Users');
     console.log("app post notify");
     res.sendStatus(200);
-});*/
+});
 
 /*
 var request = http.get("http://192.168.30.210:8080/opentides/request-password-reset/test", function(res){
@@ -97,7 +97,7 @@ var request = http.get("http://192.168.30.210:8080/opentides/request-password-re
 
 //http://192.168.30.210:8080/opentides/request-password-reset/test
 //The url we want is: 'www.random.org/integers/?num=1&min=1&max=10&col=1&base=10&format=plain&rnd=new'
-/*var options = {
+var options = {
     host: '192.168.30.210',
     port: 8080,
     path: '/opentides/request-password-reset/test',
@@ -119,7 +119,7 @@ callback = function (response) {
     });
 }
 
-http.request(options, callback).end();*/
+http.request(options, callback).end();
 /*
 
 var http = require('http');
