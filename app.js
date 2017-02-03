@@ -18,7 +18,6 @@ var token = "EAAaA4LJeypQBABay9GkjkbF02ri0qx218cby6M3q6ZBGri2qzm9J1XZBIVgxFcRvBp
 var https = require('https');
 var http = require('http');
 var fs = require('fs');
-var XMLHttpRequest = require("xmlhttprequest").XMLHttpRequest;
 
 // Function that ticks every 1 second.
 console.log("Start Timer");
@@ -31,13 +30,10 @@ var ctr = 0;
  */
 function myTimer() {
     var d = new Date();
-    if (d.getHours() == 9 && !notified) {
+    if (d.getHours() == 11 && !notified) {
         notified = true;
         console.log("IT'S 10 AM!     " + ctr);
     };
-
-    console.log("notifier tick " + ctr);
-    ctr++;
 }
 
 app.set('port', (process.env.PORT || 443))
@@ -126,11 +122,15 @@ http.request(options, callback).end();*/
 })*/
 
 var request = require("request");
-request.get({url: "http://192.168.30.210:8080/opentides/ajax/leave-history",
-             qs: {employeeId: 80}},
-            function(error, response, body){
-               console.log(body);
-            });
+request.get({
+        url: "https://jsonplaceholder.typicode.com/users",
+        /*qs: {
+            employeeId: 80
+        }*/
+    },
+    function (error, response, body) {
+        console.log(body);
+    });
 
 function receivedMessage(event) {
     var senderID = event.sender.id;
@@ -166,7 +166,6 @@ function receivedMessage(event) {
     };
     callSendAPI(messageData);
 }
-
 /*
  * Call the Send API. The message data goes in the body. If successful, we'll
  * get the message id in a response
@@ -203,22 +202,22 @@ app.listen(app.get('port'), function() {
 
 
 /*var Client = require('node-rest-client').Client;
-
+ 
 var client = new Client();
-
+ 
 
 var args = {
-    headers: { "Content-Type": "application/x-www-form-urlencoded" } // request headers
+    headers: { "Content-Type": "application/x-www-form-urlencoded" } // request headers 
 };
 
 client.get("http://192.168.30.210:8082/services/character/test", function (data, response) {
-    // parsed response body as js object
+    // parsed response body as js object 
     console.log(data);
 });
 
 client.registerMethod("jsonMethod", "http://192.168.30.210:8082/services/character/test", "GET");
 client.methods.jsonMethod(args, function (data, response) {
-    // parsed response body as js object
+    // parsed response body as js object 
     console.log(data);
     console.log(response);
 });*/
@@ -261,7 +260,7 @@ http.get({
                 email: parsed.email,
                 password: parsed.pass
             });
-
+            
             console.log(body);
         });
     });*/
