@@ -87,74 +87,10 @@ app.post('/notifyusers', function(req, res) {
     res.sendStatus(200);    
 });
 
-trigger.start("Listen");
-/*var Client = require('node-rest-client').Client;
- 
-var client = new Client();
- 
-
-var args = {
-    headers: { "Content-Type": "application/x-www-form-urlencoded" } // request headers 
-};
-
-client.get("http://192.168.30.210:8082/services/character/test", function (data, response) {
-    // parsed response body as js object 
-    console.log(data);
-});
-
-client.registerMethod("jsonMethod", "http://192.168.30.210:8082/services/character/test", "GET");
-client.methods.jsonMethod(args, function (data, response) {
-    // parsed response body as js object 
-    console.log(data);
-    console.log(response);
-});*/
-/*trigger.end("Listen");
-
-xhr = new XMLHttpRequest();
-var url = "http://192.168.30.210:8082/services/character/test";
-
-xhr.withCredentials = true;
-
-xhr.addEventListener("readystatechange", function() {
-    console.log(this);
-    console.log(this.getAllResponseHeaders);
-    if (this.readyState === 4) {
-        console.log("Ready State 4");
-        console.log(this.responseText);
-    }
-    console.log("ReadyState checking done");
-});
-
-xhr.open("GET", url, true);
-xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-
-xhr.send();*/
-/*
-http.get({
-        host: 'http://192.168.30.210:8082',
-        path: '/services/character/test'
-    }, function(response) {
-        // Continuously update stream with data
-        var body = '';
-        response.on('data', function(d) {
-            body += d;
-        });
-        response.on('end', function() {
-
-            // Data reception is done, do whatever with it!
-            /*var parsed = JSON.parse(body);
-            callback({
-                email: parsed.email,
-                password: parsed.pass
-            });
-            
-            console.log(body);
-        });
-    });*/
 
 //The url we want is: 'www.random.org/integers/?num=1&min=1&max=10&col=1&base=10&format=plain&rnd=new'
 var options = {
-  host: 'https://jsonplaceholder.typicode.com',
+  host: 'jsonplaceholder.typicode.com',
   path: '/users'
 };
 
@@ -242,3 +178,68 @@ app.listen(app.get('port'), function() {
     console.log('running on port', app.get('port'));
     console.log("The app is now up and running.");
 })*/
+
+
+/*var Client = require('node-rest-client').Client;
+ 
+var client = new Client();
+ 
+
+var args = {
+    headers: { "Content-Type": "application/x-www-form-urlencoded" } // request headers 
+};
+
+client.get("http://192.168.30.210:8082/services/character/test", function (data, response) {
+    // parsed response body as js object 
+    console.log(data);
+});
+
+client.registerMethod("jsonMethod", "http://192.168.30.210:8082/services/character/test", "GET");
+client.methods.jsonMethod(args, function (data, response) {
+    // parsed response body as js object 
+    console.log(data);
+    console.log(response);
+});*/
+/*trigger.end("Listen");
+
+xhr = new XMLHttpRequest();
+var url = "http://192.168.30.210:8082/services/character/test";
+
+xhr.withCredentials = true;
+
+xhr.addEventListener("readystatechange", function() {
+    console.log(this);
+    console.log(this.getAllResponseHeaders);
+    if (this.readyState === 4) {
+        console.log("Ready State 4");
+        console.log(this.responseText);
+    }
+    console.log("ReadyState checking done");
+});
+
+xhr.open("GET", url, true);
+xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+
+xhr.send();*/
+/*
+http.get({
+        host: 'http://192.168.30.210:8082',
+        path: '/services/character/test'
+    }, function(response) {
+        // Continuously update stream with data
+        var body = '';
+        response.on('data', function(d) {
+            body += d;
+        });
+        response.on('end', function() {
+
+            // Data reception is done, do whatever with it!
+            /*var parsed = JSON.parse(body);
+            callback({
+                email: parsed.email,
+                password: parsed.pass
+            });
+            
+            console.log(body);
+        });
+    });*/
