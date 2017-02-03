@@ -35,7 +35,7 @@ function myTimer() {
         notified = true;
         console.log("IT'S 10 AM!     " + ctr);
     };
-    console.log("notifier tick" + ctr);
+    console.log("notifier tick");
 }
 
 app.set('port', (process.env.PORT || 443))
