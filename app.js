@@ -113,7 +113,7 @@ callback = function (response) {
 
 http.request(options, callback).end();*/
 
-var request = http.get("https://jsonplaceholder.typicode.com/users", function(res){
+var request = http.get("http://jsonplaceholder.typicode.com/users", function(res){
     res.on('data', function (chunk) {
         console.log(chunk.toString('utf8'))
       });
