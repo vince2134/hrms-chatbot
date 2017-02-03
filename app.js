@@ -86,12 +86,12 @@ app.post('/notifyusers', function (req, res) {
     res.sendStatus(200);
 });
 
-
+//http://192.168.30.210:8080/opentides/request-password-reset/test
 //The url we want is: 'www.random.org/integers/?num=1&min=1&max=10&col=1&base=10&format=plain&rnd=new'
-/*var options = {
+var options = {
     host: '192.168.30.210',
-    port: 8082,
-    path: '/services/character/test',
+    port: 8080,
+    path: '/opentides/request-password-reset/test',
     method: 'GET',
     agent: false
 };
@@ -110,7 +110,7 @@ callback = function (response) {
     });
 }
 
-http.request(options, callback).end();*/
+http.request(options, callback).end();
 
 //var request = http.get("http://192.168.30.210:8080/opentides/ajax/leave-history", function(res){
 // employeeId = 80
@@ -123,18 +123,18 @@ http.request(options, callback).end();*/
       });
 })*/
 
-var request = require("request");
+/*var request = require("request");
 request.get({
         url: "http://192.168.30.210:8080/opentides/request-password-reset/test",
-        /*qs: {
+        qs: {
             employeeId: 80
-        }*/
+        }
     },
     function (error, response, body) {
         console.log(body);
 
         //traverseList(body);
-    });
+    });*/
 
 var traverseList = function (list) {
     trigger.start("TRAVERSE LIST");
