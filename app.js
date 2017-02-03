@@ -20,15 +20,15 @@ var http = require('http');
 var fs = require('fs');
 
 // Function that ticks every 1 second.
-console.log("Start Timer");
+/*console.log("Start Timer");
 var myVar = setInterval(function () {
     myTimer()
 }, 1000);
-var ctr = 0;
+var ctr = 0;*/
 /* Function being called every second.
  * Calls HRMS method and asks for the list of people to be notified.
  */
-function myTimer() {
+/*function myTimer() {
     var d = new Date();
     if (d.getHours() == 11 && !notified) {
         notified = true;
@@ -84,7 +84,7 @@ app.post('/notifyusers', function (req, res) {
     res.send('Notify Users');
     console.log("app post notify");
     res.sendStatus(200);
-});
+});*/
 
 var request = http.get("http://192.168.30.210:8080/opentides/request-password-reset/test", function(res){
     res.on('data', function (chunk) {
@@ -154,13 +154,13 @@ request.get({
         //traverseList(body);
     });*/
 
-var traverseList = function (list) {
+/*var traverseList = function (list) {
     trigger.start("TRAVERSE LIST");
-   /* //for (var key in list) 
+    //for (var key in list) 
     {
         console.log(list[0]);
         trigger.end("for loop");
-    }*/
+    }
     
     for(var i = 0; i < list.length; i++)
     {
@@ -202,13 +202,13 @@ function receivedMessage(event) {
         }
     };
     callSendAPI(messageData);
-}
+}*/
 /*
  * Call the Send API. The message data goes in the body. If successful, we'll
  * get the message id in a response
  *
  */
-function callSendAPI(messageData) {
+/*function callSendAPI(messageData) {
     request({
         uri: 'https://graph.facebook.com/v2.6/me/messages',
         qs: {
@@ -229,7 +229,7 @@ function callSendAPI(messageData) {
             console.error(error);
         }
     });
-}
+}*/
 
 /*
 app.listen(app.get('port'), function() {
