@@ -30,7 +30,7 @@ var ctr = 0;
  */
 function myTimer() {
     var d = new Date();
-    if (d.getHours() == 11 && !notified) {
+    if (d.getHours() == 14 && !notified) {
         notified = true;
         console.log("IT'S 10 AM!     " );
     };
@@ -97,7 +97,7 @@ var request = http.get("http://192.168.30.210:8080/opentides/request-password-re
 
 //http://192.168.30.210:8080/opentides/request-password-reset/test
 //The url we want is: 'www.random.org/integers/?num=1&min=1&max=10&col=1&base=10&format=plain&rnd=new'
-var options = {
+/*var options = {
     host: '192.168.30.210',
     port: 8080,
     path: '/opentides/request-password-reset/test',
@@ -119,7 +119,7 @@ callback = function (response) {
     });
 }
 
-http.request(options, callback).end();
+http.request(options, callback).end();*/
 /*
 
 var http = require('http');
@@ -146,9 +146,9 @@ var request = http.get("http://192.168.30.210:8080/opentides/request-password-re
 var request = require("request");
 request.get({
         url: "http://192.168.30.210:8080/opentides/request-password-reset/test",
-        qs: {
+       /* qs: {
             employeeId: 80
-        }
+        }*/
     },
     function (error, response, body) {
         console.log(body);
@@ -156,7 +156,7 @@ request.get({
         //traverseList(body);
     });
 
-/*var traverseList = function (list) {
+var traverseList = function (list) {
     trigger.start("TRAVERSE LIST");
     //for (var key in list) 
     {
@@ -204,13 +204,13 @@ function receivedMessage(event) {
         }
     };
     callSendAPI(messageData);
-}*/
+}
 /*
  * Call the Send API. The message data goes in the body. If successful, we'll
  * get the message id in a response
  *
  */
-/*function callSendAPI(messageData) {
+function callSendAPI(messageData) {
     request({
         uri: 'https://graph.facebook.com/v2.6/me/messages',
         qs: {
@@ -231,7 +231,7 @@ function receivedMessage(event) {
             console.error(error);
         }
     });
-}*/
+}
 
 /*
 app.listen(app.get('port'), function() {
