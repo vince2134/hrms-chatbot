@@ -22,7 +22,7 @@ var XMLHttpRequest = require("xmlhttprequest").XMLHttpRequest;
 
 // Function that ticks every 1 second.
 console.log("Start Timer");
-var myVar = setInterval(function() {
+var myVar = setInterval(function () {
     myTimer()
 }, 1000);
 var ctr = 0;
@@ -43,10 +43,10 @@ app.use(bodyParser.urlencoded({
 }))
 app.use(bodyParser.json())
 
-app.get('/', function(req, res) {
+app.get('/', function (req, res) {
     res.send('Facebook Bot for HRMS')
 }).listen(80);
-app.get('/webhook', function(req, res) {
+app.get('/webhook', function (req, res) {
     if (req.query['hub.mode'] === 'subscribe' && req.query['hub.verify_token'] === 'webhooktoken') {
         console.log("Validating webhook");
         res.status(200).send(req.query['hub.challenge']);
@@ -57,13 +57,13 @@ app.get('/webhook', function(req, res) {
 });
 
 //Function that connects the FB Chatbot to NodeJS
-app.post('/webhook', function(req, res) {
+app.post('/webhook', function (req, res) {
     var data = req.body;
     if (data.object == 'page') {
-        data.entry.forEach(function(pageEntry) {
+        data.entry.forEach(function (pageEntry) {
             var pageID = pageEntry.id;
             var timeOfEvent = pageEntry.time;
-            pageEntry.messaging.forEach(function(event) {
+            pageEntry.messaging.forEach(function (event) {
                 if (event.message && event.message.text) {
                     receivedMessage(event);
                 }
@@ -73,45 +73,51 @@ app.post('/webhook', function(req, res) {
     }
 });
 
-app.get('/notifyusers', function(req, res) {
+app.get('/notifyusers', function (req, res) {
 
     // res.send('Notify Users');
     console.log("Notify GET");
     res.sendStatus(200);
 });
 
-app.post('/notifyusers', function(req, res) {
+app.post('/notifyusers', function (req, res) {
 
     res.send('Notify Users');
     console.log("app post notify");
-    res.sendStatus(200);    
+    res.sendStatus(200);
 });
 
 
 //The url we want is: 'www.random.org/integers/?num=1&min=1&max=10&col=1&base=10&format=plain&rnd=new'
-var options = {
-  host: '192.168.30.210',
-  port: 8082,
-  path: '/services/character/test',
-  method: 'GET',
-  agent: false
+/*var options = {
+    host: '192.168.30.210',
+    port: 8082,
+    path: '/services/character/test',
+    method: 'GET',
+    agent: false
 };
 
-callback = function(response) {
-  var str = '';
+callback = function (response) {
+    var str = '';
+    console.log("Callback");
+    //another chunk of data has been recieved, so append it to `str`
+    response.on('data', function (chunk) {
+        str += chunk;
+    });
 
-  //another chunk of data has been recieved, so append it to `str`
-  response.on('data', function (chunk) {
-    str += chunk;
-  });
-
-  //the whole response has been recieved, so we just print it out here
-  response.on('end', function () {
-    console.log(str);
-  });
+    //the whole response has been recieved, so we just print it out here
+    response.on('end', function () {
+        console.log(str);
+    });
 }
 
-http.request(options, callback).end();
+http.request(options, callback).end();*/
+
+var request = http.get("https://jsonplaceholder.typicode.com/users", function(res){
+    res.on('data', function (chunk) {
+        console.log(chunk.toString('utf8'))
+      });
+})
 
 function receivedMessage(event) {
     var senderID = event.sender.id;
@@ -124,8 +130,8 @@ function receivedMessage(event) {
         sessionId: '<unique session id>'
     });
 
-    request.on('response', function(response) {
-        var token = response.result.parameters.token; 
+    request.on('response', function (response) {
+        var token = response.result.parameters.token;
         console.log("INTENT NAME: " + response.result.metadata.intentName);
 
         if (response.result.metadata.intentName === "file_leave" && response.result.parameters.hours !== "") {
@@ -133,7 +139,7 @@ function receivedMessage(event) {
         }
     });
 
-    request.on('error', function(error) {});
+    request.on('error', function (error) {});
     request.end();
     var messageText = "Echo: " + event.message.text;
 
@@ -162,7 +168,7 @@ function callSendAPI(messageData) {
         method: 'POST',
         json: messageData
 
-    }, function(error, response, body) {
+    }, function (error, response, body) {
         if (!error && response.statusCode == 200) {
             var recipientId = body.recipient_id;
             var messageId = body.message_id;
