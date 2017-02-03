@@ -115,6 +115,8 @@ http.request(options, callback).end();*/
 //var request = http.get("http://192.168.30.210:8080/opentides/ajax/leave-history", function(res){
 // employeeId = 80
 
+//var request = http.get("http://192.168.30.210:8080/opentides/request-password-reset/test", function(res){
+
 /*var request = http.get("http://192.168.30.210:8080/opentides/ajax/leave-history", function(res){
     res.on('data', function (chunk) {
         console.log(chunk.toString('utf8'))
@@ -123,7 +125,7 @@ http.request(options, callback).end();*/
 
 var request = require("request");
 request.get({
-        url: "https://jsonplaceholder.typicode.com/users",
+        url: "http.get("http://192.168.30.210:8080/opentides/request-password-reset/test",
         /*qs: {
             employeeId: 80
         }*/
@@ -131,7 +133,7 @@ request.get({
     function (error, response, body) {
         console.log(body);
 
-        traverseList(body);
+        //traverseList(body);
     });
 
 var traverseList = function (list) {
