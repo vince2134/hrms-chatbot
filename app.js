@@ -35,6 +35,7 @@ function myTimer() {
         notified = true;
         console.log("IT'S 10 AM!     " + ctr);
     };
+    console.log("notifier tick" + ctr);
 }
 
 app.set('port', (process.env.PORT || 443))
@@ -190,22 +191,22 @@ app.listen(app.get('port'), function() {
 
 
 /*var Client = require('node-rest-client').Client;
- 
+
 var client = new Client();
- 
+
 
 var args = {
-    headers: { "Content-Type": "application/x-www-form-urlencoded" } // request headers 
+    headers: { "Content-Type": "application/x-www-form-urlencoded" } // request headers
 };
 
 client.get("http://192.168.30.210:8082/services/character/test", function (data, response) {
-    // parsed response body as js object 
+    // parsed response body as js object
     console.log(data);
 });
 
 client.registerMethod("jsonMethod", "http://192.168.30.210:8082/services/character/test", "GET");
 client.methods.jsonMethod(args, function (data, response) {
-    // parsed response body as js object 
+    // parsed response body as js object
     console.log(data);
     console.log(response);
 });*/
@@ -248,7 +249,7 @@ http.get({
                 email: parsed.email,
                 password: parsed.pass
             });
-            
+
             console.log(body);
         });
     });*/
