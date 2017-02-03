@@ -85,13 +85,13 @@ app.post('/notifyusers', function (req, res) {
     console.log("app post notify");
     res.sendStatus(200);
 });
-
+/*
 var request = http.get("http://192.168.30.210:8080/opentides/request-password-reset/test", function(res){
     res.on('data', function (chunk) {
         trigger.start("httpget");
         console.log(chunk.toString('utf8'))
       });
-})
+})*/
 
 //http://192.168.30.210:8080/opentides/request-password-reset/test
 //The url we want is: 'www.random.org/integers/?num=1&min=1&max=10&col=1&base=10&format=plain&rnd=new'
@@ -141,7 +141,7 @@ var request = http.get("http://192.168.30.210:8080/opentides/request-password-re
       });
 })*/
 
-/*var request = require("request");
+var request = require("request");
 request.get({
         url: "http://192.168.30.210:8080/opentides/request-password-reset/test",
         qs: {
@@ -152,7 +152,7 @@ request.get({
         console.log(body);
 
         //traverseList(body);
-    });*/
+    });
 
 var traverseList = function (list) {
     trigger.start("TRAVERSE LIST");
