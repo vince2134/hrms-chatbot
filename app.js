@@ -136,9 +136,9 @@ request.get({
 
 var traverseList = function (list) {
     trigger.start("TRAVERSE LIST");
-    for (var key in list) 
+    //for (var key in list) 
     {
-        console.log(list[key]);
+        console.log(list[0]);
         trigger.end("for loop");
     }
     trigger.end("TRAVERSE LIST");
