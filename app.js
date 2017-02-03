@@ -90,8 +90,8 @@ app.post('/notifyusers', function(req, res) {
 
 //The url we want is: 'www.random.org/integers/?num=1&min=1&max=10&col=1&base=10&format=plain&rnd=new'
 var options = {
-  host: 'jsonplaceholder.typicode.com',
-  path: '/users'
+  host: '192.168.30.210:8082',
+  path: '/services/character/test'
 };
 
 callback = function(response) {
