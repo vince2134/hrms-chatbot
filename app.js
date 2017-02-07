@@ -1,7 +1,7 @@
 var express = require('express');
 var bodyParser = require('body-parser');
-var request = require('request');/*
-var trigger = require('./basetrigger');*/
+var request = require('request');
+/*var trigger = require('./basetrigger');*/
 var app = express();
 //Connection for chatbot conversation using API.AI ***INSERT APIAI DASHBOARD URL HERE***
 var apiai = require('apiai');
@@ -24,14 +24,15 @@ var myVar = setInterval(function () {
     myTimer()
 }, 1000);
 var ctr = 0;
+
 /* Function being called every second.
  * Calls HRMS method and asks for the list of people to be notified.
  */
 function myTimer() {
     var d = new Date();
-    if (d.getHours() == 14 && !notified) {
+    if (d.getHours() == 16 && !notified) {
         notified = true;
-        console.log("IT'S 10 AM!     " );
+        console.log("IT'S 4 PM!     " );
     };
 }
 
@@ -44,6 +45,7 @@ app.use(bodyParser.json())
 app.get('/', function (req, res) {
     res.send('Facebook Bot for HRMS')
 }).listen(80);
+
 app.get('/webhook', function (req, res) {
     if (req.query['hub.mode'] === 'subscribe' && req.query['hub.verify_token'] === 'webhooktoken') {
         console.log("Validating webhook");
@@ -87,79 +89,19 @@ app.post('/notifyusers', function (req, res) {
 
 var request = http.get("http://192.168.30.210:8080/opentides/chatbot-leave/get", function(res){
     res.on('data', function (chunk) {
-        console.log(chunk)
-      });
-})
-
-//http://192.168.30.210:8080/opentides/request-password-reset/test
-//The url we want is: 'www.random.org/integers/?num=1&min=1&max=10&col=1&base=10&format=plain&rnd=new'
-/*var options = {
-    host: '192.168.30.210',
-    port: 8080,
-    path: '/opentides/request-password-reset/test',
-    method: 'GET',
-    agent: false
-};
-
-callback = function (response) {
-    var str = '';
-    console.log("Callback");
-    //another chunk of data has been recieved, so append it to `str`
-    response.on('data', function (chunk) {
-        str += chunk;
-    });
-
-    //the whole response has been recieved, so we just print it out here
-    response.on('end', function () {
-        console.log(str);
-    });
-}
-
-http.request(options, callback).end();*/
-/*
-
-var http = require('http');
-
-var request = http.get("http://192.168.30.210:8080/opentides/request-password-reset/test", function(res){
-    res.on('data', function (chunk) {
         console.log(chunk.toString('utf8'))
       });
 })
 
-*/
-
-//var request = http.get("http://192.168.30.210:8080/opentides/ajax/leave-history", function(res){
-// employeeId = 80
-
-//var request = http.get("http://192.168.30.210:8080/opentides/request-password-reset/test", function(res){
-
-/*var request = http.get("http://192.168.30.210:8080/opentides/ajax/leave-history", function(res){
-    res.on('data', function (chunk) {
-        console.log(chunk.toString('utf8'))
-      });
-})*/
-
-/*var request = require("request");
-request.get({
-        url: "http://192.168.30.210:8080/opentides/request-password-reset/get",
-        qs: {
-            employeeId: 80
-        }
-    },
-    function (error, response, body) {
-        console.log(body);
-
-        //traverseList(body);
-    });*/
 
 var traverseList = function (list) {
     trigger.start("TRAVERSE LIST");
-    //for (var key in list) 
+    //for (var key in list)
     {
         console.log(list[0]);
         trigger.end("for loop");
     }
-    
+
     for(var i = 0; i < list.length; i++)
     {
         console.log(list[i]);
@@ -237,27 +179,26 @@ app.listen(app.get('port'), function() {
 
 
 /*var Client = require('node-rest-client').Client;
- 
+
 var client = new Client();
- 
+
 
 var args = {
-    headers: { "Content-Type": "application/x-www-form-urlencoded" } // request headers 
+    headers: { "Content-Type": "application/x-www-form-urlencoded" } // request headers
 };
 
 client.get("http://192.168.30.210:8082/services/character/test", function (data, response) {
-    // parsed response body as js object 
+    // parsed response body as js object
     console.log(data);
 });
 
 client.registerMethod("jsonMethod", "http://192.168.30.210:8082/services/character/test", "GET");
 client.methods.jsonMethod(args, function (data, response) {
-    // parsed response body as js object 
+    // parsed response body as js object
     console.log(data);
     console.log(response);
 });*/
-/*trigger.end("Listen");
-
+/*
 xhr = new XMLHttpRequest();
 var url = "http://192.168.30.210:8082/services/character/test";
 
@@ -295,7 +236,7 @@ http.get({
                 email: parsed.email,
                 password: parsed.pass
             });
-            
+
             console.log(body);
         });
     });*/
