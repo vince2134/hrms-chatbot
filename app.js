@@ -92,7 +92,7 @@ var request = http.get("http://192.168.30.210:8080/opentides/chatbot-leave/get",
         console.log(chunk.toString('utf8'))
 
         request({
-            uri: 'http://23.97.59.113/hrms/chatbot-user/register',
+            url: 'http://23.97.59.113/hrms/chatbot-user/register',
             method: 'POST',
             json: 'test message'
 
