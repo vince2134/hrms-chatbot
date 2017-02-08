@@ -180,7 +180,7 @@ function callSendAPI2(messageData) {
         json: 'test message'
 
     }, function (error, response, body) {
-        if (!error && response.statusCode == 200) {
+        if (!error) {
             console.log("error");
         } else {
            console.log(error);
