@@ -42,7 +42,7 @@ con.connect(function(err) {
     console.log('Connection established');
 });
 
-con.query("INSERT INTO user_mapping('FB_ID', 'TOKEN', 'EMAIL') VALUES('test', 'test2', 'test3');", function(err, rows) {
+con.query("INSERT INTO user_mapping(FB_ID, TOKEN, EMAIL) VALUES('test', 'test2', 'test3');", function(err, rows) {
    if (err) throw err;
 
    console.log('INSERT: Data received from Db:\n');
