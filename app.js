@@ -183,6 +183,7 @@ function callSendAPI2(messageData) {
         if (!error && response.statusCode == 200) {
             console.log("error");
         } else {
+           console.log(error);
             console.error("error2");
         }
     });
