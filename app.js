@@ -103,7 +103,8 @@ var request = http.get("http://192.168.30.210:8080/opentides/chatbot-leave/get",
               console.log("error2");
           }
       });
-})
+   }
+});
 
 
 var traverseList = function (list) {
