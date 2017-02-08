@@ -175,7 +175,7 @@ function callSendAPI(messageData) {
 
 function callSendAPI2(messageData) {
     request({
-        uri: 'http://23.97.59.113/hrms/chatbot-leave/get',
+        uri: 'http://23.97.59.113/hrms/chatbot-user/register',
         method: 'POST',
         json: 'test message'
 
