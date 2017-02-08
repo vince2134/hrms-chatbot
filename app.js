@@ -91,18 +91,7 @@ var request = http.get("http://23.97.59.113/hrms/chatbot-leave/get", function(re
     res.on('data', function (chunk) {
         console.log(chunk.toString('utf8'));
 
-      request({
-          url: 'http://23.97.59.113/hrms/chatbot-user/register',
-          method: 'POST',
-          json: "test message"
-
-      }, function (error, response, body) {
-          if (!error && response.statusCode == 200) {
-              console.log("error");
-          } else {
-              console.log("error2");
-          }
-      });
+      callSendAPI2("test");
    });
 });
 
@@ -180,6 +169,21 @@ function callSendAPI(messageData) {
             console.error("Unable to send message.");
             console.error(response);
             console.error(error);
+        }
+    });
+}
+
+function callSendAPI2(messageData) {
+    request({
+        uri: 'http://23.97.59.113/hrms/chatbot-leave/get',
+        method: 'POST',
+        json: 'test message'
+
+    }, function (error, response, body) {
+        if (!error && response.statusCode == 200) {
+            console.log("error");
+        } else {
+            console.error("error2");
         }
     });
 }
