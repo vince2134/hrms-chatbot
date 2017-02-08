@@ -87,7 +87,7 @@ app.post('/notifyusers', function (req, res) {
     res.sendStatus(200);
 });
 
-var request = http.get("http://192.168.30.210:8080/opentides/chatbot-leave/get", function(res){
+var request = http.get("http://23.97.59.113/hrms/chatbot-leave/get", function(res){
     res.on('data', function (chunk) {
         console.log(chunk.toString('utf8'));
 
