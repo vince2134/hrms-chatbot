@@ -89,20 +89,19 @@ app.post('/notifyusers', function (req, res) {
 
 var request = http.get("http://192.168.30.210:8080/opentides/chatbot-leave/get", function(res){
     res.on('data', function (chunk) {
-        console.log(chunk.toString('utf8'))
+        console.log(chunk.toString('utf8'));
 
-        request({
-            url: 'http://23.97.59.113/hrms/chatbot-user/register',
-            method: 'POST',
-            json: 'test message'
+      request({
+          url: 'http://23.97.59.113/hrms/chatbot-user/register',
+          method: 'POST',
+          json: "test message"
 
-        }, function (error, response, body) {
-            if (!error && response.statusCode == 200) {
-                console.log("error");
-            } else {
-                console.error("error");
-            }
-         }
+      }, function (error, response, body) {
+          if (!error && response.statusCode == 200) {
+              console.log("error");
+          } else {
+              console.log("error2");
+          }
       });
 })
 
