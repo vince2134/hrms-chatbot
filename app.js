@@ -17,6 +17,7 @@ var token = "EAAaA4LJeypQBABay9GkjkbF02ri0qx218cby6M3q6ZBGri2qzm9J1XZBIVgxFcRvBp
 var https = require('https');
 var http = require('http');
 var fs = require('fs');
+var mysql = require('./node_modules/mysql');
 
 // Function that ticks every 1 second.
 console.log("Start Timer");
@@ -24,6 +25,30 @@ var myVar = setInterval(function () {
     myTimer()
 }, 1000);
 var ctr = 0;
+
+var con = mysql.createConnection({
+    host: "localhost",
+    user: "root",
+    password: "ideyatech",
+    database: "hrms_chatbot"
+});
+
+con.connect(function(err) {
+    console.log("connecting to DB");
+    if (err) {
+        console.log('Error connecting to Db');
+        return;
+    }
+    console.log('Connection established');
+});
+
+con.query("INSERT INTO user_mapping('FB_ID', 'TOKEN', 'EMAIL') VALUES('test', 'test2', 'test3');", function(err, rows) {
+   if (err) throw err;
+
+   console.log('INSERT: Data received from Db:\n');
+   console.log(rows);
+   //con.end();
+});
 
 /* Function being called every second.
  * Calls HRMS method and asks for the list of people to be notified.
@@ -181,7 +206,7 @@ function callSendAPI2(messageData) {
 
     }, function (error, response, body) {
         if (!error) {
-            console.log("error");
+            console.log("no error");
         } else {
            console.log(error);
             console.error("error2");
