@@ -222,7 +222,8 @@ function registerUser(email, fbId, token) {
         if (!error && response.statusCode == 200) {
             // Print out the response body
             console.log(typeof(body));
-            console.log(body);
+            var info = JSON.parse(body);
+            console.log(info.success);
             if (body.success == true) {
                console.log("success!");
                 con.query("INSERT INTO user_mapping(FB_ID, TOKEN, EMAIL) VALUES('" + email + "', '" + fbId + "', '" + chatbotToken + "');", function(err, rows) {
