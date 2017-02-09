@@ -187,7 +187,7 @@ function callSendAPI2(messageData) {
     request({
         uri: 'http://23.97.59.113/hrms/chatbot-user/register',
         method: 'POST',
-        json: {emailAddress:kervi@ideyatech.com}
+        json: {emailAddress:'kervi@ideyatech.com'}
 
     }, function (error, response, body) {
         if (!error) {
