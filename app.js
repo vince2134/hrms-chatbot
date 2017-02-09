@@ -113,7 +113,7 @@ app.post('/notifyusers', function(req, res) {
 var request2 = http.get("http://23.97.59.113/hrms/chatbot-leave/get", function(res) {
     res.on('data', function(chunk) {
         console.log(chunk.toString('utf8'));
-        registerUser("sample@gmail.com");
+        registerUser("sample@gmail.com", "asdsad", "83daccca-d840-4ef3-93cd-54cc8a5f1d8c");
     });
 });
 
