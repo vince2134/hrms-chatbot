@@ -205,7 +205,7 @@ function registerUser(email, fbId, token) {
         }
     }
 
-    if(token.length > 0){
+    if(token != null){
        options = {
            url: 'http://23.97.59.113/hrms/chatbot-user/validate',
            method: 'GET',
