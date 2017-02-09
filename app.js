@@ -201,7 +201,6 @@ function callSendAPI2(messageData) {
 var options = {
     url: 'http://23.97.59.113/hrms/chatbot-user/register',
     method: 'GET',
-    
     qs: {'emailAddress': 'test1@idt.com'}
 }
 
