@@ -202,7 +202,7 @@ function callSendAPI2(messageData) {
 var options = {
     url: 'http://23.97.59.113/hrms/chatbot-user/validate',
     method: 'GET',
-    qs: {'emailAddress': 'test1@idt.com', 'facebookId': 'q34234', 'cchatbotToken': '12345'}
+    qs: {'emailAddress': 'test1@idt.com', 'facebookId': 'q34234', 'chatbotToken': '12345'}
 }
 
 // Start the request
