@@ -221,7 +221,7 @@ function registerUser(email, fbId, token) {
     request(options, function(error, response, body) {
         if (!error && response.statusCode == 200) {
             // Print out the response body
-            console.log(body.sucess);
+            console.log(body.success);
             console.log(body);
             if (body.success == true) {
                console.log("success!");
