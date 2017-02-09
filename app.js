@@ -228,7 +228,7 @@ function registerUser(email, fbId, token) {
             if (info.success == true) {
                console.log("success!");
                if(token != null){
-                   con.query("INSERT INTO user_mapping(FB_ID, TOKEN, EMAIL) VALUES('" + email + "', '" + fbId + "', '" + token + "');", function(err, rows) {
+                   con.query("INSERT INTO user_mapping(FB_ID, TOKEN, EMAIL) VALUES('" + fbId + "', '" + token + "', '" + email + "');", function(err, rows) {
                        if (err) throw err;
 
                        console.log('INSERT: Data received from Db:\n');
