@@ -206,16 +206,16 @@ function registerUser(email, fbId, token) {
     }
 
     if(token.length > 0){
-    options = {
-        url: 'http://23.97.59.113/hrms/chatbot-user/validate',
-        method: 'GET',
-        qs: {
-            'emailAddress': email,
-            'facebookId': fbId,
-            'chatbotToken': token
-        }
+       options = {
+           url: 'http://23.97.59.113/hrms/chatbot-user/validate',
+           method: 'GET',
+           qs: {
+               'emailAddress': email,
+               'facebookId': fbId,
+               'chatbotToken': token
+           }
+       }
     }
-}
 
     // Start the request
     request(options, function(error, response, body) {
