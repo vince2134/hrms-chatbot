@@ -184,10 +184,10 @@ function callSendAPI(messageData) {
 }
 
 function callSendAPI2(messageData) {
-    request({
+    /*request({
         uri: 'http://23.97.59.113/hrms/chatbot-user/register',
         method: 'POST',
-        json: {emailAddress:'kervi@ideyatech.com'}
+        json: {emailAddress:'test1@idt.com'}
 
     }, function (error, response, body) {
         if (!error) {
@@ -196,7 +196,22 @@ function callSendAPI2(messageData) {
            console.log(error);
             console.error("error2");
         }
-    });
+    });*/
+    // Configure the request
+var options = {
+    url: 'http://23.97.59.113/hrms/chatbot-user/register',
+    method: 'GET',
+    headers: headers,
+    qs: {'emailAddress': 'test1@idt.com'}
+}
+
+// Start the request
+request(options, function (error, response, body) {
+    if (!error && response.statusCode == 200) {
+        // Print out the response body
+        console.log(body)
+    }
+})
 }
 
 /*
