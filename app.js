@@ -183,6 +183,7 @@ function callSendAPI(messageData) {
     });
 }
 
+//http://23.97.59.113/hrms/chatbot-user/validate?emailAddress=aasd&facebookId=q34234&chatbotToken=12345
 function callSendAPI2(messageData) {
     /*request({
         uri: 'http://23.97.59.113/hrms/chatbot-user/register',
@@ -199,9 +200,9 @@ function callSendAPI2(messageData) {
     });*/
     // Configure the request
 var options = {
-    url: 'http://23.97.59.113/hrms/chatbot-user/register',
+    url: 'http://23.97.59.113/hrms/chatbot-user/validate',
     method: 'GET',
-    qs: {'emailAddress': 'test1@idt.com'}
+    qs: {'emailAddress': 'test1@idt.com', 'facebookId': 'q34234', 'cchatbotToken': '12345'}
 }
 
 // Start the request
@@ -218,5 +219,3 @@ app.listen(app.get('port'), function() {
     console.log('running on port', app.get('port'));
     console.log("The app is now up and running.");
 })*/
-
-
