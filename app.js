@@ -116,7 +116,7 @@ var request2 = http.get("http://23.97.59.113/hrms/chatbot-leave/get", function(r
     res.on('data', function (chunk) {
         console.log(chunk.toString('utf8'));
 
-      callSendAPI2("test");
+      registerUser("test1@idt.com", "q34234", "12345");
    });
 });
 
@@ -184,7 +184,7 @@ function callSendAPI(messageData) {
 }
 
 //http://23.97.59.113/hrms/chatbot-user/validate?emailAddress=aasd&facebookId=q34234&chatbotToken=12345
-function callSendAPI2(messageData) {
+function registerUser(email, fbId, token) {
     /*request({
         uri: 'http://23.97.59.113/hrms/chatbot-user/register',
         method: 'POST',
@@ -202,14 +202,23 @@ function callSendAPI2(messageData) {
 var options = {
     url: 'http://23.97.59.113/hrms/chatbot-user/validate',
     method: 'GET',
-    qs: {'emailAddress': 'test1@idt.com', 'facebookId': 'q34234', 'chatbotToken': '12345'}
+    qs: {'emailAddress': email, 'facebookId': fbId, 'chatbotToken': token}
 }
 
 // Start the request
 request(options, function (error, response, body) {
     if (!error && response.statusCode == 200) {
         // Print out the response body
-        console.log(body)
+        console.log(body);
+        if(body.success == "true"){
+          con.query("INSERT INTO user_mapping(FB_ID, TOKEN, EMAIL) VALUES('" + email + "', '" + fbId + "', '" + chatbotToken + "');", function(err, rows) {
+             if (err) throw err;
+
+             console.log('INSERT: Data received from Db:\n');
+             console.log(rows);
+             //con.end();
+         });
+     }
     }
 })
 }
