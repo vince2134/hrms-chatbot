@@ -42,13 +42,13 @@ con.connect(function(err) {
     console.log('Connection established');
 });
 
-con.query("INSERT INTO user_mapping(FB_ID, TOKEN, EMAIL) VALUES('test', 'test2', 'test3');", function(err, rows) {
+/*con.query("INSERT INTO user_mapping(FB_ID, TOKEN, EMAIL) VALUES('test', 'test2', 'test3');", function(err, rows) {
    if (err) throw err;
 
    console.log('INSERT: Data received from Db:\n');
    console.log(rows);
    //con.end();
-});
+});*/
 
 /* Function being called every second.
  * Calls HRMS method and asks for the list of people to be notified.
@@ -121,21 +121,6 @@ var request2 = http.get("http://23.97.59.113/hrms/chatbot-leave/get", function(r
 });
 
 
-var traverseList = function (list) {
-    trigger.start("TRAVERSE LIST");
-    //for (var key in list)
-    {
-        console.log(list[0]);
-        trigger.end("for loop");
-    }
-
-    for(var i = 0; i < list.length; i++)
-    {
-        console.log(list[i]);
-    }
-    trigger.end("TRAVERSE LIST");
-}
-
 function receivedMessage(event) {
     var senderID = event.sender.id;
     globalSenderId = senderID;
@@ -202,7 +187,7 @@ function callSendAPI2(messageData) {
     request({
         uri: 'http://23.97.59.113/hrms/chatbot-user/register',
         method: 'POST',
-        json: 'test message'
+        json: {emailAddress:kervi@ideyatech.com}
 
     }, function (error, response, body) {
         if (!error) {
@@ -221,65 +206,3 @@ app.listen(app.get('port'), function() {
 })*/
 
 
-/*var Client = require('node-rest-client').Client;
-
-var client = new Client();
-
-
-var args = {
-    headers: { "Content-Type": "application/x-www-form-urlencoded" } // request headers
-};
-
-client.get("http://192.168.30.210:8082/services/character/test", function (data, response) {
-    // parsed response body as js object
-    console.log(data);
-});
-
-client.registerMethod("jsonMethod", "http://192.168.30.210:8082/services/character/test", "GET");
-client.methods.jsonMethod(args, function (data, response) {
-    // parsed response body as js object
-    console.log(data);
-    console.log(response);
-});*/
-/*
-xhr = new XMLHttpRequest();
-var url = "http://192.168.30.210:8082/services/character/test";
-
-xhr.withCredentials = true;
-
-xhr.addEventListener("readystatechange", function() {
-    console.log(this);
-    console.log(this.getAllResponseHeaders);
-    if (this.readyState === 4) {
-        console.log("Ready State 4");
-        console.log(this.responseText);
-    }
-    console.log("ReadyState checking done");
-});
-
-xhr.open("GET", url, true);
-xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-
-xhr.send();*/
-/*
-http.get({
-        host: 'http://192.168.30.210:8082',
-        path: '/services/character/test'
-    }, function(response) {
-        // Continuously update stream with data
-        var body = '';
-        response.on('data', function(d) {
-            body += d;
-        });
-        response.on('end', function() {
-
-            // Data reception is done, do whatever with it!
-            /*var parsed = JSON.parse(body);
-            callback({
-                email: parsed.email,
-                password: parsed.pass
-            });
-
-            console.log(body);
-        });
-    });*/
