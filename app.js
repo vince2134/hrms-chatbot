@@ -224,6 +224,7 @@ function registerUser(email, fbId, token) {
             console.log(typeof(body));
             var info = JSON.parse(body);
             console.log(info.success);
+            console.log(typeof(info.success));
             if (body.success == true) {
                console.log("success!");
                 con.query("INSERT INTO user_mapping(FB_ID, TOKEN, EMAIL) VALUES('" + email + "', '" + fbId + "', '" + chatbotToken + "');", function(err, rows) {
