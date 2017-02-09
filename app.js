@@ -21,7 +21,7 @@ var mysql = require('./node_modules/mysql');
 
 // Function that ticks every 1 second.
 console.log("Start Timer");
-var myVar = setInterval(function () {
+var myVar = setInterval(function() {
     myTimer()
 }, 1000);
 var ctr = 0;
@@ -57,7 +57,7 @@ function myTimer() {
     var d = new Date();
     if (d.getHours() == 16 && !notified) {
         notified = true;
-        console.log("IT'S 4 PM!     " );
+        console.log("IT'S 4 PM!     ");
     };
 }
 
@@ -67,11 +67,11 @@ app.use(bodyParser.urlencoded({
 }))
 app.use(bodyParser.json())
 
-app.get('/', function (req, res) {
+app.get('/', function(req, res) {
     res.send('Facebook Bot for HRMS')
 }).listen(80);
 
-app.get('/webhook', function (req, res) {
+app.get('/webhook', function(req, res) {
     if (req.query['hub.mode'] === 'subscribe' && req.query['hub.verify_token'] === 'webhooktoken') {
         console.log("Validating webhook");
         res.status(200).send(req.query['hub.challenge']);
@@ -82,13 +82,13 @@ app.get('/webhook', function (req, res) {
 });
 
 //Function that connects the FB Chatbot to NodeJS
-app.post('/webhook', function (req, res) {
+app.post('/webhook', function(req, res) {
     var data = req.body;
     if (data.object == 'page') {
-        data.entry.forEach(function (pageEntry) {
+        data.entry.forEach(function(pageEntry) {
             var pageID = pageEntry.id;
             var timeOfEvent = pageEntry.time;
-            pageEntry.messaging.forEach(function (event) {
+            pageEntry.messaging.forEach(function(event) {
                 if (event.message && event.message.text) {
                     receivedMessage(event);
                 }
@@ -98,26 +98,23 @@ app.post('/webhook', function (req, res) {
     }
 });
 
-app.get('/notifyusers', function (req, res) {
-
+app.get('/notifyusers', function(req, res) {
     // res.send('Notify Users');
     console.log("Notify GET");
     res.sendStatus(200);
 });
 
-app.post('/notifyusers', function (req, res) {
-
+app.post('/notifyusers', function(req, res) {
     res.send('Notify Users');
     console.log("app post notify");
     res.sendStatus(200);
 });
 
-var request2 = http.get("http://23.97.59.113/hrms/chatbot-leave/get", function(res){
-    res.on('data', function (chunk) {
+var request2 = http.get("http://23.97.59.113/hrms/chatbot-leave/get", function(res) {
+    res.on('data', function(chunk) {
         console.log(chunk.toString('utf8'));
-
-      registerUser("test1@idt.com", "q34234", "12345");
-   });
+        registerUser("test99@idt.com");
+    });
 });
 
 
@@ -132,7 +129,7 @@ function receivedMessage(event) {
         sessionId: '<unique session id>'
     });
 
-    request.on('response', function (response) {
+    request.on('response', function(response) {
         var token = response.result.parameters.token;
         console.log("INTENT NAME: " + response.result.metadata.intentName);
 
@@ -141,7 +138,7 @@ function receivedMessage(event) {
         }
     });
 
-    request.on('error', function (error) {});
+    request.on('error', function(error) {});
     request.end();
     var messageText = "Echo: " + event.message.text;
 
@@ -169,7 +166,7 @@ function callSendAPI(messageData) {
         method: 'POST',
         json: messageData
 
-    }, function (error, response, body) {
+    }, function(error, response, body) {
         if (!error && response.statusCode == 200) {
             var recipientId = body.recipient_id;
             var messageId = body.message_id;
@@ -199,30 +196,44 @@ function registerUser(email, fbId, token) {
         }
     });*/
     // Configure the request
-var options = {
-    url: 'http://23.97.59.113/hrms/chatbot-user/validate',
-    method: 'GET',
-    qs: {'emailAddress': email, 'facebookId': fbId, 'chatbotToken': token}
-}
 
-// Start the request
-request(options, function (error, response, body) {
-    if (!error && response.statusCode == 200) {
-        // Print out the response body
-        console.log(body);
-        if(body.success == "true"){
-          con.query("INSERT INTO user_mapping(FB_ID, TOKEN, EMAIL) VALUES('" + email + "', '" + fbId + "', '" + chatbotToken + "');", function(err, rows) {
-             if (err) throw err;
-
-             console.log('INSERT: Data received from Db:\n');
-             console.log(rows);
-             //con.end();
-         });
-     }
+    var options = {
+        url: 'http://23.97.59.113/hrms/chatbot-user/register',
+        method: 'GET',
+        qs: {
+            'emailAddress': email
+        }
     }
-})
+
+    if(token.length > 0){
+    options = {
+        url: 'http://23.97.59.113/hrms/chatbot-user/validate',
+        method: 'GET',
+        qs: {
+            'emailAddress': email,
+            'facebookId': fbId,
+            'chatbotToken': token
+        }
+    }
 }
 
+    // Start the request
+    request(options, function(error, response, body) {
+        if (!error && response.statusCode == 200) {
+            // Print out the response body
+            console.log(body);
+            if (body.success == "true") {
+                /*con.query("INSERT INTO user_mapping(FB_ID, TOKEN, EMAIL) VALUES('" + email + "', '" + fbId + "', '" + chatbotToken + "');", function(err, rows) {
+                    if (err) throw err;
+
+                    console.log('INSERT: Data received from Db:\n');
+                    console.log(rows);
+                    //con.end();
+                });*/
+            }
+        }
+    });
+}
 /*
 app.listen(app.get('port'), function() {
     console.log('running on port', app.get('port'));
