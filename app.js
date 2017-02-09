@@ -113,7 +113,7 @@ app.post('/notifyusers', function(req, res) {
 var request2 = http.get("http://23.97.59.113/hrms/chatbot-leave/get", function(res) {
     res.on('data', function(chunk) {
         console.log(chunk.toString('utf8'));
-        registerUser("test@m.com", "asda", "fd2678e7-b046-4118-8360-18b2ac69e18a");
+        registerUser("sample@gmail.com");
     });
 });
 
@@ -225,15 +225,17 @@ function registerUser(email, fbId, token) {
             var info = JSON.parse(body);
             console.log(info.success);
             console.log(typeof(info.success));
-            if (body.success == true) {
+            if (info.success == true) {
                console.log("success!");
-                con.query("INSERT INTO user_mapping(FB_ID, TOKEN, EMAIL) VALUES('" + email + "', '" + fbId + "', '" + chatbotToken + "');", function(err, rows) {
-                    if (err) throw err;
+               if(token != null){
+                   con.query("INSERT INTO user_mapping(FB_ID, TOKEN, EMAIL) VALUES('" + email + "', '" + fbId + "', '" + chatbotToken + "');", function(err, rows) {
+                       if (err) throw err;
 
-                    console.log('INSERT: Data received from Db:\n');
-                    console.log(rows);
-                    //con.end();
-                });
+                       console.log('INSERT: Data received from Db:\n');
+                       console.log(rows);
+                       //con.end();
+                   });
+                }
             }
         }
     });
