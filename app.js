@@ -338,7 +338,7 @@ function updateIntent() {
                 console.log("[updateIntent] Success!");
 
             //}
-        }
+        
     });
     //res.end();
 }
