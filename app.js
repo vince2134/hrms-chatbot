@@ -333,12 +333,12 @@ function updateIntent() {
     request(JSON.stringify(options), function(error, response, body) {
         //if (!error && response.statusCode == 200) {
             // Print out the response body
-            console.log(response);
+            console.log(body);
             //if (info.success == true) {
                 console.log("[updateIntent] Success!");
 
             //}
-        
+
     });
     //res.end();
 }
