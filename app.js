@@ -21,7 +21,7 @@ var mysql = require('./node_modules/mysql');
 
 // Function that ticks every 1 second.
 console.log("Start Timer");
-var myVar = setInterval(function() {
+var myVar = setInterval(function () {
     myTimer()
 }, 1000);
 var ctr = 0;
@@ -33,7 +33,7 @@ var con = mysql.createConnection({
     database: "hrms_chatbot"
 });
 
-con.connect(function(err) {
+con.connect(function (err) {
     console.log("connecting to DB");
     if (err) {
         console.log('Error connecting to Db');
@@ -42,17 +42,10 @@ con.connect(function(err) {
     console.log('Connection established');
 });
 
-/*con.query("INSERT INTO user_mapping(FB_ID, TOKEN, EMAIL) VALUES('test', 'test2', 'test3');", function(err, rows) {
-   if (err) throw err;
-
-   console.log('INSERT: Data received from Db:\n');
-   console.log(rows);
-   //con.end();
-});*/
-
 /* Function being called every second.
- * Calls HRMS method and asks for the list of people to be notified.
+ * Calls HRMS method and asks for the list of people to be notified if they forgot to log in Unfuddle.
  */
+// FUTURE: As a chatbot, I should be able to alert users if they fail to log their previous work hours on Unfuddle every 10am
 function myTimer() {
     var d = new Date();
     if (d.getHours() == 16 && !notified) {
@@ -67,11 +60,11 @@ app.use(bodyParser.urlencoded({
 }))
 app.use(bodyParser.json())
 
-app.get('/', function(req, res) {
+app.get('/', function (req, res) {
     res.send('Facebook Bot for HRMS')
 }).listen(80);
 
-app.get('/webhook', function(req, res) {
+app.get('/webhook', function (req, res) {
     if (req.query['hub.mode'] === 'subscribe' && req.query['hub.verify_token'] === 'webhooktoken') {
         console.log("Validating webhook");
         res.status(200).send(req.query['hub.challenge']);
@@ -82,13 +75,13 @@ app.get('/webhook', function(req, res) {
 });
 
 //Function that connects the FB Chatbot to NodeJS
-app.post('/webhook', function(req, res) {
+app.post('/webhook', function (req, res) {
     var data = req.body;
     if (data.object == 'page') {
-        data.entry.forEach(function(pageEntry) {
+        data.entry.forEach(function (pageEntry) {
             var pageID = pageEntry.id;
             var timeOfEvent = pageEntry.time;
-            pageEntry.messaging.forEach(function(event) {
+            pageEntry.messaging.forEach(function (event) {
                 if (event.message && event.message.text) {
                     receivedMessage(event);
                 }
@@ -98,25 +91,24 @@ app.post('/webhook', function(req, res) {
     }
 });
 
-app.get('/notifyusers', function(req, res) {
+app.get('/notifyusers', function (req, res) {
     // res.send('Notify Users');
     console.log("Notify GET");
     res.sendStatus(200);
 });
 
-app.post('/notifyusers', function(req, res) {
+app.post('/notifyusers', function (req, res) {
     res.send('Notify Users');
     console.log("app post notify");
     res.sendStatus(200);
 });
 
-var request2 = http.get("http://23.97.59.113/hrms/chatbot-leave/get", function(res) {
-    res.on('data', function(chunk) {
+var request2 = http.get("http://23.97.59.113/hrms/chatbot-leave/get", function (res) {
+    res.on('data', function (chunk) {
         console.log(chunk.toString('utf8'));
         registerUser("rrr@m.com", "test", "c6dfcb1c-cec0-4c67-8d20-0d3937249113");
     });
 });
-
 
 function receivedMessage(event) {
     var senderID = event.sender.id;
@@ -128,8 +120,8 @@ function receivedMessage(event) {
     var request = app2.textRequest("hi", {
         sessionId: '<unique session id>'
     });
-
-    request.on('response', function(response) {
+                    
+    request.on('response', function (response) {
         var token = response.result.parameters.token;
         console.log("INTENT NAME: " + response.result.metadata.intentName);
 
@@ -138,7 +130,7 @@ function receivedMessage(event) {
         }
     });
 
-    request.on('error', function(error) {});
+    request.on('error', function (error) {});
     request.end();
     var messageText = "Echo: " + event.message.text;
 
@@ -152,10 +144,10 @@ function receivedMessage(event) {
     };
     callSendAPI(messageData);
 }
+
 /*
  * Call the Send API. The message data goes in the body. If successful, we'll
  * get the message id in a response
- *
  */
 function callSendAPI(messageData) {
     request({
@@ -166,7 +158,7 @@ function callSendAPI(messageData) {
         method: 'POST',
         json: messageData
 
-    }, function(error, response, body) {
+    }, function (error, response, body) {
         if (!error && response.statusCode == 200) {
             var recipientId = body.recipient_id;
             var messageId = body.message_id;
@@ -181,60 +173,64 @@ function callSendAPI(messageData) {
 }
 
 //http://23.97.59.113/hrms/chatbot-user/validate?emailAddress=aasd&facebookId=q34234&chatbotToken=12345
-function registerUser(email, fbId, token) {
-    /*request({
-        uri: 'http://23.97.59.113/hrms/chatbot-user/register',
-        method: 'POST',
-        json: {emailAddress:'test1@idt.com'}
-
-    }, function (error, response, body) {
-        if (!error) {
-            console.log("no error");
-        } else {
-           console.log(error);
-            console.error("error2");
-        }
-    });*/
+/*
+* Function for the registration of users to their email.
+*/
+function registerUser(email) {
     // Configure the request
-
     var options = {
         url: 'http://23.97.59.113/hrms/chatbot-user/register',
         method: 'GET',
         qs: {
             'emailAddress': email
-        }
+            }
     }
-
-    if(token != null){
-       options = {
-           url: 'http://23.97.59.113/hrms/chatbot-user/validate',
-           method: 'GET',
-           qs: {
-               'emailAddress': email,
-               'facebookId': fbId,
-               'chatbotToken': token
-           }
-       }
-    }
-
     // Start the request
-    request(options, function(error, response, body) {
+    request(options, function (error, response, body) {
         if (!error && response.statusCode == 200) {
             // Print out the response body
-            console.log(typeof(body));
             var info = JSON.parse(body);
-            console.log(info.success);
-            console.log(typeof(info.success));
+            console.log("Register Success: " + info.success);
             if (info.success == true) {
-               console.log("success!");
-               if(token != null){
-                   con.query("INSERT INTO user_mapping(FB_ID, TOKEN, EMAIL) VALUES('" + fbId + "', '" + token + "', '" + email + "');", function(err, rows) {
-                       if (err) throw err;
+                console.log("[registerUser] Success!");
+            }
+            else{
+                console.log("[registerUser] Failed");
+            }
+        }
+    });
+}
 
-                       console.log('INSERT: Data received from Db:\n');
-                       console.log(rows);
-                       //con.end();
-                   });
+/*
+* Function for validating the token entered by the user.
+// FUTURE: As a chatbot, I should be able to register 
+*/
+function validateUser(email, fbId, token) {
+      // Configure the request
+      options = {
+            url: 'http://23.97.59.113/hrms/chatbot-user/validate',
+            method: 'GET',
+            qs: {
+                'emailAddress': email,
+                'facebookId': fbId,
+                'chatbotToken': token
+            }
+        }
+    // Start the request
+    request(options, function (error, response, body) {
+        if (!error && response.statusCode == 200) {
+            // Print out the response body
+            var info = JSON.parse(body);
+            console.log("Validation Success: " + info.success);
+            console.log(typeof (info.success));
+            if (info.success == true) {
+                console.log("[validateUser] Success!");
+                if (token != null) {
+                    con.query("INSERT INTO user_mapping(FB_ID, TOKEN, EMAIL) VALUES('" + fbId + "', '" + token + "', '" + email + "');", function (err, rows) {
+                        if (err) throw err;
+                        console.log('INSERT: Data received from Db:\n');
+                        console.log(rows);
+                    });
                 }
             }
         }
