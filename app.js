@@ -243,7 +243,9 @@ function updateIntent() {
         method: 'POST',
         path : '/intents',
       headers: {
-                "Authorization": "Bearer 05411b958f3840019c2e968e3ac72a63"
+                "Authorization": "Bearer 05411b958f3840019c2e968e3ac72a63",
+                "Content-Type": "application/json; charset=utf-8"
+
             },
             qs:
 {
