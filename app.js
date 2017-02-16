@@ -340,5 +340,5 @@ function updateIntent() {
             }
         }
     });
-    res.end();
+    //res.end();
 }
