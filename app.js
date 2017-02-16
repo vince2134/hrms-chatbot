@@ -336,6 +336,7 @@ function updateIntent() {
             // Print out the response body
             console.log(options.headers);
             console.log(JSON.stringify(body));
+            console.log(error);
             //console.log(JSON.stringify(response.statusCode));
             //if (info.success == true) {
                 console.log("[updateIntent] Success!");
