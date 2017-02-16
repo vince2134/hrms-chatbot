@@ -246,7 +246,7 @@ function updateIntent() {
                 "Authorization": "Bearer 05411b958f3840019c2e968e3ac72a63",
                 "Content-Type": "application/json; charset=utf-8"
             },
-            body:
+            qs:
 {
    "name": "change appliance state",
    "auto": true,
@@ -331,11 +331,11 @@ function updateIntent() {
 
 
     }
-    request(JSON.stringify(options), function(error, response, body) {
+    request(options, function(error, response, body) {
         //if (!error && response.statusCode == 200) {
             // Print out the response body
             console.log(options.headers);
-            console.log(JSON.stringify(body));
+            console.log(body);
             console.log(error);
             //console.log(JSON.stringify(response.statusCode));
             //if (info.success == true) {
