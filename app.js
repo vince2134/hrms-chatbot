@@ -243,7 +243,7 @@ function updateIntent() {
         method: 'POST',
       headers: {
                 "Authorization": "Bearer 05411b958f3840019c2e968e3ac72a63",
-                "Content-Type": "application/json; charset=utf-8"
+                "Content-Type": "X-www-form-urlencoded"
             },
             qs:
 {
