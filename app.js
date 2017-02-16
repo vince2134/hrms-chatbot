@@ -237,6 +237,7 @@ function validateUser(email, fbId, token) {
 
 function updateIntent() {
     // Configure the request
+    console.log("update");
     options = {
         url: 'https://api.api.ai/v1/intents/32cf7700-782b-450f-afce-10c6484ecc6f?v=20150910',
         method: 'PUT',
