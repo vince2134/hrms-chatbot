@@ -25,7 +25,8 @@ var myVar = setInterval(function () {
     myTimer()
 }, 1000);
 
-var con = mysql.createConnection({
+updateIntent();
+/*var con = mysql.createConnection({
     host: "localhost",
     user: "root",
     password: "ideyatech",
@@ -39,7 +40,7 @@ con.connect(function (err) {
         return;
     }
     console.log('Connection established');
-});
+});*/
 
 /* Function being called every second.
  * Calls HRMS method and asks for the list of people to be notified if they forgot to log in Unfuddle.
