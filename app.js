@@ -238,10 +238,13 @@ function validateUser(email, fbId, token) {
 function updateIntent() {
     // Configure the request
     console.log("update");
-    options = {
-        uri: 'https://api.api.ai/v1/intents?v=20150910',
-        method: 'POST',
-        path : '/intents',
+    var link = url.parse('https://api.api.ai/v1/intents?v=20150910');
+
+   options = {
+       host: link.hostname,
+       path:link.path,
+       port: link.port,
+       method: 'POST',
       headers: {
                 "Authorization": "Bearer 05411b958f3840019c2e968e3ac72a63",
                 "Content-Type": "application/json;charset=utf-8",
