@@ -21,7 +21,7 @@ var mysql = require('./node_modules/mysql');
 
 // Function that ticks every 1 second.
 console.log("Start Timer");
-var myVar = setInterval(function () {
+var myVar = setInterval(function() {
     myTimer()
 }, 1000);
 
@@ -60,11 +60,11 @@ app.use(bodyParser.urlencoded({
 }))
 app.use(bodyParser.json())
 
-app.get('/', function (req, res) {
+app.get('/', function(req, res) {
     res.send('Facebook Bot for HRMS')
 }).listen(80);
 
-app.get('/webhook', function (req, res) {
+app.get('/webhook', function(req, res) {
     if (req.query['hub.mode'] === 'subscribe' && req.query['hub.verify_token'] === 'webhooktoken') {
         console.log("Validating webhook");
         res.status(200).send(req.query['hub.challenge']);
@@ -75,13 +75,13 @@ app.get('/webhook', function (req, res) {
 });
 
 //Function that connects the FB Chatbot to NodeJS
-app.post('/webhook', function (req, res) {
+app.post('/webhook', function(req, res) {
     var data = req.body;
     if (data.object == 'page') {
-        data.entry.forEach(function (pageEntry) {
+        data.entry.forEach(function(pageEntry) {
             var pageID = pageEntry.id;
             var timeOfEvent = pageEntry.time;
-            pageEntry.messaging.forEach(function (event) {
+            pageEntry.messaging.forEach(function(event) {
                 if (event.message && event.message.text) {
                     receivedMessage(event);
                 }
@@ -91,13 +91,13 @@ app.post('/webhook', function (req, res) {
     }
 });
 
-app.get('/notifyusers', function (req, res) {
+app.get('/notifyusers', function(req, res) {
     // res.send('Notify Users');
     console.log("Notify GET");
     res.sendStatus(200);
 });
 
-app.post('/notifyusers', function (req, res) {
+app.post('/notifyusers', function(req, res) {
     res.send('Notify Users');
     console.log("app post notify");
     res.sendStatus(200);
@@ -120,8 +120,8 @@ function receivedMessage(event) {
     var request = app2.textRequest("hi", {
         sessionId: '<unique session id>'
     });
-                    
-    request.on('response', function (response) {
+
+    request.on('response', function(response) {
         var token = response.result.parameters.token;
         console.log("INTENT NAME: " + response.result.metadata.intentName);
 
@@ -130,7 +130,7 @@ function receivedMessage(event) {
         }
     });
 
-    request.on('error', function (error) {});
+    request.on('error', function(error) {});
     request.end();
     var messageText = "Echo: " + event.message.text;
 
@@ -158,7 +158,7 @@ function callSendAPI(messageData) {
         method: 'POST',
         json: messageData
 
-    }, function (error, response, body) {
+    }, function(error, response, body) {
         if (!error && response.statusCode == 200) {
             var recipientId = body.recipient_id;
             var messageId = body.message_id;
@@ -174,8 +174,8 @@ function callSendAPI(messageData) {
 
 //http://23.97.59.113/hrms/chatbot-user/validate?emailAddress=aasd&facebookId=q34234&chatbotToken=12345
 /*
-* Function for the registration of users to their email.
-*/
+ * Function for the registration of users to their email.
+ */
 function registerUser(email) {
     // Configure the request
     var options = {
@@ -183,18 +183,17 @@ function registerUser(email) {
         method: 'GET',
         qs: {
             'emailAddress': email
-            }
+        }
     }
     // Start the request
-    request(options, function (error, response, body) {
+    request(options, function(error, response, body) {
         if (!error && response.statusCode == 200) {
             // Print out the response body
             var info = JSON.parse(body);
             console.log("Register Success: " + info.success);
             if (info.success == true) {
                 console.log("[registerUser] Success!");
-            }
-            else{
+            } else {
                 console.log("[registerUser] Failed");
             }
         }
@@ -203,29 +202,29 @@ function registerUser(email) {
 
 /*
 * Function for validating the token entered by the user.
-// FUTURE: As a chatbot, I should be able to register 
+// FUTURE: As a chatbot, I should be able to register
 */
 function validateUser(email, fbId, token) {
-      // Configure the request
-      options = {
-            url: 'http://23.97.59.113/hrms/chatbot-user/validate',
-            method: 'GET',
-            qs: {
-                'emailAddress': email,
-                'facebookId': fbId,
-                'chatbotToken': token
-            }
+    // Configure the request
+    options = {
+        url: 'http://23.97.59.113/hrms/chatbot-user/validate',
+        method: 'GET',
+        qs: {
+            'emailAddress': email,
+            'facebookId': fbId,
+            'chatbotToken': token
         }
-    request(options, function (error, response, body) {
+    }
+    request(options, function(error, response, body) {
         if (!error && response.statusCode == 200) {
             // Print out the response body
             var info = JSON.parse(body);
             console.log("Validation Success: " + info.success);
-            console.log(typeof (info.success));
+            console.log(typeof(info.success));
             if (info.success == true) {
                 console.log("[validateUser] Success!");
                 if (token != null) {
-                    con.query("INSERT INTO user_mapping(FB_ID, TOKEN, EMAIL) VALUES('" + fbId + "', '" + token + "', '" + email + "');", function (err, rows) {
+                    con.query("INSERT INTO user_mapping(FB_ID, TOKEN, EMAIL) VALUES('" + fbId + "', '" + token + "', '" + email + "');", function(err, rows) {
                         if (err) throw err;
                         console.log('INSERT: Data received from Db:\n');
                         console.log(rows);
@@ -237,38 +236,35 @@ function validateUser(email, fbId, token) {
 }
 
 function updateIntent() {
-      // Configure the request
-      options = {
-            url: 'https://api.api.ai/v1/intents/613de225-65b2-4fa8-9965-c14ae7673826?v=20150910',
-            method: 'PUT',
-            qs: {
-                'headers': {
-                    'Authorization': "Bearer 05411b958f3840019c2e968e3ac72a63",
-                    'Content-Type': "application/json; charset=utf-8"
-                    },
-                body:
-{
-   "name": "register_account",
-   "auto": true,
-   "contexts": [],
-   "responses": [
-      {
-         "resetContexts": false,
-         "speech": "Hi Hello Hi"
-      }
-   ],
-   "priority": 500000
-}
+    // Configure the request
+    options = {
+        url: 'https://api.api.ai/v1/intents/32cf7700-782b-450f-afce-10c6484ecc6f?v=20150910',
+        method: 'PUT',
+        qs: {
+            'headers': {
+                'Authorization': "Bearer 05411b958f3840019c2e968e3ac72a63",
+                'Content-Type': "application/json; charset=utf-8"
+            },
+            body: {
+                "name": "register_account",
+                "auto": true,
+                "contexts": [],
+                "responses": [{
+                    "resetContexts": false,
+                    "speech": "Hi Hello Hi"
+                }],
+                "priority": 500000
             }
         }
-    request(options, function (error, response, body) {
+    }
+    request(options, function(error, response, body) {
         if (!error && response.statusCode == 200) {
             // Print out the response body
             console.log(response);
             if (info.success == true) {
                 console.log("[updateIntent] Success!");
-                
-     }}});
+
+            }
+        }
+    });
 }
-            
-        
