@@ -239,7 +239,7 @@ function updateIntent() {
     // Configure the request
     console.log("update");
     options = {
-        uri: 'https://api.api.ai/v1/intents?v=20150910',
+        url: 'https://api.api.ai/v1/intents?v=20150910',
         path:"/intents",
         method: 'POST',
       headers: {
