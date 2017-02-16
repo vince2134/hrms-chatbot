@@ -240,7 +240,6 @@ function updateIntent() {
     console.log("update");
     options = {
         url: 'https://api.api.ai/v1/intents?v=20150910',
-        path:"/intents",
         method: 'POST',
       headers: {
                 "Authorization": "Bearer 05411b958f3840019c2e968e3ac72a63",
