@@ -243,7 +243,7 @@ function updateIntent() {
         method: 'PUT',
         qs: {
             'headers': {
-                'Authorization': "Bearer 05411b958f3840019c2e968e3ac72a63",
+                'Authorization': "05411b958f3840019c2e968e3ac72a63",
                 'Content-Type': "application/json; charset=utf-8"
             },
             body: {
