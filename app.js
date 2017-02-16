@@ -238,7 +238,7 @@ function validateUser(email, fbId, token) {
 function updateIntent() {
     // Configure the request
     console.log("update");
-    var link = url.parse('https://api.api.ai/v1/intents?v=20150910');
+    var link = 'https://api.api.ai/v1/intents?v=20150910';
 
     options = {
         uri: link,
