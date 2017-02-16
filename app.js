@@ -268,7 +268,7 @@ function updateIntent() {
             if (info.success == true) {
                 console.log("[updateIntent] Success!");
                 
-                    });
+                    }}});
                 }
             }
         }
