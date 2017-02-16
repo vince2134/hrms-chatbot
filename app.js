@@ -24,7 +24,6 @@ console.log("Start Timer");
 var myVar = setInterval(function () {
     myTimer()
 }, 1000);
-var ctr = 0;
 
 var con = mysql.createConnection({
     host: "localhost",
@@ -103,12 +102,12 @@ app.post('/notifyusers', function (req, res) {
     res.sendStatus(200);
 });
 
-var request2 = http.get("http://23.97.59.113/hrms/chatbot-leave/get", function (res) {
+/*var request2 = http.get("http://23.97.59.113/hrms/chatbot-leave/get", function (res) {
     res.on('data', function (chunk) {
         console.log(chunk.toString('utf8'));
         registerUser("rrr@m.com", "test", "c6dfcb1c-cec0-4c67-8d20-0d3937249113");
     });
-});
+});*/
 
 function receivedMessage(event) {
     var senderID = event.sender.id;
@@ -216,7 +215,6 @@ function validateUser(email, fbId, token) {
                 'chatbotToken': token
             }
         }
-    // Start the request
     request(options, function (error, response, body) {
         if (!error && response.statusCode == 200) {
             // Print out the response body
@@ -236,8 +234,42 @@ function validateUser(email, fbId, token) {
         }
     });
 }
-/*
-app.listen(app.get('port'), function() {
-    console.log('running on port', app.get('port'));
-    console.log("The app is now up and running.");
-})*/
+
+function updateIntent() {
+      // Configure the request
+      options = {
+            url: 'https://api.api.ai/v1/intents/613de225-65b2-4fa8-9965-c14ae7673826?v=20150910',
+            method: 'PUT',
+            qs: {
+                'headers': {
+                    'Authorization': "Bearer 05411b958f3840019c2e968e3ac72a63",
+                    'Content-Type': "application/json; charset=utf-8"
+                    }
+                body:
+{
+   "name": "register_account",
+   "auto": true,
+   "contexts": [],
+   "responses": [
+      {
+         "resetContexts": false,
+         "speech": "Hi Hello Hi"
+      }
+   ],
+   "priority": 500000
+}
+            }
+        }
+    request(options, function (error, response, body) {
+        if (!error && response.statusCode == 200) {
+            // Print out the response body
+            console.log(response);
+            if (info.success == true) {
+                console.log("[updateIntent] Success!");
+                
+                    });
+                }
+            }
+        }
+    });
+}
