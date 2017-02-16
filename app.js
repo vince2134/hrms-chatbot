@@ -242,8 +242,7 @@ function updateIntent() {
         uri: 'https://api.api.ai/v1/intents?v=20150910',
         method: 'POST',
       headers: {
-                "Authorization": "Bearer 05411b958f3840019c2e968e3ac72a63",
-                "Content-type": "application/x-www-form-urlencoded"
+                "Authorization": "Bearer 05411b958f3840019c2e968e3ac72a63"
             },
             qs:
 {
