@@ -12,7 +12,6 @@ var globalSenderId;
 var notified = false;
 var register = false;
 var intent = "";
-var url = require('url');
 //FB Page Access Token
 var token = "EAAaA4LJeypQBABay9GkjkbF02ri0qx218cby6M3q6ZBGri2qzm9J1XZBIVgxFcRvBpoZCinySRcptTrACfJEki0e9XXMqDMr83Hc5ZBkAX3LNW1p4yPGpiAeyeoZCVCqVK2LyOOCZA53zpV8WXrQZB7mV0gC7PfNyrNRw6sCIikNAZDZD";
 var https = require('https');
@@ -241,15 +240,12 @@ function updateIntent() {
     console.log("update");
     var link = url.parse('https://api.api.ai/v1/intents?v=20150910');
 
-   options = {
-       host: link.hostname,
-       path:link.path,
-       port: link.port,
-       method: 'POST',
+    options = {
+        uri: link,
+        method: 'POST',
       headers: {
                 "Authorization": "Bearer 05411b958f3840019c2e968e3ac72a63",
-                "Content-Type": "application/json;charset=utf-8",
-                "Accept": "application/json"
+                "Content-Type": "application/json; charset=utf-8"
             },
             qs:
 {
@@ -337,18 +333,9 @@ function updateIntent() {
 
     }
     request(options, function(error, response, body) {
-        //if (!error && response.statusCode == 200) {
-            // Print out the response body
             console.log(options.headers);
-            //console.log(response.statusCode);
             console.log(body);
             console.log(error);
-            //console.log(JSON.stringify(response.statusCode));
-            //if (info.success == true) {
                 console.log("[updateIntent] Success!");
-
-            //}
-
     });
-    //res.end();
 }
