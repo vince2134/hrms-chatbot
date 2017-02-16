@@ -239,22 +239,11 @@ function updateIntent() {
     // Configure the request
     console.log("update");
     options = {
-        url: 'https://api.api.ai/v1/intents/32cf7700-782b-450f-afce-10c6484ecc6f?v=20150910',
+        url: 'https://api.api.ai/v1/intents?v=20150910',
         method: 'PUT',
         qs: {
             'headers': {
-                'Authorization': "05411b958f3840019c2e968e3ac72a63",
-                'Content-Type': "application/json; charset=utf-8"
-            },
-            body: {
-                "name": "register_account",
-                "auto": true,
-                "contexts": [],
-                "responses": [{
-                    "resetContexts": false,
-                    "speech": "Hi Hello Hi"
-                }],
-                "priority": 500000
+                'Authorization': "Bearer 05411b958f3840019c2e968e3ac72a63"
             }
         }
     }
