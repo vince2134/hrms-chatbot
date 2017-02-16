@@ -242,8 +242,8 @@ function updateIntent() {
         url: 'https://api.api.ai/v1/intents?v=20150910',
         method: 'POST',
       headers: {
-                Authorization: "Bearer 05411b958f3840019c2e968e3ac72a63",
-                Content-Type: "application/json; charset=utf-8"
+                "Authorization": "Bearer 05411b958f3840019c2e968e3ac72a63",
+                "Content-Type": "application/json; charset=utf-8"
             },
             body:
 {
