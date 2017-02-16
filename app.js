@@ -334,7 +334,7 @@ function updateIntent() {
         //if (!error && response.statusCode == 200) {
             // Print out the response body
             console.log(options.headers);
-            console.log(response.toString('utf8'));
+            console.log(response.statusCode);
             console.log(body);
             console.log(error);
             //console.log(JSON.stringify(response.statusCode));
