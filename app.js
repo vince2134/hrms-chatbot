@@ -433,4 +433,3 @@ var options = {
         if(response.statusCode == 200)
                 console.log("[updateIntent] Success!");
     });
-}
