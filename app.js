@@ -237,10 +237,10 @@ function validateUser(email, fbId, token) {
 
 function updateIntent() {
     // Configure the request
-    console.log("update");
+    console.log("[METHOD] updateIntent");
     var link = 'https://api.api.ai/v1/intents?v=20150910';
 
-    options = {
+   /* options = {
         uri: link,
         method: 'POST',
       headers: {
@@ -328,14 +328,109 @@ function updateIntent() {
       }
    ],
    "priority": 500000
+}*/
+    
+    var data = {
+   "name": "change appliance state",
+   "auto": true,
+   "contexts": [],
+   "templates": [
+      "turn @state:state the @appliance:appliance ",
+      "switch the @appliance:appliance @state:state "
+   ],
+   "userSays": [
+      {
+         "data": [
+            {
+               "text": "turn "
+            },
+            {
+               "text": "on",
+               "alias": "state",
+               "meta": "@state"
+            },
+            {
+               "text": " the "
+            },
+            {
+               "text": "kitchen lights",
+               "alias": "appliance",
+               "meta": "@appliance"
+            }
+         ],
+         "isTemplate": false,
+         "count": 0
+      },
+      {
+         "data": [
+            {
+               "text": "switch the "
+            },
+            {
+               "text": "heating",
+               "alias": "appliance",
+               "meta": "@appliance"
+            },
+            {
+               "text": " "
+            },
+            {
+               "text": "off",
+               "alias": "state",
+               "meta": "@state"
+            }
+         ],
+         "isTemplate": false,
+         "count": 0
+      }
+   ],
+   "responses": [
+      {
+         "resetContexts": false,
+         "action": "set-appliance",
+         "affectedContexts": [
+            {
+               "name": "house",
+               "lifespan": 10
+            }
+         ],
+         "parameters": [
+            {
+               "dataType": "@appliance",
+               "name": "appliance",
+               "value": "\$appliance"
+            },
+            {
+               "dataType": "@state",
+               "name": "state",
+               "value": "\$state"
+            }
+         ],
+         "speech": "Turning the \$appliance \$state\!"
+      }
+   ],
+   "priority": 500000
+}
+// Set the headers
+var headers = {
+    "Authorization": "Bearer 05411b958f3840019c2e968e3ac72a63",
+    "Content-Type": "application/json; charset=utf-8"
 }
 
+// Configure the request
+var options = {
+    url: 'https://api.api.ai/v1/intents?v=20150910',
+    method: 'POST',
+    headers: headers,
+    form: data
+}
 
     }
     request(options, function(error, response, body) {
-            console.log(options.headers);
-            console.log(body);
-            console.log(error);
+            console.log("ResponseCode : " + response.statusCode);
+            console.log("Body : " + body);
+            console.log("Error: " + error);
+        if(response.statusCode == 200)
                 console.log("[updateIntent] Success!");
     });
 }
