@@ -248,89 +248,9 @@ function updateIntent() {
                 "Content-Type": "application/json; charset=utf-8"
             },
             qs:
-{
-   "name": "change appliance state",
-   "auto": true,
-   "contexts": [],
-   "templates": [
-      "turn @state:state the @appliance:appliance ",
-      "switch the @appliance:appliance @state:state "
-   ],
-   "userSays": [
-      {
-         "data": [
-            {
-               "text": "turn "
-            },
-            {
-               "text": "on",
-               "alias": "state",
-               "meta": "@state"
-            },
-            {
-               "text": " the "
-            },
-            {
-               "text": "kitchen lights",
-               "alias": "appliance",
-               "meta": "@appliance"
-            }
-         ],
-         "isTemplate": false,
-         "count": 0
-      },
-      {
-         "data": [
-            {
-               "text": "switch the "
-            },
-            {
-               "text": "heating",
-               "alias": "appliance",
-               "meta": "@appliance"
-            },
-            {
-               "text": " "
-            },
-            {
-               "text": "off",
-               "alias": "state",
-               "meta": "@state"
-            }
-         ],
-         "isTemplate": false,
-         "count": 0
-      }
-   ],
-   "responses": [
-      {
-         "resetContexts": false,
-         "action": "set-appliance",
-         "affectedContexts": [
-            {
-               "name": "house",
-               "lifespan": 10
-            }
-         ],
-         "parameters": [
-            {
-               "dataType": "@appliance",
-               "name": "appliance",
-               "value": "\$appliance"
-            },
-            {
-               "dataType": "@state",
-               "name": "state",
-               "value": "\$state"
-            }
-         ],
-         "speech": "Turning the \$appliance \$state\!"
-      }
-   ],
-   "priority": 500000
-}*/
+*/
     
-    var data = {
+var dataJSON = {
    "name": "change appliance state",
    "auto": true,
    "contexts": [],
@@ -425,12 +345,39 @@ options = {
     form: data
 };
 
-    }
+/*    }
     request(options, function(error, response, body) {
             console.log("ResponseCode : " + response.statusCode);
             console.log("Body : " + body);
             console.log("Error: " + error);
         if(response.statusCode == 200)
                 console.log("[updateIntent] Success!");
-    });
-
+    });*/
+//Example POST method invocation 
+var Client = require('node-rest-client').Client;
+ 
+var client = new Client();
+ 
+// set content-type header and data as json in args parameter 
+var args = {
+    data: dataJSON,
+    headers: { "Authorization": "Bearer 05411b958f3840019c2e968e3ac72a63",
+    "Content-Type": "application/json; charset=utf-8" }
+};
+ 
+client.post("https://api.api.ai/v1/intents?v=20150910", args, function (data, response) {
+    // parsed response body as js object 
+    console.log(data);
+    // raw response 
+    console.log(response);
+});
+ 
+// registering remote methods 
+client.registerMethod("postMethod", "http://remote.site/rest/json/method", "POST");
+ 
+client.methods.postMethod(args, function (data, response) {
+    // parsed response body as js object 
+    console.log(data);
+    // raw response 
+    console.log(response);
+});}
