@@ -365,7 +365,7 @@ var args = {
     "Content-Type": "application/json; charset=utf-8" }
 };
  
-client.post("https://api.api.ai/v1/intents?v=20150910", args, function (data, response) {
+client.post("api.api.ai/v1/intents?v=20150910", args, function (data, response) {
     // parsed response body as js object 
     console.log(data);
     // raw response 
