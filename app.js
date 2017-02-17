@@ -249,7 +249,7 @@ function updateIntent() {
             },
             qs:
 */
-    
+        
 var dataJSON = {
    "name": "change appliance state",
    "auto": true,
@@ -342,7 +342,7 @@ options = {
     url: 'https://api.api.ai/v1/intents?v=20150910',
     method: 'POST',
     headers: headers,
-    form: data
+    form: dataJSON
 };
 
 /*    }
