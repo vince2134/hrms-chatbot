@@ -373,3 +373,4 @@ client.get(link, args,
         // raw response 
         console.log(response);
     });
+}
