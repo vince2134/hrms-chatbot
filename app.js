@@ -369,7 +369,7 @@ var args = {
 client.get(link, args,
     function (data, response) {
         // parsed response body as js object 
-        console.log(data);
+        console.log(data.toString('utf8'));
         // raw response 
         console.log(response.toString('utf8'));
     });
