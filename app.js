@@ -418,12 +418,12 @@ var headers = {
 }
 
 // Configure the request
-var options = {
+options = {
     url: 'https://api.api.ai/v1/intents?v=20150910',
     method: 'POST',
     headers: headers,
     form: data
-}
+};
 
     }
     request(options, function(error, response, body) {
@@ -433,3 +433,4 @@ var options = {
         if(response.statusCode == 200)
                 console.log("[updateIntent] Success!");
     });
+
