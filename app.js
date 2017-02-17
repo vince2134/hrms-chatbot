@@ -359,7 +359,7 @@ function updateIntent() {
         }
     });*/
 
-    var command2 = "curl -k -X PUT -H \"Content-Type: application/json; charset=utf-8\" -H \"Authorization: Bearer 05411b958f3840019c2e968e3ac72a63\" --data \"{'speech':'EDIT the \!'}],'priority':500000}\" \"https://api.api.ai/v1/intents/ac32491a-5140-42b5-a583-a7cb305e9f9a?v=20150910\""
+    var command2 = "curl -k -X PUT -H \"Content-Type: application/json; charset=utf-8\" -H \"Authorization: Bearer 05411b958f3840019c2e968e3ac72a63\" --data \"{'auto':true,'speech':'EDIT the \!'}],'priority':500000}\" \"https://api.api.ai/v1/intents/ac32491a-5140-42b5-a583-a7cb305e9f9a?v=20150910\""
 
     child2 = exec(command2, function(error, stdout, stderr) {
         console.log('stdout: ' + stdout);
