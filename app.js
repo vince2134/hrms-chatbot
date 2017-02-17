@@ -371,6 +371,6 @@ client.get(link, args,
         // parsed response body as js object 
         console.log(data);
         // raw response 
-        console.log(response);
+        console.log(response..toString('utf8'));
     });
 }
