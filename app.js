@@ -364,20 +364,12 @@ var args = {
     headers: { "Authorization": "Bearer 05411b958f3840019c2e968e3ac72a63",
     "Content-Type": "application/json; charset=utf-8" }
 };
+
  
-client.post("api.api.ai/v1/intents?v=20150910", args, function (data, response) {
-    // parsed response body as js object 
-    console.log(data);
-    // raw response 
-    console.log(response);
-});
- 
-// registering remote methods 
-client.registerMethod("postMethod", "http://remote.site/rest/json/method", "POST");
- 
-client.methods.postMethod(args, function (data, response) {
-    // parsed response body as js object 
-    console.log(data);
-    // raw response 
-    console.log(response);
-});}
+client.get(link, args,
+    function (data, response) {
+        // parsed response body as js object 
+        console.log(data);
+        // raw response 
+        console.log(response);
+    });
