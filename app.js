@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 var express = require('express');
 var bodyParser = require('body-parser');
 var request = require('request');
@@ -748,5 +747,4 @@ function updateIntent() {
             console.log('exec error: ' + error);
         }
     });
->>>>>>> 2f7f3fefb39a7d9e9b5b2eb33dfd45014c9ea512
 }
