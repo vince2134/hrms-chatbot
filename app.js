@@ -118,10 +118,6 @@ function receivedMessage(event) {
     var timeOfMessage = event.timestamp;
     var message = event.message.text;
 
-    var request = app2.textRequest("hi", {
-        sessionId: '<unique session id>'
-    });
-
     console.log(message);
 
     request.on('response', function(response) {
