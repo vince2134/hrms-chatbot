@@ -13,7 +13,7 @@ var notified = false;
 var register = false;
 var intent = "";
 //FB Page Access Token
-var token = "EAAaA4LJeypQBABay9GkjkbF02ri0qx218cby6M3q6ZBGri2qzm9J1XZBIVgxFcRvBpoZCinySRcptTrACfJEki0e9XXMqDMr83Hc5ZBkAX3LNW1p4yPGpiAeyeoZCVCqVK2LyOOCZA53zpV8WXrQZB7mV0gC7PfNyrNRw6sCIikNAZDZD";
+var token = "EAAPjuqfpWPABAO3jNa0f6mqkSM9cxJEYqnz6Hqw1a2G1T8aQK7KjisFKg1vzG7xPmNycrO6i9HmPo9USJOaWBkYWhTuNh3djMVOWG5ZCXPqFjsWy9qRJIHZA4atnCuktd5ox4BB1uqV9ZA7YZB217PS3ht3yQD34xStVuimrzEbwZBFlIL7Aw";
 var https = require('https');
 var http = require('http');
 var fs = require('fs');
@@ -111,6 +111,9 @@ app.post('/notifyusers', function(req, res) {
 });*/
 
 function receivedMessage(event) {
+
+
+
     var senderID = event.sender.id;
     globalSenderId = senderID;
     var recipientID = event.recipient.id;
