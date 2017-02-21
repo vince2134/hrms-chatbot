@@ -373,3 +373,4 @@ function updateIntent() {
             console.log('exec error: ' + error);
         }
     });
+}
