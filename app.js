@@ -25,7 +25,7 @@ var myVar = setInterval(function() {
     myTimer()
 }, 1000);
 
-updateIntent();
+//updateIntent();
 /*var con = mysql.createConnection({
     host: "localhost",
     user: "root",
