@@ -131,6 +131,8 @@ function receivedMessage(event) {
         }
     });
 
+    console.log(message);
+
     request.on('error', function (error) {});
     request.end();
     var messageText = "Echo: " + event.message.text;
