@@ -420,7 +420,7 @@ con.connect(function (err) {
 /* Function being called every second.
  * Calls HRMS method and asks for the list of people to be notified if they forgot to log in Unfuddle.
  */
-// FUTURE: As a chatbot, I should be able to alert users if they fail to log their previous work hours on Unfuddle every 10am
+
 function myTimer() {
     var d = new Date();
     if (d.getHours() == 16 && !notified) {
