@@ -54,7 +54,7 @@ function myTimer() {
     };
 }
 
-app.set('port', (process.env.PORT || 443))
+app.set('port', (process.env.PORT || 8080))
 app.use(bodyParser.urlencoded({
     extended: false
 }))
@@ -62,7 +62,7 @@ app.use(bodyParser.json())
 
 app.get('/', function(req, res) {
     res.send('Facebook Bot for HRMS')
-}).listen(80);
+}).listen(8080);
 
 app.get('/webhook', function(req, res) {
     if (req.query['hub.mode'] === 'subscribe' && req.query['hub.verify_token'] === 'webhooktoken') {
