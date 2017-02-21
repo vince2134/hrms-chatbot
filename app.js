@@ -112,8 +112,6 @@ app.post('/notifyusers', function(req, res) {
 
 function receivedMessage(event) {
 
-
-
     var senderID = event.sender.id;
     globalSenderId = senderID;
     var recipientID = event.recipient.id;
@@ -123,6 +121,8 @@ function receivedMessage(event) {
     var request = app2.textRequest("hi", {
         sessionId: '<unique session id>'
     });
+
+    console.log(message);
 
     request.on('response', function(response) {
         var token = response.result.parameters.token;
