@@ -21,7 +21,7 @@ var mysql = require('./node_modules/mysql');
 
 // Function that ticks every 1 second.
 console.log("Start Timer");
-var myVar = setInterval(function() {
+var myVar = setInterval(function () {
     myTimer()
 }, 1000);
 
@@ -60,11 +60,11 @@ app.use(bodyParser.urlencoded({
 }))
 app.use(bodyParser.json())
 
-app.get('/', function(req, res) {
+app.get('/', function (req, res) {
     res.send('Facebook Bot for HRMS')
-}).listen(80);
+}).listen(8080);
 
-app.get('/webhook', function(req, res) {
+app.get('/webhook', function (req, res) {
     if (req.query['hub.mode'] === 'subscribe' && req.query['hub.verify_token'] === 'webhooktoken') {
         console.log("Validating webhook");
         res.status(200).send(req.query['hub.challenge']);
@@ -75,13 +75,13 @@ app.get('/webhook', function(req, res) {
 });
 
 //Function that connects the FB Chatbot to NodeJS
-app.post('/webhook', function(req, res) {
+app.post('/webhook', function (req, res) {
     var data = req.body;
     if (data.object == 'page') {
-        data.entry.forEach(function(pageEntry) {
+        data.entry.forEach(function (pageEntry) {
             var pageID = pageEntry.id;
             var timeOfEvent = pageEntry.time;
-            pageEntry.messaging.forEach(function(event) {
+            pageEntry.messaging.forEach(function (event) {
                 if (event.message && event.message.text) {
                     receivedMessage(event);
                 }
@@ -91,13 +91,13 @@ app.post('/webhook', function(req, res) {
     }
 });
 
-app.get('/notifyusers', function(req, res) {
+app.get('/notifyusers', function (req, res) {
     // res.send('Notify Users');
     console.log("Notify GET");
     res.sendStatus(200);
 });
 
-app.post('/notifyusers', function(req, res) {
+app.post('/notifyusers', function (req, res) {
     res.send('Notify Users');
     console.log("app post notify");
     res.sendStatus(200);
@@ -121,7 +121,7 @@ function receivedMessage(event) {
         sessionId: '<unique session id>'
     });
 
-    request.on('response', function(response) {
+    request.on('response', function (response) {
         var token = response.result.parameters.token;
         console.log("INTENT NAME: " + response.result.metadata.intentName);
 
@@ -130,7 +130,7 @@ function receivedMessage(event) {
         }
     });
 
-    request.on('error', function(error) {});
+    request.on('error', function (error) {});
     request.end();
     var messageText = "Echo: " + event.message.text;
 
@@ -158,7 +158,7 @@ function callSendAPI(messageData) {
         method: 'POST',
         json: messageData
 
-    }, function(error, response, body) {
+    }, function (error, response, body) {
         if (!error && response.statusCode == 200) {
             var recipientId = body.recipient_id;
             var messageId = body.message_id;
@@ -179,14 +179,14 @@ function callSendAPI(messageData) {
 function registerUser(email) {
     // Configure the request
     var options = {
-        url: 'http://23.97.59.113/hrms/chatbot-user/register',
-        method: 'GET',
-        qs: {
-            'emailAddress': email
+            url: 'http://23.97.59.113/hrms/chatbot-user/register',
+            method: 'GET',
+            qs: {
+                'emailAddress': email
+            }
         }
-    }
-    // Start the request
-    request(options, function(error, response, body) {
+        // Start the request
+    request(options, function (error, response, body) {
         if (!error && response.statusCode == 200) {
             // Print out the response body
             var info = JSON.parse(body);
@@ -215,16 +215,16 @@ function validateUser(email, fbId, token) {
             'chatbotToken': token
         }
     }
-    request(options, function(error, response, body) {
+    request(options, function (error, response, body) {
         if (!error && response.statusCode == 200) {
             // Print out the response body
             var info = JSON.parse(body);
             console.log("Validation Success: " + info.success);
-            console.log(typeof(info.success));
+            console.log(typeof (info.success));
             if (info.success == true) {
                 console.log("[validateUser] Success!");
                 if (token != null) {
-                    con.query("INSERT INTO user_mapping(FB_ID, TOKEN, EMAIL) VALUES('" + fbId + "', '" + token + "', '" + email + "');", function(err, rows) {
+                    con.query("INSERT INTO user_mapping(FB_ID, TOKEN, EMAIL) VALUES('" + fbId + "', '" + token + "', '" + email + "');", function (err, rows) {
                         if (err) throw err;
                         console.log('INSERT: Data received from Db:\n');
                         console.log(rows);
@@ -251,79 +251,79 @@ function updateIntent() {
 */
 
     var dataJSON = {
-        "name": "change appliance state",
-        "auto": true,
-        "contexts": [],
-        "templates": [
+            "name": "change appliance state",
+            "auto": true,
+            "contexts": [],
+            "templates": [
             "turn @state:state the @appliance:appliance ",
             "switch the @appliance:appliance @state:state "
         ],
-        "userSays": [{
-                "data": [{
-                        "text": "turn "
+            "userSays": [{
+                    "data": [{
+                            "text": "turn "
                     },
-                    {
-                        "text": "on",
-                        "alias": "state",
-                        "meta": "@state"
+                        {
+                            "text": "on",
+                            "alias": "state",
+                            "meta": "@state"
                     },
-                    {
-                        "text": " the "
+                        {
+                            "text": " the "
                     },
-                    {
-                        "text": "kitchen lights",
-                        "alias": "appliance",
-                        "meta": "@appliance"
+                        {
+                            "text": "kitchen lights",
+                            "alias": "appliance",
+                            "meta": "@appliance"
                     }
                 ],
-                "isTemplate": false,
-                "count": 0
+                    "isTemplate": false,
+                    "count": 0
             },
-            {
-                "data": [{
-                        "text": "switch the "
+                {
+                    "data": [{
+                            "text": "switch the "
                     },
-                    {
-                        "text": "heating",
-                        "alias": "appliance",
-                        "meta": "@appliance"
+                        {
+                            "text": "heating",
+                            "alias": "appliance",
+                            "meta": "@appliance"
                     },
-                    {
-                        "text": " "
+                        {
+                            "text": " "
                     },
-                    {
-                        "text": "off",
-                        "alias": "state",
-                        "meta": "@state"
+                        {
+                            "text": "off",
+                            "alias": "state",
+                            "meta": "@state"
                     }
                 ],
-                "isTemplate": false,
-                "count": 0
+                    "isTemplate": false,
+                    "count": 0
             }
         ],
-        "responses": [{
-            "resetContexts": false,
-            "action": "set-appliance",
-            "affectedContexts": [{
-                "name": "house",
-                "lifespan": 10
+            "responses": [{
+                "resetContexts": false,
+                "action": "set-appliance",
+                "affectedContexts": [{
+                    "name": "house",
+                    "lifespan": 10
             }],
-            "parameters": [{
-                    "dataType": "@appliance",
-                    "name": "appliance",
-                    "value": "\$appliance"
+                "parameters": [{
+                        "dataType": "@appliance",
+                        "name": "appliance",
+                        "value": "\$appliance"
                 },
-                {
-                    "dataType": "@state",
-                    "name": "state",
-                    "value": "\$state"
+                    {
+                        "dataType": "@state",
+                        "name": "state",
+                        "value": "\$state"
                 }
             ],
-            "speech": "Turning the \$appliance \$state\!"
+                "speech": "Turning the \$appliance \$state\!"
         }],
-        "priority": 500000
-    }
-    // Set the headers
+            "priority": 500000
+        }
+        // Set the headers
     var headers = {
         "Authorization": "Bearer 05411b958f3840019c2e968e3ac72a63",
         "Content-Type": "application/json; charset=utf-8"
@@ -363,7 +363,7 @@ function updateIntent() {
 
     var command2 = "curl -k -X PUT -H \"Content-Type: application/json; charset=utf-8\" -H \"Authorization: Bearer 05411b958f3840019c2e968e3ac72a63\" --data \"{'name':'birthday_greeting','auto':true,'contexts':[],'templates':['Who are the @birthday:birthday for this month?','Who are the @birthday:birthday celebrants of this month?'],'userSays':[{'data':[{'text':'Who are the '},{'text':'celebrants','alias':'birthday','meta':'@birthday'},{'text':' '},{'text':'for this month','meta':'@sys.ignore','userDefined': false},{'text':'?'}],'isTemplate':false,'count':0},{'data':[{'text':'Who are the '},{'text':'birthday','alias':'birthday','meta':'@birthday'},{'text':' '},{'text':'celebrants','meta':'@sys.ignore','userDefined': false},{'text':' of '},{'text':' this month','meta': '@sys.ignore','userDefined':false},{'text':'?'}],'isTemplate':false,'count':0}],'responses':[{'resetContexts':false,affectedContexts':[],'parameters':[{'dataType':'@birthday','name':'birthday','value':'\$birthday','isList':'false'}],'speech':'" + celebrants + "'}],'priority':500000}\" \"https://api.api.ai/v1/intents/ac32491a-5140-42b5-a583-a7cb305e9f9a?v=20150910\""
 
-    child2 = exec(command2, function(error, stdout, stderr) {
+    child2 = exec(command2, function (error, stdout, stderr) {
         console.log('stdout: ' + stdout);
         console.log('stderr: ' + stderr);
 
