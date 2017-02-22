@@ -131,7 +131,7 @@ function receivedMessage(event) {
         if (response.result.metadata.intentName === "file_leave" &&
             response.result.parameters.hours !== "") {
 
-            isRegistered(response, senderID);
+            //isRegistered(response, senderID);
         }
         else if (response.result.metadata.intentName === "register_account" &&
                  response.result.parameters.email !== "" &&
@@ -139,6 +139,7 @@ function receivedMessage(event) {
 
             console.log("<<<<<<<<VALIDATE USER>>>>>>>>");
             validateUser(response.result.parameters.email, senderID, response.result.parameters.token);
+            request.end();
         }
         else if (response.result.metadata.intentName === "register_account" &&
                  response.result.parameters.email !== "" ) {
@@ -149,7 +150,7 @@ function receivedMessage(event) {
     });
 
     request.on('error', function(error) {});
-    request.end();
+
     var messageText = "Echo: " + event.message.text;
 
     var messageData = {
@@ -181,14 +182,12 @@ function callSendAPI(messageData) {
         if (!error && response.statusCode == 200) {
             var recipientId = body.recipient_id;
             var messageId = body.message_id;
-            console.log("Successfully sent generic message with id %s to recipient %s", messageId, recipientId);
-            console.log("Successfully sent generic message: %s", messageData.message.text);
+            console.log("Successfully sent generic message %s to recipient %s", messageData.message.text, recipientId);
             //console.log(messageData);
         }
     });
 }
 
-//http://23.97.59.113/hrms/chatbot-user/validate?emailAddress=aasd&facebookId=q34234&chatbotToken=12345
 /*
  * Function for the registration of users to their email.
  */
@@ -242,7 +241,6 @@ function registerUser(email, senderID) {
 
 /*
 * Function for validating the token entered by the user.
-// FUTURE: As a chatbot, I should be able to register
 */
 function validateUser(email, fbId, token) {
     // Configure the request
