@@ -263,6 +263,8 @@ function registerUser(email, senderID) {
 
             } else {
                 console.log("[registerUser] Failed");
+                tokenRequest.message.text = "Registraion Failed. You are already registered to an account."
+                callSendAPI(tokenRequest);
             }
         }
         else{
