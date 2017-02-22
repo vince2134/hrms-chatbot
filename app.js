@@ -287,23 +287,13 @@ function validateUser(email, fbId, token) {
     });
 }
 
-function fileLeave(fbId, email, token,leaveType, startDate, endDate, numberOfHours, reason)
+function fileLeave(fbId, token, response)
 {
     console.log("fileLeave");
     options = {
         url: 'http://23.97.59.113/hrms/chatbot-user/validate',
         method: 'GET',
-        qs: {
-            'facebookId': fbId,
-            'chatbotToken': token,
-            'leave': {
-                'startDate' : startDate,
-                'endDate' : endDate,
-                'leaveType' : leaveType,
-                'numberOfHours' : numberOfHours,
-                'reason' : reason
-                }
-            }
+        qs: formatLeave(response, fbId, token)
         }
     var fileLeaveConfirmation = {
         recipient: {
@@ -314,6 +304,7 @@ function fileLeave(fbId, email, token,leaveType, startDate, endDate, numberOfHou
         }
     };
 
+    console.log(options);
    /* request(options, function(error, response, body) {
 
         if (!error && response.statusCode == 200) {
@@ -378,7 +369,8 @@ function handleIntent(response, senderID)
 
             isRegistered(senderID, response);
             console.log(response.result.parameters);
-            formatLeave(response, senderID, temptoken);
+            //formatLeave(response, senderID, temptoken);
+        fileLeave(response,senderID, temptoken);
 
         }
         else if (response.result.metadata.intentName === "register_account" &&
@@ -433,6 +425,7 @@ function formatLeave(response, fbId, token)
     };
 
         console.log(leaveFormat);
+    return leaveFormat;
 }
 
 
