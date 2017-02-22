@@ -171,7 +171,8 @@ function dateRangeToHours(dateRange){
    var dates = dateRange.split('/');
    var date1 = dates[0].split('-');
    var date2 = dates[1].split('-');
-
+   
+   var oneDay = 24*60*60*1000;
    var firstDate = new Date(parseInt(date1[0]), parseInt(date1[1]), parseInt(date1[2]));
    var secondDate = new Date(parseInt(date2[0]), parseInt(date2[1]), parseInt(date2[2]));
 
