@@ -332,9 +332,11 @@ function fileLeave(email, fbId, token)
 function handleIntent(response, senderID)
 {
     if (response.result.metadata.intentName === "file_leave" &&
-            response.result.parameters.hours !== "") {
+            response.result.parameters.reason !== "") {
 
             isRegistered(senderID, response);
+            console.log(response.result.parameters);
+
         }
         else if (response.result.metadata.intentName === "register_account" &&
                  response.result.parameters.email !== "" &&
