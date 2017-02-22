@@ -287,14 +287,24 @@ function validateUser(email, fbId, token) {
     });
 }
 
-function fileLeave(fbId, token, response)
+function fileLeave(fbId, email, token,leaveType, startDate, endDate, numberOfHours, reason)
 {
     console.log("fileLeave");
     console.log("response " + response);
     options = {
         url: 'http://23.97.59.113/hrms/chatbot-user/validate',
         method: 'GET',
-        qs: formatLeave(response, fbId, token)
+        qs: {
+            'facebookId': fbId,
+            'chatbotToken': token,
+            'leave': {
+                'startDate' : startDate,
+                'endDate' : endDate,
+                'leaveType' : leaveType,
+                'numberOfHours' : numberOfHours,
+                'reason' : reason
+                }
+            }
         }
     var fileLeaveConfirmation = {
         recipient: {
@@ -305,7 +315,6 @@ function fileLeave(fbId, token, response)
         }
     };
 
-    console.log(options);
    /* request(options, function(error, response, body) {
 
         if (!error && response.statusCode == 200) {
@@ -350,10 +359,10 @@ function retrieveToken(user_id){
    con.query("SELECT TOKEN FROM user_mapping where FB_ID = '" + user_id + "';", function(err, rows) {
        if (err) throw err;
        console.log('RETRIEVE TOKEN');
-       console.log(rows + "\n");
+       console.log(rows[0] + "\n");
 
        if (rows.length > 0) {
-           console.log("tokenretrieved:" + JSON.parse(rows));
+           console.log("tokenretrieved:" + rows[0]);
            return rows;
        }
        else {
@@ -370,7 +379,7 @@ function handleIntent(response, senderID)
 
             isRegistered(senderID, response);
             console.log(response.result.parameters);
-            //formatLeave(response, senderID, temptoken);
+
             fileLeave(response,senderID, temptoken);
 
         }
@@ -409,7 +418,8 @@ function formatLeave(response, fbId, token)
     }
     else if(response.result.parameters.date_custom.date != null)
     {
-        date = [response.result.parameters.date_custom.date, response.result.parameters.date_custom.date];
+        date[0] = result.parameters.date_custom.date;
+        date[1] = result.parameters.date_custom.date;
         numberOfHours = 8;
     }
 
@@ -426,7 +436,6 @@ function formatLeave(response, fbId, token)
     };
 
         console.log(leaveFormat);
-    return leaveFormat;
 }
 
 
