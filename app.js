@@ -169,8 +169,8 @@ function callSendAPI(messageData) {
             console.log("Successfully sent generic message: %s", messageData.message.text);
         } else {
             console.error("Unable to send message. " + messageData.message.text);
-           // console.error(response);
-            console.error(error);
+            console.error(body);
+            //console.error(error);
         }
     });
 }
