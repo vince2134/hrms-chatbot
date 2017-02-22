@@ -220,7 +220,7 @@ function registerUser(email, senderID) {
 
         console.log(response.statusCode);
         console.log(response.resoponseText);
-        console.log(JSON.parse(body);
+        console.log(JSON.parse(body));
         if (!error && response.statusCode == 200) {
             // Print out the response body
             var info = JSON.parse(body);
