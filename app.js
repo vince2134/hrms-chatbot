@@ -118,6 +118,15 @@ function receivedMessage(event) {
     var timeOfMessage = event.timestamp;
     var message = event.message.text;
 
+    var messageData = {
+        recipient: {
+            id: senderID
+        },
+        message: {
+            text: messageText
+        }
+    };
+
     var request = app2.textRequest(message, {
         sessionId: '<unique session id>'
     });
@@ -144,7 +153,13 @@ function receivedMessage(event) {
                  response.result.parameters.email !== "" ) {
 
             console.log("<<<<<<<<REGISTER USER>>>>>>>>");
-            registerUser(response.result.parameters.email, senderID);
+            if(isRegistered(senderID) == false)
+                registerUser(response.result.parameters.email, senderID);
+            else
+            {
+                mesageData.message.text = "Registraion Failed. You are already registered to an account."
+                callSendAPI(messageData);
+            }
         }
     });
 
@@ -153,14 +168,7 @@ function receivedMessage(event) {
 
     var messageText = "Echo: " + event.message.text;
 
-    var messageData = {
-        recipient: {
-            id: senderID
-        },
-        message: {
-            text: messageText
-        }
-    };
+
     callSendAPI(messageData);
 }
 
