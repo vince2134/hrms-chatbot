@@ -118,13 +118,13 @@ function receivedMessage(event) {
     var timeOfMessage = event.timestamp;
     var message = event.message.text;
 
-    var request = app2.textRequest(message, {
+    var apiRequest = app2.textRequest(message, {
         sessionId: '<unique session id>'
     });
 
     console.log("Received : " + message);
 
-    request.on('response', function(response) {
+    apiRequest.on('response', function(response) {
         var token = response.result.parameters.token;
         console.log("INTENT NAME: " + response.result.metadata.intentName);
         console.log(response.result);
@@ -146,8 +146,8 @@ function receivedMessage(event) {
         }
     });
 
-    request.on('error', function(error) {});
-    request.end();
+    apiRequest.on('error', function(error) {});
+    apiRequest.end();
     var messageText = "Echo: " + event.message.text;
 
     var messageData = {
