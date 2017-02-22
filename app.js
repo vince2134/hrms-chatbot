@@ -347,7 +347,7 @@ function dateRangeToHours(dateRange){
    var firstDate = new Date(parseInt(date1[0]), parseInt(date1[1]), parseInt(date1[2]));
    var secondDate = new Date(parseInt(date2[0]), parseInt(date2[1]), parseInt(date2[2]));
 
-   var diffDays = Math.round(Math.abs((firstDate.getTime() - secondDate.getTime())/(oneDay))) * 8;
+   var diffDays = Math.round(Math.abs((firstDate.getTime() - secondDate.getTime())/(oneDay))) * 8 + 8;
 
    return diffDays;
 }
@@ -390,9 +390,9 @@ function formatLeave(response, fbId, token)
 {
     var date;
     var numberOfHours;
-    if(response.result.parameters.date_custom.date-period != null)
+    if(response.result.parameters.date_custom.date_period != null)
     {
-        date = response.result.parameters.date_custom.date-period.split('/');
+        date = response.result.parameters.date_custom.date_period.split('/');
         console.log("DATES: " + date[0] + " to " + date[1]);
         numberOfHours = dateRangeToHours(result.parameters.date_custom.date-period);
     }
