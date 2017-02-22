@@ -362,7 +362,7 @@ function retrieveToken(user_id){
 
        if (rows.length > 0) {
            console.log("tokenretrieved:" + rows[0].TOKEN);
-           return rows;
+           return rows[0].TOKEN;
        }
        else {
           return null;
