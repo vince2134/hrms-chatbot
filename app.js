@@ -136,7 +136,7 @@ function receivedMessage(event) {
 
         console.log("INTENT NAME: " + response.result.metadata.intentName);
         console.log(response.result.parameters);
-        handleIntent(response);
+        handleIntent(response, senderID);
     });
 
     request.on('error', function(error) {});
@@ -330,7 +330,7 @@ function fileLeave(email, fbId, token)
 }
 
 
-function handleIntent(response)
+function handleIntent(response, senderID)
 {
     if (response.result.metadata.intentName === "file_leave" &&
             response.result.parameters.hours !== "") {
