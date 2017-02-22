@@ -229,6 +229,9 @@ function registerUser(email, senderID) {
                 console.log("[registerUser] Failed");
             }
         }
+        else{
+            console.log("<<<<<<<<REGISTER  USER  FAILED>>>>>>>>   ")
+        }
     });
 }
 
