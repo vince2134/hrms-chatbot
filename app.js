@@ -18,7 +18,8 @@ var https = require('https');
 var http = require('http');
 var fs = require('fs');
 var mysql = require('./node_modules/mysql');
-
+//FUTURE: Remove.
+var temptoken;
 // Function that ticks every 1 second.
 console.log("Start Timer");
 var myVar = setInterval(function() {
@@ -272,6 +273,7 @@ function validateUser(email, fbId, token) {
                         console.log(rows);
                         validationConfirmation.message.text = "Registraion successful. You can now use Aria."
                         callSendAPI(validationConfirmation);
+                        temptoken = token;
                     });
                 }
             }
@@ -352,11 +354,13 @@ function dateRangeToHours(dateRange){
 
 function handleIntent(response, senderID)
 {
+
     if (response.result.metadata.intentName === "file_leave" &&
             response.result.parameters.reason !== "") {
 
             isRegistered(senderID, response);
             console.log(response.result.parameters);
+            formatLeave(response, senderID, temptoken);
 
         }
         else if (response.result.metadata.intentName === "register_account" &&
