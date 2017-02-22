@@ -352,7 +352,7 @@ function dateRangeToHours(dateRange){
    return diffDays;
 }
 
-console.log(retrieveToken('1353975678010827'));
+//console.log(retrieveToken('1353975678010827'));
 
 function retrieveToken(user_id){
    con.query("SELECT TOKEN FROM user_mapping where FB_ID = '" + user_id + "';", function(err, rows) {
