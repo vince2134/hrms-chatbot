@@ -139,7 +139,6 @@ function receivedMessage(event) {
 
             console.log("<<<<<<<<VALIDATE USER>>>>>>>>");
             validateUser(response.result.parameters.email, senderID, response.result.parameters.token);
-            request.end();
         }
         else if (response.result.metadata.intentName === "register_account" &&
                  response.result.parameters.email !== "" ) {
@@ -150,6 +149,7 @@ function receivedMessage(event) {
     });
 
     request.on('error', function(error) {});
+    request.end();
 
     var messageText = "Echo: " + event.message.text;
 
