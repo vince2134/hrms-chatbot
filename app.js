@@ -352,6 +352,24 @@ function dateRangeToHours(dateRange){
    return diffDays;
 }
 
+console.log(retrieveToken('1353975678010827'));
+
+function retrieveToken(user_id){
+   con.query("SELECT TOKEN FROM user_mapping where FB_ID = '" + user_id + "';", function(err, rows) {
+       if (err) throw err;
+       console.log('RETRIEVE TOKEN');
+       console.log(rows + "\n");
+
+       if (rows.length > 0) {
+           console.log("tokenretrieved:" + rows);
+           return rows;
+       }
+       else {
+          return null;
+       }
+   });
+}
+
 function handleIntent(response, senderID)
 {
 
