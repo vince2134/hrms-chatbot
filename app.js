@@ -189,7 +189,18 @@ function callSendAPI(messageData) {
 /*
  * Function for the registration of users to their email.
  */
-function registerUser(email) {
+function registerUser(email, senderID) {
+
+      var tokenRequest = {
+        recipient: {
+            id: senderID
+        },
+        message: {
+            text: "What is your verification code? (Please check your email)"
+        }
+    };
+
+
     // Configure the request
     var options = {
         url: 'http://23.97.59.113/hrms/chatbot-user/register',
@@ -198,6 +209,9 @@ function registerUser(email) {
             'emailAddress': email
         }
     }
+
+
+
     // Start the request
     request(options, function(error, response, body) {
         if (!error && response.statusCode == 200) {
@@ -206,6 +220,8 @@ function registerUser(email) {
             console.log("Register Success: " + info.success);
             if (info.success == true) {
                 console.log("[registerUser] Success!");
+                callSendAPI(tokenRequest);
+
             } else {
                 console.log("[registerUser] Failed");
             }
