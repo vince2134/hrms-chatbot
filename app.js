@@ -364,7 +364,8 @@ function retrieveToken(user_id){
 
        if (rows.length > 0) {
            console.log("tokenretrieved:" + rows[0].TOKEN);
-           return rows;
+
+           return rows[0].TOKEN;
        }
        else {
           return null;
@@ -380,6 +381,7 @@ function handleIntent(response, senderID)
 
             isRegistered(senderID, response);
             console.log(response.result.parameters);
+
             fileLeave(response,senderID, temptoken);
 
         }
