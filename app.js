@@ -394,7 +394,7 @@ function formatLeave(response, fbId, token)
     {
         date = response.result.parameters.date_custom.date_period.split('/');
         console.log("DATES: " + date[0] + " to " + date[1]);
-        numberOfHours = dateRangeToHours(response.result.parameters.date_custom.date-period);
+        numberOfHours = dateRangeToHours(response.result.parameters.date_custom.date_period);
     }
     else if(response.result.parameters.date_custom.date != null)
     {
