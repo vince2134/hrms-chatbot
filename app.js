@@ -353,16 +353,17 @@ function dateRangeToHours(dateRange){
    return diffDays;
 }
 
-//console.log(retrieveToken('1353975678010827'));
+console.log(retrieveToken('1353975678010827'));
 
 function retrieveToken(user_id){
    con.query("SELECT TOKEN FROM user_mapping where FB_ID = '" + user_id + "';", function(err, rows) {
        if (err) throw err;
        console.log('RETRIEVE TOKEN');
-       console.log(rows[0] + "\n");
+
+       console.log(rows[0].TOKEN + "\n");
 
        if (rows.length > 0) {
-           console.log("tokenretrieved:" + rows[0]);
+           console.log("tokenretrieved:" + rows[0].TOKEN);
            return rows;
        }
        else {
@@ -379,7 +380,6 @@ function handleIntent(response, senderID)
 
             isRegistered(senderID, response);
             console.log(response.result.parameters);
-
             fileLeave(response,senderID, temptoken);
 
         }
