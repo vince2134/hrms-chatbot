@@ -287,7 +287,7 @@ function validateUser(email, fbId, token) {
     });
 }
 
-function fileLeave(fbId, email, token,leaveType, startDate, endDate, numberOfHours, reason)
+function fileLeave(fbId, token, response)
 {
     console.log("fileLeave");
     console.log("response " + response);
