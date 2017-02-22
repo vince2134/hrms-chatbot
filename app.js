@@ -381,8 +381,8 @@ function handleIntent(response, senderID)
 
             isRegistered(senderID, response);
             console.log(response.result.parameters);
-
-            fileLeave(response,senderID, temptoken);
+            console.log("resopnse : " + response);
+            fileLeave(response,senderID, retrieveToken(senderID));
 
         }
         else if (response.result.metadata.intentName === "register_account" &&
@@ -420,8 +420,7 @@ function formatLeave(response, fbId, token)
     }
     else if(response.result.parameters.date_custom.date != null)
     {
-        date[0] = result.parameters.date_custom.date;
-        date[1] = result.parameters.date_custom.date;
+        date = [result.parameters.date_custom.date, result.parameters.date_custom.date];
         numberOfHours = 8;
     }
 
