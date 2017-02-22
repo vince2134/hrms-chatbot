@@ -372,7 +372,7 @@ function handleIntent(response, senderID)
             isRegistered(senderID, response);
             console.log(response.result.parameters);
             console.log("response : " + response);
-            fileLeave(response,senderID, retrieveToken(senderID));
+            fileLeave(response,senderID);
 
         }
         else if (response.result.metadata.intentName === "register_account" &&
@@ -398,7 +398,7 @@ function handleIntent(response, senderID)
 
 
 
-function formatLeave(response, fbId, token)
+function formatLeave(response, fbId)
 {
     var date;
     var numberOfHours;
@@ -416,7 +416,7 @@ function formatLeave(response, fbId, token)
 
     var leaveFormat = {
         'facebookId': fbId,
-        'chatbotToken': token,
+        'chatbotToken': retrieveToken(senderID),
         'leave': {
             'startDate' : date[0],
             'endDate' : date[1],
