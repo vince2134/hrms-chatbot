@@ -131,7 +131,7 @@ function receivedMessage(event) {
         if (response.result.metadata.intentName === "file_leave" &&
             response.result.parameters.hours !== "") {
 
-            isRegistered(senderID, response);
+            isRegistered(response, senderID);
         }
         else if (response.result.metadata.intentName === "register_account" &&
                  response.result.parameters.email !== "" &&
@@ -142,7 +142,7 @@ function receivedMessage(event) {
         else if (response.result.metadata.intentName === "register_account" &&
                  response.result.parameters.email !== "" ) {
 
-            registerUser(response.result.parameters.email);
+            registerUser(response.result.parameters.email, senderID);
         }
     });
 
