@@ -174,6 +174,7 @@ function receivedMessage(event) {
 
 function isRegistered(user_id, response) {
     console.log("isRegistered");
+    register = false;
 
     con.query("SELECT * FROM user_mapping where FB_ID = '" + user_id + "';", function(err, rows) {
         if (err) throw err;
@@ -189,21 +190,10 @@ function isRegistered(user_id, response) {
 
         if (register) {
            console.log("SEND SIGNAL TO FILE LEAVE WITH JSON");
-        } else {
-            var messageData = {
-                recipient: {
-                    id: user_id
-                },
-                message: {
-                    text: "You haven't registered yet. Please type 'register' to start your registration with me."
-                }
-            };
-
-            callSendAPI(messageData);
         }
-
-        register = false;
     });
+
+    return register;
 }
 
 
