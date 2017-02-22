@@ -424,22 +424,23 @@ function formatLeave(response, fbId)
            console.log("tokenretrieved:" + rows[0].TOKEN);
 
            userToken = rows[0].TOKEN;
+           var leaveFormat = {
+                   'facebookId': fbId,
+                   'chatbotToken': userToken,
+                   'leave': {
+                       'startDate': date[0],
+                       'endDate': date[1],
+                       'leaveType': response.result.parameters.leave_type,
+                       'numberOfHours': numberOfHours,
+                       'reason': response.result.parameters.reason
+    }
+    };
        }
        else {
        }
    });
 
-    var leaveFormat = {
-        'facebookId': fbId,
-        'chatbotToken': userToken,
-        'leave': {
-            'startDate' : date[0],
-            'endDate' : date[1],
-            'leaveType' : response.result.parameters.leave_type,
-            'numberOfHours' : numberOfHours,
-            'reason' : response.result.parameters.reason
-    }
-    };
+
 
         console.log(leaveFormat);
 }
