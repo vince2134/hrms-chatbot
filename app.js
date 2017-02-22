@@ -284,8 +284,8 @@ function validateUser(email, fbId, token) {
             'emailAddress': email,
             'facebookId': fbId,
             'chatbotToken': token
+            }
         }
-
     var validationConfirmation = {
         recipient: {
             id: senderID
@@ -295,7 +295,7 @@ function validateUser(email, fbId, token) {
         }
     };
 
-    }
+
     request(options, function(error, response, body) {
         if (!error && response.statusCode == 200) {
             // Print out the response body
