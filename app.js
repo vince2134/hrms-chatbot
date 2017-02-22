@@ -294,17 +294,7 @@ function fileLeave(fbId, token, response)
     options = {
         url: 'http://23.97.59.113/hrms/chatbot-user/validate',
         method: 'GET',
-        qs: {
-            'facebookId': fbId,
-            'chatbotToken': token,
-            'leave': {
-                'startDate' : startDate,
-                'endDate' : endDate,
-                'leaveType' : leaveType,
-                'numberOfHours' : numberOfHours,
-                'reason' : reason
-                }
-            }
+        qs: formatLeave(response, fbId,token)
         }
     var fileLeaveConfirmation = {
         recipient: {
