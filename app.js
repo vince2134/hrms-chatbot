@@ -127,7 +127,7 @@ function receivedMessage(event) {
     request.on('response', function(response) {
         var token = response.result.parameters.token;
         console.log("INTENT NAME: " + response.result.metadata.intentName);
-        console.log(response.result.metadata);
+        console.log(response.result.parameters);
         if (response.result.metadata.intentName === "file_leave" &&
             response.result.parameters.hours !== "") {
 
@@ -278,7 +278,7 @@ function updateIntent() {
                 "Content-Type": "application/json; charset=utf-8"
             },
             qs:
-*/
+            */
 
     var dataJSON = {
         "name": "change appliance state",
