@@ -285,6 +285,16 @@ function validateUser(email, fbId, token) {
             'facebookId': fbId,
             'chatbotToken': token
         }
+
+    var validationConfirmation = {
+        recipient: {
+            id: senderID
+        },
+        message: {
+            text: ""
+        }
+    };
+
     }
     request(options, function(error, response, body) {
         if (!error && response.statusCode == 200) {
@@ -299,8 +309,16 @@ function validateUser(email, fbId, token) {
                         if (err) throw err;
                         console.log('INSERT: Data received from Db:\n');
                         console.log(rows);
+                        validationConfirmation.message.text = "Registraion successful. You can now use Aria."
+                        callSendAPI(validationConfirmation);
                     });
                 }
+            }
+            else
+            {
+                validationConfirmation.message.text = "Registraion Failed. You entered the wrong verification code. "+
+                    "You can restart the process of registration.";
+                callSendAPI(validationConfirmation);
             }
         }
     });
