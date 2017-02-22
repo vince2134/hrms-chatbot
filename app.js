@@ -275,7 +275,7 @@ function registerUser(email, senderID) {
 /*
 * Function for validating the token entered by the user.
 */
-function validateUser(email, fbId, token) {
+function validateUser(email, fbId, token, senderID) {
     // Configure the request
     options = {
         url: 'http://23.97.59.113/hrms/chatbot-user/validate',
@@ -288,7 +288,7 @@ function validateUser(email, fbId, token) {
         }
     var validationConfirmation = {
         recipient: {
-            id: senderID
+            id: fbId
         },
         message: {
             text: ""
