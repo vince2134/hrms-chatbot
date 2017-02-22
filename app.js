@@ -287,7 +287,7 @@ function validateUser(email, fbId, token) {
     });
 }
 
-function fileLeave(fbId, token, response)
+function fileLeave(response, fbId, token)
 {
     console.log("fileLeave");
     console.log("response " + response);
@@ -371,7 +371,7 @@ function handleIntent(response, senderID)
 
             isRegistered(senderID, response);
             console.log(response.result.parameters);
-            console.log("resopnse : " + response);
+            console.log("response : " + response);
             fileLeave(response,senderID, retrieveToken(senderID));
 
         }
