@@ -165,21 +165,6 @@ function isRegistered(user_id, response) {
     return register;
 }
 
-console.log("HOURS RANGE: " + dateRangeToHours('2017-02-22/2017-02-25'));
-
-function dateRangeToHours(dateRange){
-   var dates = dateRange.split('/');
-   var date1 = dates[0].split('-');
-   var date2 = dates[1].split('-');
-
-   var oneDay = 24*60*60*1000;
-   var firstDate = new Date(parseInt(date1[0]), parseInt(date1[1]), parseInt(date1[2]));
-   var secondDate = new Date(parseInt(date2[0]), parseInt(date2[1]), parseInt(date2[2]));
-
-   var diffDays = Math.round(Math.abs((firstDate.getTime() - secondDate.getTime())/(oneDay))) * 8;
-
-   return diffDays;
-}
 
 /*
  * Call the Send API. The message data goes in the body. If successful, we'll
@@ -349,6 +334,21 @@ function fileLeave(fbId, email, token,leaveType, startDate, endDate, numberOfHou
     });*/
 }
 
+//console.log("HOURS RANGE: " + dateRangeToHours('2017-02-22/2017-02-25'));
+
+function dateRangeToHours(dateRange){
+   var dates = dateRange.split('/');
+   var date1 = dates[0].split('-');
+   var date2 = dates[1].split('-');
+
+   var oneDay = 24*60*60*1000;
+   var firstDate = new Date(parseInt(date1[0]), parseInt(date1[1]), parseInt(date1[2]));
+   var secondDate = new Date(parseInt(date2[0]), parseInt(date2[1]), parseInt(date2[2]));
+
+   var diffDays = Math.round(Math.abs((firstDate.getTime() - secondDate.getTime())/(oneDay))) * 8;
+
+   return diffDays;
+}
 
 function handleIntent(response, senderID)
 {
@@ -382,7 +382,31 @@ function handleIntent(response, senderID)
 
 
 
+function formatLeave(response, fbId, token)
+{
+    var date;
+    if(result.parameters.date_custom.date-period != null)
+    {
+        date = result.parameters.date_custom.date-period.split('/');
+        console.log("DATES: " + date[0] + " to " + date[1]);
+    }
+    else if(result.parameters.date_custom.date != null)
+    {
+        date[0] = result.parameters.date_custom.date;
+        date[1] = result.parameters.date_custom.date;
+    }
 
+    var leaveFormat = {
+        'facebookId': fbId,
+        'chatbotToken': token,
+        'leave': {
+            'startDate' : date[0],
+            'endDate' : date[1],
+            'leaveType' : result.parameters.leave_type,
+            'numberOfHours' : numberOfHours,
+            'reason' : reason
+    }
+}
 
 
 
