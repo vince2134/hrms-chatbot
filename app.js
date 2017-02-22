@@ -230,7 +230,8 @@ function registerUser(email, senderID) {
             }
         }
         else{
-            console.log("<<<<<<<<REGISTER  USER  FAILED>>>>>>>>   ")
+            console.log("<<<<<<<<REGISTER  USER  FAILED>>>>>>>>   ");
+            console.log(error);
         }
     });
 }
