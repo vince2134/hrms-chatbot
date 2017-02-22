@@ -245,9 +245,6 @@ function registerUser(email, senderID) {
 
     request(options, function(error, response, body) {
 
-        console.log(response.statusCode);
-        console.log(response.resoponseText);
-        console.log(JSON.parse(body));
         if (!error && response.statusCode == 200) {
             // Print out the response body
             var info = JSON.parse(body);
@@ -272,7 +269,7 @@ function registerUser(email, senderID) {
 /*
 * Function for validating the token entered by the user.
 */
-function validateUser(email, fbId, token, senderID) {
+function validateUser(email, fbId, token) {
     // Configure the request
     options = {
         url: 'http://23.97.59.113/hrms/chatbot-user/validate',
@@ -294,7 +291,6 @@ function validateUser(email, fbId, token, senderID) {
 
     request(options, function(error, response, body) {
         if (!error && response.statusCode == 200) {
-            // Print out the response body
             var info = JSON.parse(body);
             console.log("Validation Success: " + info.success);
             console.log(typeof(info.success));
@@ -320,7 +316,47 @@ function validateUser(email, fbId, token, senderID) {
     });
 }
 
+function fileLeave(email, fbId, token)
+{
+    options = {
+        url: 'http://23.97.59.113/hrms/chatbot-user/validate',
+        method: 'GET',
+        qs: {
+            'emailAddress': email,
+            'facebookId': fbId,
+            'chatbotToken': token
+            }
+        }
+    var fileLeaveConfirmation = {
+        recipient: {
+            id: fbId
+        },
+        message: {
+            text: "Your leave has been filed."
+        }
+    };
 
+    request(options, function(error, response, body) {
+
+        if (!error && response.statusCode == 200) {
+            //var info = JSON.parse(body);
+            console.log("Filing Leave Success: " + info.success);
+            if (info.success == true) {
+                console.log("[fileLeave] Success!");
+                callSendAPI(fileLeaveConfirmation);
+
+            } else {
+                console.log("[fileLeave] Failed");
+                tokenRequest.message.text = "Filing of leave Failed."
+                callSendAPI(fileLeaveConfirmation);
+            }
+        }
+        else{
+            console.log("<<<<<<<<FILE LEAVE  FAILED>>>>>>>>   ");
+            console.log(error);
+        }
+    });
+}
 
 
 
