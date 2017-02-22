@@ -416,7 +416,7 @@ function formatLeave(response, fbId)
 
     var leaveFormat = {
         'facebookId': fbId,
-        'chatbotToken': retrieveToken(senderID),
+        'chatbotToken': retrieveToken(fbId),
         'leave': {
             'startDate' : date[0],
             'endDate' : date[1],
