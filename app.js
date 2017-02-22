@@ -131,7 +131,7 @@ function receivedMessage(event) {
         if (response.result.metadata.intentName === "file_leave" &&
             response.result.parameters.hours !== "") {
 
-            //isRegistered(response, senderID);
+            isRegistered(senderID, response);
         }
         else if (response.result.metadata.intentName === "register_account" &&
                  response.result.parameters.email !== "" &&
@@ -163,6 +163,41 @@ function receivedMessage(event) {
     };
     callSendAPI(messageData);
 }
+
+function isRegistered(user_id, response) {
+    console.log("isRegistered");
+
+    con.query("SELECT * FROM user_mapping where FB_ID = '" + user_id + "';", function(err, rows) {
+        if (err) throw err;
+
+        console.log('CHECK REGISTER Data received from Db:\n');
+        console.log(rows);
+        console.log("LENGTH: " + rows.length);
+
+        if (rows.length > 0) {
+            console.log("REGISTERED TRUEEEEEEEEEEE");
+            register = true;
+        }
+
+        if (register) {
+           console.log("SEND SIGNAL TO FILE LEAVE WITH JSON");
+        } else {
+            var messageData = {
+                recipient: {
+                    id: user_id
+                },
+                message: {
+                    text: "You haven't registered yet. Please type 'register' to start your registration with me."
+                }
+            };
+
+            callSendAPI(messageData);
+        }
+
+        register = false;
+    });
+}
+
 
 /*
  * Call the Send API. The message data goes in the body. If successful, we'll
