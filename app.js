@@ -165,6 +165,20 @@ function isRegistered(user_id, response) {
     return register;
 }
 
+console.log("HOURS RANGE: " + dateRangeToHours('2017-02-22/2017-02-23'));
+
+function dateRangeToHours(dateRange){
+   var dates = dateRange.split('/');
+   var date1 = dates[0].split('-');
+   var date2 = dates[1].split('-');
+
+   var firstDate = new Date(parseInt(date1[0]), parseInt(date1[1]), parseInt(date1[2]));
+   var secondDate = new Date(parseInt(date2[0]), parseInt(date2[1]), parseInt(date2[2]));
+
+   var diffDays = Math.round(Math.abs((firstDate.getTime() - secondDate.getTime())/(oneDay))) * 24;
+
+   return diffDays;
+}
 
 /*
  * Call the Send API. The message data goes in the body. If successful, we'll
