@@ -416,8 +416,7 @@ function formatLeave(response, fbId, token)
     }
     else if(response.result.parameters.date_custom.date != null)
     {
-        date[0] = response.result.parameters.date_custom.date;
-        date[1] = response.result.parameters.date_custom.date;
+        date = [response.result.parameters.date_custom.date, response.result.parameters.date_custom.date];
         numberOfHours = 8;
     }
 
