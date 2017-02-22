@@ -130,37 +130,13 @@ function receivedMessage(event) {
     var request = app2.textRequest(message, {
         sessionId: '<unique session id>'
     });
-
     console.log("Received : " + message);
 
     request.on('response', function(response) {
-        var token = response.result.parameters.token;
+
         console.log("INTENT NAME: " + response.result.metadata.intentName);
         console.log(response.result.parameters);
-        if (response.result.metadata.intentName === "file_leave" &&
-            response.result.parameters.hours !== "") {
-
-            isRegistered(senderID, response);
-        }
-        else if (response.result.metadata.intentName === "register_account" &&
-                 response.result.parameters.email !== "" &&
-                 response.result.parameters.token !== "") {
-
-            console.log("<<<<<<<<VALIDATE USER>>>>>>>>");
-            validateUser(response.result.parameters.email, senderID, response.result.parameters.token);
-        }
-        else if (response.result.metadata.intentName === "register_account" &&
-                 response.result.parameters.email !== "" ) {
-
-            console.log("<<<<<<<<REGISTER USER>>>>>>>>");
-            if(isRegistered(senderID) == false)
-                registerUser(response.result.parameters.email, senderID);
-            else
-            {
-                mesageData.message.text = "Registraion Failed. You are already registered to an account."
-                callSendAPI(messageData);
-            }
-        }
+        handleIntent(response);
     });
 
     request.on('error', function(error) {});
@@ -178,18 +154,12 @@ function isRegistered(user_id, response) {
 
     con.query("SELECT * FROM user_mapping where FB_ID = '" + user_id + "';", function(err, rows) {
         if (err) throw err;
-
-        console.log('CHECK REGISTER Data received from Db:\n');
-        console.log(rows);
-        console.log("LENGTH: " + rows.length);
+        console.log('CHECK REGISTER Data received from Db:');
+        console.log(rows + "\n");
 
         if (rows.length > 0) {
-            console.log("REGISTERED TRUEEEEEEEEEEE");
+            console.log("<<<<<<<<<<<<<User is Registered>>>>>>>>>>>>>>");
             register = true;
-        }
-
-        if (register) {
-           console.log("SEND SIGNAL TO FILE LEAVE WITH JSON");
         }
     });
 
@@ -318,6 +288,7 @@ function validateUser(email, fbId, token) {
 
 function fileLeave(email, fbId, token)
 {
+    console.log("fileLeave");
     options = {
         url: 'http://23.97.59.113/hrms/chatbot-user/validate',
         method: 'GET',
@@ -357,6 +328,51 @@ function fileLeave(email, fbId, token)
         }
     });
 }
+
+
+function handleIntent(response)
+{
+    if (response.result.metadata.intentName === "file_leave" &&
+            response.result.parameters.hours !== "") {
+
+            isRegistered(senderID, response);
+        }
+        else if (response.result.metadata.intentName === "register_account" &&
+                 response.result.parameters.email !== "" &&
+                 response.result.parameters.token !== "") {
+
+            console.log("<<<<<<<<VALIDATE USER>>>>>>>>");
+            validateUser(response.result.parameters.email, senderID, response.result.parameters.token);
+        }
+        else if (response.result.metadata.intentName === "register_account" &&
+                 response.result.parameters.email !== "" ) {
+
+            console.log("<<<<<<<<REGISTER USER>>>>>>>>");
+            if(isRegistered(senderID) == false)
+                registerUser(response.result.parameters.email, senderID);
+            else
+            {
+                mesageData.message.text = "Registraion Failed. You are already registered to an account."
+                callSendAPI(messageData);
+            }
+        }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
