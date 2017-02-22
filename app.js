@@ -137,11 +137,13 @@ function receivedMessage(event) {
                  response.result.parameters.email !== "" &&
                  response.result.parameters.token !== "") {
 
+            console.log("<<<<<<<<VALIDATE USER>>>>>>>>");
             validateUser(response.result.parameters.email, senderID, response.result.parameters.token);
         }
         else if (response.result.metadata.intentName === "register_account" &&
                  response.result.parameters.email !== "" ) {
 
+            console.log("<<<<<<<<REGISTER USER>>>>>>>>");
             registerUser(response.result.parameters.email, senderID);
         }
     });
