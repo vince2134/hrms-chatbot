@@ -142,7 +142,7 @@ function receivedMessage(event) {
         else if (response.result.metadata.intentName === "register_account" &&
                  response.result.parameters.email !== "" ) {
 
-            validateUser(response.result.parameters.email);
+            registerUser(response.result.parameters.email);
         }
     });
 
