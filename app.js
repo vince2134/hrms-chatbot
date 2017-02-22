@@ -414,7 +414,7 @@ function formatLeave(response, fbId)
         numberOfHours = 8;
     }
     var userToken;
-    con.query("SELECT TOKEN FROM user_mapping where FB_ID = '" + user_id + "';", function(err, rows) {
+    con.query("SELECT TOKEN FROM user_mapping where FB_ID = '" + fbId + "';", function(err, rows) {
        if (err) throw err;
        console.log('RETRIEVE TOKEN');
 
