@@ -118,16 +118,16 @@ function receivedMessage(event) {
     var timeOfMessage = event.timestamp;
     var message = event.message.text;
 
-    var apiRequest = app2.textRequest(message, {
+    var request = app2.textRequest(message, {
         sessionId: '<unique session id>'
     });
 
     console.log("Received : " + message);
 
-    apiRequest.on('response', function(response) {
+    request.on('response', function(response) {
         var token = response.result.parameters.token;
         console.log("INTENT NAME: " + response.result.metadata.intentName);
-        console.log(response.result);
+        console.log(response.result.metadata);
         if (response.result.metadata.intentName === "file_leave" &&
             response.result.parameters.hours !== "") {
 
@@ -146,8 +146,8 @@ function receivedMessage(event) {
         }
     });
 
-    apiRequest.on('error', function(error) {});
-    apiRequest.end();
+    request.on('error', function(error) {});
+    request.end();
     var messageText = "Echo: " + event.message.text;
 
     var messageData = {
@@ -175,12 +175,13 @@ function callSendAPI(messageData) {
         json: messageData
 
     }, function(error, response, body) {
+        console.log(messageData);
         if (!error && response.statusCode == 200) {
             var recipientId = body.recipient_id;
             var messageId = body.message_id;
             console.log("Successfully sent generic message with id %s to recipient %s", messageId, recipientId);
             console.log("Successfully sent generic message: %s", messageData.message.text);
-            console.log(messageData);
+            //console.log(messageData);
         }
     });
 }
