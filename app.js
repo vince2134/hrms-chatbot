@@ -411,7 +411,7 @@ function formatLeave(response, fbId, token)
             'endDate' : date[1],
             'leaveType' : response.result.parameters.leave_type,
             'numberOfHours' : numberOfHours,
-            'reason' : response.result.parameters.date_custom.reason
+            'reason' : response.result.parameters.reason
     }
     };
 
