@@ -217,6 +217,8 @@ function registerUser(email, senderID) {
 
     // Start the request
     request(options, function(error, response, body) {
+
+        console.log(response.statusCode);
         if (!error && response.statusCode == 200) {
             // Print out the response body
             var info = JSON.parse(body);
