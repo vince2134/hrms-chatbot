@@ -285,16 +285,22 @@ function validateUser(email, fbId, token) {
     });
 }
 
-function fileLeave(email, fbId, token)
+function fileLeave(fbId, email, token,leaveType, startDate, endDate, numberOfHours, reason)
 {
     console.log("fileLeave");
     options = {
         url: 'http://23.97.59.113/hrms/chatbot-user/validate',
         method: 'GET',
         qs: {
-            'emailAddress': email,
             'facebookId': fbId,
-            'chatbotToken': token
+            'chatbotToken': token,
+            'leave': {
+                'startDate' : startDate,
+                'endDate' : endDate,
+                'leaveType' : leaveType,
+                'numberOfHours' : numberOfHours,
+                'reason' : reason
+                }
             }
         }
     var fileLeaveConfirmation = {
@@ -306,7 +312,7 @@ function fileLeave(email, fbId, token)
         }
     };
 
-    request(options, function(error, response, body) {
+   /* request(options, function(error, response, body) {
 
         if (!error && response.statusCode == 200) {
             //var info = JSON.parse(body);
@@ -325,7 +331,7 @@ function fileLeave(email, fbId, token)
             console.log("<<<<<<<<FILE LEAVE  FAILED>>>>>>>>   ");
             console.log(error);
         }
-    });
+    });*/
 }
 
 
