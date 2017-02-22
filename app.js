@@ -219,6 +219,8 @@ function registerUser(email, senderID) {
     request(options, function(error, response, body) {
 
         console.log(response.statusCode);
+        console.log(response.resoponseText);
+        console.log(body);
         if (!error && response.statusCode == 200) {
             // Print out the response body
             var info = JSON.parse(body);
