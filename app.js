@@ -385,15 +385,18 @@ function handleIntent(response, senderID)
 function formatLeave(response, fbId, token)
 {
     var date;
-    if(result.parameters.date_custom.date-period != null)
+    var numberOfHours;
+    if(response.result.parameters.date_custom.date-period != null)
     {
-        date = result.parameters.date_custom.date-period.split('/');
+        date = response.result.parameters.date_custom.date-period.split('/');
         console.log("DATES: " + date[0] + " to " + date[1]);
+        numberOfHours = dateRangeToHours(result.parameters.date_custom.date-period);
     }
-    else if(result.parameters.date_custom.date != null)
+    else if(response.result.parameters.date_custom.date != null)
     {
         date[0] = result.parameters.date_custom.date;
         date[1] = result.parameters.date_custom.date;
+        numberOfHours = 8;
     }
 
     var leaveFormat = {
@@ -402,9 +405,9 @@ function formatLeave(response, fbId, token)
         'leave': {
             'startDate' : date[0],
             'endDate' : date[1],
-            'leaveType' : result.parameters.leave_type,
+            'leaveType' : response.result.parameters.leave_type,
             'numberOfHours' : numberOfHours,
-            'reason' : reason
+            'reason' : response.result.parameters.date_custom.reason
     }
 }
 
