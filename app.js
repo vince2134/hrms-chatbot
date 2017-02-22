@@ -235,8 +235,6 @@ function registerUser(email, senderID) {
         }
     };
 
-
-    // Configure the request
     var options = {
         url: 'http://23.97.59.113/hrms/chatbot-user/register',
         method: 'GET',
@@ -245,9 +243,6 @@ function registerUser(email, senderID) {
         }
     }
 
-
-
-    // Start the request
     request(options, function(error, response, body) {
 
         console.log(response.statusCode);
@@ -297,7 +292,6 @@ function validateUser(email, fbId, token, senderID) {
         }
     };
 
-
     request(options, function(error, response, body) {
         if (!error && response.statusCode == 200) {
             // Print out the response body
@@ -325,6 +319,11 @@ function validateUser(email, fbId, token, senderID) {
         }
     });
 }
+
+
+
+
+
 
 function updateIntent() {
     // Configure the request
