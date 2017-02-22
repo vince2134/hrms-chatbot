@@ -409,6 +409,8 @@ function formatLeave(response, fbId, token)
             'numberOfHours' : numberOfHours,
             'reason' : response.result.parameters.date_custom.reason
     }
+
+        console.log(leaveFormat);
 }
 
 
