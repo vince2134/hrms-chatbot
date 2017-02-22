@@ -34,12 +34,11 @@ var con = mysql.createConnection({
 });
 
 con.connect(function (err) {
-    console.log("connecting to DB");
     if (err) {
         console.log('Error connecting to Db');
         return;
     }
-    console.log('Connection established');
+    console.log('Connection to DB established');
 });
 
 /* Function being called every second.
