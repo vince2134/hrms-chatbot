@@ -413,10 +413,25 @@ function formatLeave(response, fbId)
         date = [response.result.parameters.date_custom.date, response.result.parameters.date_custom.date];
         numberOfHours = 8;
     }
+    var userToken;
+    con.query("SELECT TOKEN FROM user_mapping where FB_ID = '" + user_id + "';", function(err, rows) {
+       if (err) throw err;
+       console.log('RETRIEVE TOKEN');
+
+       console.log(rows[0].TOKEN + "\n");
+
+       if (rows.length > 0) {
+           console.log("tokenretrieved:" + rows[0].TOKEN);
+
+           userToken = rows[0].TOKEN;
+       }
+       else {
+       }
+   });
 
     var leaveFormat = {
         'facebookId': fbId,
-        'chatbotToken': retrieveToken(fbId),
+        'chatbotToken': userToken,
         'leave': {
             'startDate' : date[0],
             'endDate' : date[1],
