@@ -290,6 +290,7 @@ function validateUser(email, fbId, token) {
 function fileLeave(fbId, token, response)
 {
     console.log("fileLeave");
+    console.log("response " + response);
     options = {
         url: 'http://23.97.59.113/hrms/chatbot-user/validate',
         method: 'GET',
@@ -370,7 +371,7 @@ function handleIntent(response, senderID)
             isRegistered(senderID, response);
             console.log(response.result.parameters);
             //formatLeave(response, senderID, temptoken);
-        fileLeave(response,senderID, temptoken);
+            fileLeave(response,senderID, temptoken);
 
         }
         else if (response.result.metadata.intentName === "register_account" &&
