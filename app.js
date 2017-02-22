@@ -414,6 +414,7 @@ function formatLeave(response, fbId)
         numberOfHours = 8;
     }
     var userToken;
+    var leaveFormat;
     con.query("SELECT TOKEN FROM user_mapping where FB_ID = '" + fbId + "';", function(err, rows) {
        if (err) throw err;
        console.log('RETRIEVE TOKEN');
@@ -424,7 +425,7 @@ function formatLeave(response, fbId)
            console.log("tokenretrieved:" + rows[0].TOKEN);
 
            userToken = rows[0].TOKEN;
-           var leaveFormat = {
+            leaveFormat = {
                    'facebookId': fbId,
                    'chatbotToken': userToken,
                    'leave': {
