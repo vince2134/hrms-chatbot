@@ -122,14 +122,27 @@ function receivedMessage(event) {
         sessionId: '<unique session id>'
     });
 
-    console.log(message);
+    console.log("Received : " + message);
 
     request.on('response', function(response) {
         var token = response.result.parameters.token;
         console.log("INTENT NAME: " + response.result.metadata.intentName);
+        console.log(response.result);
+        if (response.result.metadata.intentName === "file_leave" &&
+            response.result.parameters.hours !== "") {
 
-        if (response.result.metadata.intentName === "file_leave" && response.result.parameters.hours !== "") {
             isRegistered(senderID, response);
+        }
+        else if (response.result.metadata.intentName === "register_account" &&
+                 response.result.parameters.email !== "" &&
+                 response.result.parameters.token !== "") {
+
+            validateUser(response.result.parameters.email, senderID, response.result.parameters.token);
+        }
+        else if (response.result.metadata.intentName === "register_account" &&
+                 response.result.parameters.email !== "" ) {
+
+            validateUser(response.result.parameters.email);
         }
     });
 
@@ -168,10 +181,6 @@ function callSendAPI(messageData) {
             console.log("Successfully sent generic message with id %s to recipient %s", messageId, recipientId);
             console.log("Successfully sent generic message: %s", messageData.message.text);
             console.log(messageData);
-        } else {
-            console.error("Unable to send message. " + messageData.message.text);
-            console.error(messageData);
-            //console.error(error);
         }
     });
 }
