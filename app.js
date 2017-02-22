@@ -170,7 +170,7 @@ function callSendAPI(messageData) {
             console.log(messageData);
         } else {
             console.error("Unable to send message. " + messageData.message.text);
-            console.error(messageData.message);
+            console.error(messageData);
             //console.error(error);
         }
     });
