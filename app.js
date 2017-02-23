@@ -325,16 +325,17 @@ function fileLeave(response, fbId){
                     }
             };
            console.log("leave format = " + JSON.stringify(leaveFormat));
-           sendLeaveDetails(fbId,userToken,date[0], date[1], response.result.parameters.leave_type,numberOfHours, response.result.parameters.reason );
+           sendLeaveDetails(fbId,userToken,date[0], date[1], response.result.parameters.leave_type,numberOfHours, response.result.parameters.reason, leaveFormat);
        }
    });
 }
 
-function sendLeaveDetails(fbId, userToken, date1, date2, leavetype,hours,reason)
+function sendLeaveDetails(fbId, userToken, date1, date2, leavetype,hours,reason, leaveFormat)
 {
     options = {
         url: 'http://23.97.59.113/hrms/chatbot-leave/fileleave',
         method: 'GET',
+<<<<<<< HEAD
         qs: {
             'facebookId': fbId,
             'chatbotToken': userToken,
@@ -346,6 +347,10 @@ function sendLeaveDetails(fbId, userToken, date1, date2, leavetype,hours,reason)
                'reason:' + reason +
             '}'
         }
+=======
+        qs: JSON.stringify(leaveFormat)
+
+>>>>>>> 376e434094f8e59ba3e55763a2d8159f99cd0dfb
     };
     var fileLeaveConfirmation = {
         recipient: {
@@ -353,7 +358,8 @@ function sendLeaveDetails(fbId, userToken, date1, date2, leavetype,hours,reason)
         },
         message: {
             text: "Your leave has been filed."
-        }
+
+    }
     };
     request(options, function(error, response, body) {
 
