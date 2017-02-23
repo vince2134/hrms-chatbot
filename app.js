@@ -138,7 +138,7 @@ function receivedMessage(event) {
         //console.log(response.result.parameters);
 
 
-        dleIntent(response, senderID);
+        handleIntent(response, senderID);
     });
     request.on('error', function(error) {});
     request.end();
