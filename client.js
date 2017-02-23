@@ -55,6 +55,6 @@ function sendLeaveDetails(fbId, userToken, date1, date2, leavetype,hours,reason)
     });
 }
 
-sendLeaveDetails('1353975678010827', 'asds', '2017-02-27', '2017-02-27','LEAVE_TYPE_SICK', 8, 'i want');
+sendLeaveDetails('1353975678010828', '2688588c-2372-48c6-ae4d-bab0e181cb6d', '2017-02-27', '2017-02-27','LEAVE_TYPE_SICK', 8, 'i want');
 
 console.log("DONE");
