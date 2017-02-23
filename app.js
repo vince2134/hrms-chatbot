@@ -103,12 +103,6 @@ app.post('/notifyusers', function(req, res) {
     res.sendStatus(200);
 });
 
-/*var request2 = http.get("http://23.97.59.113/hrms/chatbot-leave/get", function (res) {
-    res.on('data', function (chunk) {
-        console.log(chunk.toString('utf8'));
-        registerUser("rrr@m.com", "test", "c6dfcb1c-cec0-4c67-8d20-0d3937249113");
-    });
-});*/
 
 function receivedMessage(event) {
 
