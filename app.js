@@ -349,7 +349,8 @@ function sendLeaveDetails(leaveFormat)
 
         if (!error && response.statusCode == 200) {
             //var info = JSON.parse(body);
-            console.log("Filing Leave Success: " + info.success);
+            console.log("Filing Leave Success: " + body);
+            /*console.log("Filing Leave Success: " + response);*/
             if (info.success == true) {
                 console.log("[fileLeave] Success!");
                 callSendAPI(fileLeaveConfirmation);
