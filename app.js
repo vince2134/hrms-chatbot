@@ -290,7 +290,6 @@ function validateUser(email, fbId, token) {
 function fileLeave(response, fbId, token)
 {
     console.log("fileLeave");
-    console.log("response " + response);
     options = {
         url: 'http://23.97.59.113/hrms/chatbot-user/validate',
         method: 'GET',
@@ -434,16 +433,14 @@ function formatLeave(response, fbId)
                        'leaveType': response.result.parameters.leave_type,
                        'numberOfHours': numberOfHours,
                        'reason': response.result.parameters.reason
-    }
-    };
+                    }
+            };
+           console.log("leave format = " + JSON.parse(leaveFormat));
        }
        else {
        }
    });
 
-
-
-        console.log(leaveFormat);
 }
 
 
