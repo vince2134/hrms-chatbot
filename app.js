@@ -442,10 +442,7 @@ function handleIntent(response, senderID) {
         response.result.parameters.reason !== "") {
 
         if (isRegistered(senderID) == false) {
-<<<<<<< HEAD
 
-=======
->>>>>>> HRMS/master
             mesageData.message.text = "You haven't registered yet. Please type 'register <email>' before filing an offset."
             callSendAPI(messageData);
         } else {
