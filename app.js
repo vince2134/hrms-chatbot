@@ -416,21 +416,21 @@ function retrieveToken(user_id){
 function handleIntent(response, senderID)
 {
 
-    if (response.result.metadata.intentName === "file_leave" &&
+    if (response.result.metadata.intentName == "file_leave" &&
             response.result.parameters.reason !== "") {
 
             isRegistered(senderID, response);
             console.log(response.result.parameters);
             fileLeave(response,senderID);
         }
-        else if (response.result.metadata.intentName === "register_account" &&
+        else if (response.result.metadata.intentName == "register_account" &&
                  response.result.parameters.email !== "" &&
                  response.result.parameters.token !== "") {
 
             console.log("<<<<<<<<VALIDATE USER>>>>>>>>");
             validateUser(response.result.parameters.email, senderID, response.result.parameters.token);
         }
-        else if (response.result.metadata.intentName === "register_account" &&
+        else if (response.result.metadata.intentName == "register_account" &&
                  response.result.parameters.email !== "" ) {
 
             console.log("<<<<<<<<REGISTER USER>>>>>>>>");
