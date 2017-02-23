@@ -301,12 +301,8 @@ function validateUser(email, fbId, token) {
 
 function fileLeave(response, fbId){
     console.log("fileLeave");
-
-<<<<<<< HEAD
-
 //192.168.30.210:8080/opentides/chatbot-leave/fileleave
-=======
->>>>>>> 127f6f39d31aadf33cdf49b053f6b0f278454961
+
     var date;
     var numberOfHours;
     if(response.result.parameters.date_custom.date_period != null)
