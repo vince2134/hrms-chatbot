@@ -345,6 +345,7 @@ function sendLeaveDetails(fbId, userToken, date1, date2, leavetype,hours,reason,
         message: {
             text: "Your leave has been filed."
 
+    }
     };
     request(options, function(error, response, body) {
 
