@@ -424,7 +424,7 @@ function handleIntent(response, senderID) {
         response.result.parameters.reason !== "") {
 
         if (isRegistered(senderID) == false) {
-            mesageData.message.text = "You haven't registered yet. Please type 'register <email>' before filing a leave."
+            messageData.message.text = "You haven't registered yet. Please type 'register <email>' before filing a leave."
             callSendAPI(messageData);
         } else {
             console.log(response.result.parameters);
@@ -443,7 +443,7 @@ function handleIntent(response, senderID) {
 
         if (isRegistered(senderID) == false) {
 
-            mesageData.message.text = "You haven't registered yet. Please type 'register <email>' before filing an offset."
+            messageData.message.text = "You haven't registered yet. Please type 'register <email>' before filing an offset."
             callSendAPI(messageData);
         } else {
             console.log(response.result.parameters);
@@ -462,7 +462,7 @@ function handleIntent(response, senderID) {
         if (isRegistered(senderID) == false)
             registerUser(response.result.parameters.email, senderID);
         else {
-            mesageData.message.text = "Registraion Failed. You are already registered to an account."
+            messageData.message.text = "Registraion Failed. You are already registered to an account."
             callSendAPI(messageData);
         }
     }
