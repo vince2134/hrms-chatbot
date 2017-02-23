@@ -206,6 +206,7 @@ function dateRangeToHours(dateRange){
 
 /*
  * Function for the registration of users to their email.
+ 'http://23.97.59.113/hrms/chatbot-user/register'
  */
 function registerUser(email, senderID) {
 
@@ -219,7 +220,7 @@ function registerUser(email, senderID) {
     };
 
     var options = {
-        url: 'http://23.97.59.113/hrms/chatbot-user/register',
+        url: 'http://192.168.30.210:8080/opentides/register',
         method: 'GET',
         qs: {
             'emailAddress': email
