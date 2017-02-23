@@ -363,7 +363,7 @@ function sendLeaveDetails(leaveFormat)
         }
         else{
             console.log("<<<<<<<<FILE LEAVE  FAILED>>>>>>>>   ");
-            console.log(error);
+            console.log(body);
         }
     });
 }
