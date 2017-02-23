@@ -352,15 +352,14 @@ function sendLeaveDetails(fbId, userToken, date1, date2, leavetype,hours,reason,
         url: 'http://23.97.59.113/hrms/chatbot-leave/fileleave',
         method: 'GET',
         qs: {
-            'facebookId': fbId,
-            'chatbotToken': userToken,
-            'leaveData': '{' +
-               'startDate:' + date1 + ',' +
-               'endDate:' + date2 + ',' +
-               'leaveType:' + leavetype + ',' +
-               'numberOfHours:' + hours + ',' +
-               'reason:' + reason +
-            '}'
+           "facebookId": fbId,
+           "chatbotToken": userToken,
+           "leaveData": "{ \"startDate\" :\"" + date1 + "\"," +
+             "\"endDate\":\"" + date2 + "\"," +
+             "\"leaveType\":\"" + leavetype + "\"," +
+             "\"numberOfHours\":" + hours + "," +
+             "\"reason\":\"" + reason +
+           "\"}"
         }
     };
     var fileLeaveConfirmation = {
