@@ -138,7 +138,7 @@ function receivedMessage(event) {
         //console.log(response.result.parameters);
 
 
-        dleIntent(response, senderID);
+        handleIntent(response, senderID);
     });
     request.on('error', function(error) {});
     request.end();
@@ -420,27 +420,33 @@ function handleIntent(response, senderID) {
         }
     };
 
-    if ((response.result.metadata.intentName == "file_leave" || response.result.metadata.intentName == "file_overtime" || response.result.metadata.intentName == "file_undertime") &&
+    if (response.result.metadata.intentName == "file_leave" &&
         response.result.parameters.reason !== "") {
 
         if (isRegistered(senderID) == false) {
-           mesageData.message.text = "You haven't registered yet. Please type 'register <email>' before filing a leave."
-           callSendAPI(messageData);
+            mesageData.message.text = "You haven't registered yet. Please type 'register <email>' before filing a leave."
+            callSendAPI(messageData);
+        } else {
+            console.log(response.result.parameters);
+            fileLeave(response, senderID);
         }
-        else{
-           console.log(response.result.parameters);
-           fileLeave(response, senderID);
+    } else if ((response.result.metadata.intentName == "file_overtime" || response.result.metadata.intentName == "file_undertime") && response.result.parameters.reason !== "") {
+        if (isRegistered(senderID) == false) {
+            mesageData.message.text = "You haven't registered yet. Please type 'register <email>' before filing a leave."
+            callSendAPI(messageData);
+        } else {
+            console.log(response.result.parameters);
+            fileLeave(response, senderID);
         }
     } else if (response.result.metadata.intentName == "file_offset" &&
         response.result.parameters.reason !== "") {
 
         if (isRegistered(senderID) == false) {
-           mesageData.message.text = "You haven't registered yet. Please type 'register <email>' before filing an offset."
-           callSendAPI(messageData);
-        }
-        else{
-           console.log(response.result.parameters);
-           fileLeave(response, senderID);
+            mesageData.message.text = "You haven't registered yet. Please type 'register <email>' before filing an offset."
+            callSendAPI(messageData);
+        } else {
+            console.log(response.result.parameters);
+            fileLeave(response, senderID);
         }
     } else if (response.result.metadata.intentName == "register_account" &&
         response.result.parameters.email !== "" &&
@@ -461,43 +467,41 @@ function handleIntent(response, senderID) {
     }
 }
 
-function fileOffset(response, fbId)
-{
-     console.log("fileOffset");
+function fileOffset(response, fbId) {
+    console.log("fileOffset");
 
     var date;
     var userToken;
     var leaveFormat;
     con.query("SELECT TOKEN FROM user_mapping where FB_ID = '" + fbId + "';", function(err, rows) {
-        if (err) throw err;
-        console.log('RETRIEVE TOKEN');
+            if (err) throw err;
+            console.log('RETRIEVE TOKEN');
 
-        console.log(rows[0].TOKEN + "\n");
+            console.log(rows[0].TOKEN + "\n");
 
-        if (rows.length > 0) {
-            console.log("tokenretrieved:" + rows[0].TOKEN);
-           userToken = rows[0].TOKEN;
+            if (rows.length > 0) {
+                console.log("tokenretrieved:" + rows[0].TOKEN);
+                userToken = rows[0].TOKEN;
             };
-           console.log("leave format = " + JSON.stringify(leaveFormat));
-           sendLeaveDetails(fbId,userToken,response.result.parameters.from_date,response.result.parameters.to_date, response.result.parameters.offset,response.result.parameters.hours, response.result.parameters.reason);
-       }
-   });
+            console.log("leave format = " + JSON.stringify(leaveFormat));
+            sendLeaveDetails(fbId, userToken, response.result.parameters.from_date, response.result.parameters.to_date, response.result.parameters.offset, response.result.parameters.hours, response.result.parameters.reason);
+        }
+    });
 }
 
-function sendOffsetDetails(fbId, userToken, dateFrom, dateTo, leavetype,hours,reason)
-{
+function sendOffsetDetails(fbId, userToken, dateFrom, dateTo, leavetype, hours, reason) {
     var options = {
         url: 'http://23.97.59.113/hrms/chatbot-leave/fileleave',
         method: 'GET',
         qs: {
-           "facebookId": fbId,
-           "chatbotToken": userToken,
-           "leaveData": "{ \"offsetFrom\" :\"" + dateFrom + "\"," +
-             "\"offsetTo\":\"" + dateTo + "\"," +
-             "\"leaveType\":\"" + leavetype + "\"," +
-             "\"numberOfHours\":" + hours + "," +
-             "\"reason\":\"" + reason +
-           "\"}"
+            "facebookId": fbId,
+            "chatbotToken": userToken,
+            "leaveData": "{ \"offsetFrom\" :\"" + dateFrom + "\"," +
+                "\"offsetTo\":\"" + dateTo + "\"," +
+                "\"leaveType\":\"" + leavetype + "\"," +
+                "\"numberOfHours\":" + hours + "," +
+                "\"reason\":\"" + reason +
+                "\"}"
         }
     };
     var fileLeaveConfirmation = {
@@ -507,7 +511,7 @@ function sendOffsetDetails(fbId, userToken, dateFrom, dateTo, leavetype,hours,re
         message: {
             text: "Your leave has been filed."
 
-    }
+        }
     };
     request(options, function(error, response, body) {
         console.log(response.statusCode);
@@ -525,8 +529,7 @@ function sendOffsetDetails(fbId, userToken, dateFrom, dateTo, leavetype,hours,re
                 fileLeaveConfirmation.message.text = "Filing of leave Failed. Please follow the rules for filing of leaves"
                 callSendAPI(fileLeaveConfirmation);
             }
-        }
-        else{
+        } else {
             console.log("<<<<<<<<FILE OFFSET  FAILED>>>>>>>>   ");
             fileLeaveConfirmation.message.text = "Filing of leave Failed. HRMS Connection Error"
             callSendAPI(fileLeaveConfirmation);
