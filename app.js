@@ -332,17 +332,26 @@ function fileLeave(response, fbId){
                     }
             };
            console.log("leave format = " + JSON.stringify(leaveFormat));
-           sendLeaveDetails(leaveFormat);
+           sendLeaveDetails(fbId,userToken,date[0], date[1], response.result.parameters.leave_type,numberOfHours, response.result.parameters.reason );
        }
    });
 }
 
-function sendLeaveDetails(leaveFormat)
+function sendLeaveDetails(fbId, userToken, date1, date2, leavetype,hours,reason)
 {
     options = {
         url: 'http://23.97.59.113/hrms/chatbot-leave/fileleave',
         method: 'GET',
-        qs: leaveFormat
+        qs: {
+            'facebookId': fbId,
+            'chatbotToken': userToken,
+            'leaveData': {
+            'startDate': date1,
+            'endDate': date2,
+            'leaveType': leavetype,
+            'numberOfHours': hours,
+            'reason': reason
+            }
         }
 
     request(options, function(error, response, body) {
