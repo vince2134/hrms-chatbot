@@ -332,12 +332,12 @@ function fileLeave(response, fbId){
                     }
             };
            console.log("leave format = " + JSON.stringify(leaveFormat));
-           sendLeaveDetails(leaverFormat);
+           sendLeaveDetails(leaveFormat);
        }
    });
 }
 
-function sendLeaveDetails(leaverFormat)
+function sendLeaveDetails(leaveFormat)
 {
     options = {
         url: 'http://23.97.59.113/hrms/chatbot-leave/fileleave',
