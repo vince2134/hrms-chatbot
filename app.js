@@ -34,7 +34,7 @@ var con = mysql.createConnection({
     database: "hrms_chatbot"
 });
 
-con.connect(function (err) {
+con.connect(function(err) {
     if (err) {
         console.log('Error connecting to Db');
         return;
@@ -136,7 +136,9 @@ function receivedMessage(event) {
 
         console.log("INTENT NAME: " + response.result.metadata.intentName);
         //console.log(response.result.parameters);
-        handleIntent(response, senderID);
+
+
+        dleIntent(response, senderID);
     });
     request.on('error', function(error) {});
     request.end();
@@ -190,18 +192,18 @@ function callSendAPI(messageData) {
     });
 }
 
-function dateRangeToHours(dateRange){
-   var dates = dateRange.split('/');
-   var date1 = dates[0].split('-');
-   var date2 = dates[1].split('-');
+function dateRangeToHours(dateRange) {
+    var dates = dateRange.split('/');
+    var date1 = dates[0].split('-');
+    var date2 = dates[1].split('-');
 
-   var oneDay = 24*60*60*1000;
-   var firstDate = new Date(parseInt(date1[0]), parseInt(date1[1]), parseInt(date1[2]));
-   var secondDate = new Date(parseInt(date2[0]), parseInt(date2[1]), parseInt(date2[2]));
+    var oneDay = 24 * 60 * 60 * 1000;
+    var firstDate = new Date(parseInt(date1[0]), parseInt(date1[1]), parseInt(date1[2]));
+    var secondDate = new Date(parseInt(date2[0]), parseInt(date2[1]), parseInt(date2[2]));
 
-   var diffDays = Math.round(Math.abs((firstDate.getTime() - secondDate.getTime())/(oneDay))) * 8 + 8;
+    var diffDays = Math.round(Math.abs((firstDate.getTime() - secondDate.getTime()) / (oneDay))) * 8 + 8;
 
-   return diffDays;
+    return diffDays;
 }
 
 /*
@@ -210,7 +212,7 @@ function dateRangeToHours(dateRange){
  */
 function registerUser(email, senderID) {
 
-      var tokenRequest = {
+    var tokenRequest = {
         recipient: {
             id: senderID
         },
@@ -234,6 +236,7 @@ function registerUser(email, senderID) {
             var info = JSON.parse(body);
             console.log(body);
             console.log("Register Success: " + info.success);
+            1
             if (info.success == true) {
                 console.log("[registerUser] Success!");
                 callSendAPI(tokenRequest);
@@ -243,8 +246,7 @@ function registerUser(email, senderID) {
                 tokenRequest.message.text = "Registraion Failed. You are already registered to an account."
                 callSendAPI(tokenRequest);
             }
-        }
-        else{
+        } else {
             console.log("<<<<<<<<REGISTER  USER  FAILED>>>>>>>>   ");
             console.log(error);
         }
@@ -252,8 +254,8 @@ function registerUser(email, senderID) {
 }
 
 /*
-* Function for validating the token entered by the user.
-*/
+ * Function for validating the token entered by the user.
+ */
 function validateUser(email, fbId, token) {
     // Configure the request
     options = {
@@ -263,8 +265,8 @@ function validateUser(email, fbId, token) {
             'emailAddress': email,
             'facebookId': fbId,
             'chatbotToken': token
-            }
         }
+    }
     var validationConfirmation = {
         recipient: {
             id: fbId
@@ -290,10 +292,8 @@ function validateUser(email, fbId, token) {
                         temptoken = token;
                     });
                 }
-            }
-            else
-            {
-                validationConfirmation.message.text = "Registraion Failed. You entered the wrong verification code. "+
+            } else {
+                validationConfirmation.message.text = "Registraion Failed. You entered the wrong verification code. " +
                     "You can restart the process of registration.";
                 callSendAPI(validationConfirmation);
             }
@@ -301,66 +301,62 @@ function validateUser(email, fbId, token) {
     });
 }
 
-function fileLeave(response, fbId){
+function fileLeave(response, fbId) {
     console.log("fileLeave");
-//192.168.30.210:8080/opentides/chatbot-leave/fileleave
+    //192.168.30.210:8080/opentides/chatbot-leave/fileleave
 
     var date;
     var numberOfHours;
-    if(response.result.parameters.date_custom.date_period != null)
-    {
+    if (response.result.parameters.date_custom.date_period != null) {
         date = response.result.parameters.date_custom.date_period.split('/');
         console.log("DATES: " + date[0] + " to " + date[1]);
         numberOfHours = dateRangeToHours(response.result.parameters.date_custom.date_period);
-    }
-    else if(response.result.parameters.date_custom.date != null)
-    {
+    } else if (response.result.parameters.date_custom.date != null) {
         date = [response.result.parameters.date_custom.date, response.result.parameters.date_custom.date];
         numberOfHours = 8;
     }
     var userToken;
     var leaveFormat;
     con.query("SELECT TOKEN FROM user_mapping where FB_ID = '" + fbId + "';", function(err, rows) {
-       if (err) throw err;
-       console.log('RETRIEVE TOKEN');
+        if (err) throw err;
+        console.log('RETRIEVE TOKEN');
 
-       console.log(rows[0].TOKEN + "\n");
+        console.log(rows[0].TOKEN + "\n");
 
-       if (rows.length > 0) {
-           console.log("tokenretrieved:" + rows[0].TOKEN);
+        if (rows.length > 0) {
+            console.log("tokenretrieved:" + rows[0].TOKEN);
 
-           userToken = rows[0].TOKEN;
+            userToken = rows[0].TOKEN;
             leaveFormat = {
-                   'facebookId': fbId,
-                   'chatbotToken': userToken,
-                   'leaveData': {
-                       'startDate': date[0],
-                       'endDate': date[1],
-                       'leaveType': response.result.parameters.leave_type,
-                       'numberOfHours': numberOfHours,
-                       'reason': response.result.parameters.reason
-                    }
+                'facebookId': fbId,
+                'chatbotToken': userToken,
+                'leaveData': {
+                    'startDate': date[0],
+                    'endDate': date[1],
+                    'leaveType': response.result.parameters.leave_type,
+                    'numberOfHours': numberOfHours,
+                    'reason': response.result.parameters.reason
+                }
             };
-           console.log("leave format = " + JSON.stringify(leaveFormat));
-           sendLeaveDetails(fbId,userToken,date[0], date[1], response.result.parameters.leave_type,numberOfHours, response.result.parameters.reason, leaveFormat);
-       }
-   });
+            console.log("leave format = " + JSON.stringify(leaveFormat));
+            sendLeaveDetails(fbId, userToken, date[0], date[1], response.result.parameters.leave_type, numberOfHours, response.result.parameters.reason, leaveFormat);
+        }
+    });
 }
 
-function sendLeaveDetails(fbId, userToken, date1, date2, leavetype,hours,reason, leaveFormat)
-{
+function sendLeaveDetails(fbId, userToken, date1, date2, leavetype, hours, reason, leaveFormat) {
     options = {
         url: 'http://23.97.59.113/hrms/chatbot-leave/fileleave',
         method: 'GET',
         qs: {
-           "facebookId": fbId,
-           "chatbotToken": userToken,
-           "leaveData": "{ \"startDate\" :\"" + date1 + "\"," +
-             "\"endDate\":\"" + date2 + "\"," +
-             "\"leaveType\":\"" + leavetype + "\"," +
-             "\"numberOfHours\":" + hours + "," +
-             "\"reason\":\"" + reason +
-           "\"}"
+            "facebookId": fbId,
+            "chatbotToken": userToken,
+            "leaveData": "{ \"startDate\" :\"" + date1 + "\"," +
+                "\"endDate\":\"" + date2 + "\"," +
+                "\"leaveType\":\"" + leavetype + "\"," +
+                "\"numberOfHours\":" + hours + "," +
+                "\"reason\":\"" + reason +
+                "\"}"
         }
     };
     var fileLeaveConfirmation = {
@@ -370,7 +366,7 @@ function sendLeaveDetails(fbId, userToken, date1, date2, leavetype,hours,reason,
         message: {
             text: "Your leave has been filed."
 
-    }
+        }
     };
     request(options, function(error, response, body) {
         console.log(response.statusCode);
@@ -387,8 +383,7 @@ function sendLeaveDetails(fbId, userToken, date1, date2, leavetype,hours,reason,
                 tokenRequest.message.text = "Filing of leave Failed. Please follow the rules for filing of leaves"
                 callSendAPI(fileLeaveConfirmation);
             }
-        }
-        else{
+        } else {
             console.log("<<<<<<<<FILE LEAVE  FAILED>>>>>>>>   ");
             tokenRequest.message.text = "Filing of leave Failed. HRMS Connection Error"
             callSendAPI(fileLeaveConfirmation);
@@ -397,109 +392,114 @@ function sendLeaveDetails(fbId, userToken, date1, date2, leavetype,hours,reason,
     });
 }
 
-function retrieveToken(user_id){
-   con.query("SELECT TOKEN FROM user_mapping where FB_ID = '" + user_id + "';", function(err, rows) {
-       if (err) throw err;
-       console.log('RETRIEVE TOKEN');
+function retrieveToken(user_id) {
+    con.query("SELECT TOKEN FROM user_mapping where FB_ID = '" + user_id + "';", function(err, rows) {
+        if (err) throw err;
+        console.log('RETRIEVE TOKEN');
 
-       console.log(rows[0].TOKEN + "\n");
+        console.log(rows[0].TOKEN + "\n");
 
-       if (rows.length > 0) {
-           console.log("tokenretrieved:" + rows[0].TOKEN);
+        if (rows.length > 0) {
+            console.log("tokenretrieved:" + rows[0].TOKEN);
 
-           return rows[0].TOKEN;
-       }
-       else {
-          return null;
-       }
-   });
+            return rows[0].TOKEN;
+        } else {
+            return null;
+        }
+    });
 }
 
-function handleIntent(response, senderID)
-{
-
-    if (response.result.metadata.intentName == "file_leave" &&
-            response.result.parameters.reason !== "") {
-
-            isRegistered(senderID);
-            console.log(response.result.parameters);
-            fileLeave(response,senderID);
+function handleIntent(response, senderID) {
+    var messageData = {
+        recipient: {
+            id: senderID
+        },
+        message: {
+            text: "What is your verification code? (Please check your email)"
         }
-        else if (response.result.metadata.intentName == "register_account" &&
-                 response.result.parameters.email !== "" &&
-                 response.result.parameters.token !== "") {
+    };
 
-            console.log("<<<<<<<<VALIDATE USER>>>>>>>>");
-            validateUser(response.result.parameters.email, senderID, response.result.parameters.token);
-        }
-        else if (response.result.metadata.intentName == "register_account" &&
-                 response.result.parameters.email !== "" ) {
+    if ((response.result.metadata.intentName == "file_leave" || response.result.metadata.intentName == "file_overtime" || response.result.metadata.intentName == "file_undertime") &&
+        response.result.parameters.reason !== "") {
 
-            console.log("<<<<<<<<REGISTER USER>>>>>>>>");
-            if(isRegistered(senderID) == false)
-                registerUser(response.result.parameters.email, senderID);
-            else
-            {
-                mesageData.message.text = "Registraion Failed. You are already registered to an account."
-                callSendAPI(messageData);
-            }
+        if (isRegistered(senderID) == false) {
+           mesageData.message.text = "You haven't registered yet. Please type 'register <email>' before filing a leave."
+           callSendAPI(messageData);
         }
+        else{
+           console.log(response.result.parameters);
+           fileLeave(response, senderID);
+        }
+    } else if (response.result.metadata.intentName == "file_offset" &&
+        response.result.parameters.reason !== "") {
+
+        if (isRegistered(senderID) == false) {
+           mesageData.message.text = "You haven't registered yet. Please type 'register <email>' before filing an offset."
+           callSendAPI(messageData);
+        }
+        else{
+           console.log(response.result.parameters);
+           fileLeave(response, senderID);
+        }
+    } else if (response.result.metadata.intentName == "register_account" &&
+        response.result.parameters.email !== "" &&
+        response.result.parameters.token !== "") {
+
+        console.log("<<<<<<<<VALIDATE USER>>>>>>>>");
+        validateUser(response.result.parameters.email, senderID, response.result.parameters.token);
+    } else if (response.result.metadata.intentName == "register_account" &&
+        response.result.parameters.email !== "") {
+
+        console.log("<<<<<<<<REGISTER USER>>>>>>>>");
+        if (isRegistered(senderID) == false)
+            registerUser(response.result.parameters.email, senderID);
+        else {
+            mesageData.message.text = "Registraion Failed. You are already registered to an account."
+            callSendAPI(messageData);
+        }
+    }
 }
 
 
 
-function formatLeave(response, fbId)
-{
+function formatLeave(response, fbId) {
     var date;
     var numberOfHours;
-    if(response.result.parameters.date_custom.date_period != null)
-    {
+    if (response.result.parameters.date_custom.date_period != null) {
         date = response.result.parameters.date_custom.date_period.split('/');
         console.log("DATES: " + date[0] + " to " + date[1]);
         numberOfHours = dateRangeToHours(response.result.parameters.date_custom.date_period);
-    }
-    else if(response.result.parameters.date_custom.date != null)
-    {
+    } else if (response.result.parameters.date_custom.date != null) {
         date = [response.result.parameters.date_custom.date, response.result.parameters.date_custom.date];
         numberOfHours = 8;
     }
     var userToken;
     var leaveFormat;
     con.query("SELECT TOKEN FROM user_mapping where FB_ID = '" + fbId + "';", function(err, rows) {
-       if (err) throw err;
-       console.log('RETRIEVE TOKEN');
+        if (err) throw err;
+        console.log('RETRIEVE TOKEN');
 
-       console.log(rows[0].TOKEN + "\n");
+        console.log(rows[0].TOKEN + "\n");
 
-       if (rows.length > 0) {
-           console.log("tokenretrieved:" + rows[0].TOKEN);
+        if (rows.length > 0) {
+            console.log("tokenretrieved:" + rows[0].TOKEN);
 
-           userToken = rows[0].TOKEN;
+            userToken = rows[0].TOKEN;
             leaveFormat = {
-                   'facebookId': fbId,
-                   'chatbotToken': userToken,
-                   'leaveData': {
-                       'startDate': date[0],
-                       'endDate': date[1],
-                       'leaveType': response.result.parameters.leave_type,
-                       'numberOfHours': numberOfHours,
-                       'reason': response.result.parameters.reason
-                    }
+                'facebookId': fbId,
+                'chatbotToken': userToken,
+                'leaveData': {
+                    'startDate': date[0],
+                    'endDate': date[1],
+                    'leaveType': response.result.parameters.leave_type,
+                    'numberOfHours': numberOfHours,
+                    'reason': response.result.parameters.reason
+                }
             };
-           console.log("leave format = " + JSON.stringify(leaveFormat));
-       }
-       else {
-       }
-   });
-
+            console.log("leave format = " + JSON.stringify(leaveFormat));
+        } else {}
+    });
 }
-
-
-
-
-
-
-
 
 
 
