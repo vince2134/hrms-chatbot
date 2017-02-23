@@ -631,6 +631,7 @@ function updateIntent() {
         "priority": 500000
     }
     // Set the headers
+
     var headers = {
         "Authorization": "Bearer 05411b958f3840019c2e968e3ac72a63",
         "Content-Type": "application/json; charset=utf-8"
