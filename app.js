@@ -338,13 +338,13 @@ function sendLeaveDetails(fbId, userToken, date1, date2, leavetype,hours,reason)
         qs: {
             'facebookId': fbId,
             'chatbotToken': userToken,
-            'leaveData': {
-            'startDate': date1,
-            'endDate': date2,
-            'leaveType': leavetype,
-            'numberOfHours': hours,
-            'reason': reason
-            }
+            'leaveData': '{' +
+               'startDate:' + date1 + ',' +
+               'endDate:' + date2 + ',' +
+               'leaveType:' + leavetype + ',' +
+               'numberOfHours:' + hours + ',' +
+               'reason:' + reason +
+            '}'
         }
     };
     var fileLeaveConfirmation = {
