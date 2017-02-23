@@ -146,7 +146,7 @@ function receivedMessage(event) {
     callSendAPI(messageData);
 }
 
-function isRegistered(user_id, response) {
+function isRegistered(user_id) {
     console.log("isRegistered");
     register = false;
 
@@ -287,7 +287,7 @@ function fileLeave(response, fbId){
     console.log("fileLeave");
 
 
-
+//192.168.30.210:8080/opentides/chatbot-leave/fileleave
     var date;
     var numberOfHours;
     if(response.result.parameters.date_custom.date_period != null)
@@ -419,7 +419,7 @@ function handleIntent(response, senderID)
     if (response.result.metadata.intentName == "file_leave" &&
             response.result.parameters.reason !== "") {
 
-            isRegistered(senderID, response);
+            isRegistered(senderID);
             console.log(response.result.parameters);
             fileLeave(response,senderID);
         }
