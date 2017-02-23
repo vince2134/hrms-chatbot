@@ -435,7 +435,7 @@ function formatLeave(response, fbId)
                        'reason': response.result.parameters.reason
                     }
             };
-           console.log("leave format = " + leaveFormat);
+           console.log("leave format = " + JSON.parse(leaveFormat));
        }
        else {
        }
