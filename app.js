@@ -371,21 +371,22 @@ function sendLeaveDetails(fbId, userToken, date1, date2, leavetype, hours, reaso
     request(options, function(error, response, body) {
         console.log(response.statusCode);
         if (!error && response.statusCode == 200) {
-            //var info = JSON.parse(body);
+            var info = JSON.parse(body);
             console.log("Filing Leave Success: " + JSON.stringify(body));
             /*console.log("Filing Leave Success: " + response);*/
+
             if (info.success == true) {
                 console.log("[fileLeave] Success!");
                 callSendAPI(fileLeaveConfirmation);
 
             } else {
                 console.log("[fileLeave] Failed");
-                tokenRequest.message.text = "Filing of leave Failed. Please follow the rules for filing of leaves"
+                fileLeaveConfirmation.message.text = "Filing of leave Failed. Please follow the rules for filing of leaves"
                 callSendAPI(fileLeaveConfirmation);
             }
         } else {
             console.log("<<<<<<<<FILE LEAVE  FAILED>>>>>>>>   ");
-            tokenRequest.message.text = "Filing of leave Failed. HRMS Connection Error"
+            fileLeaveConfirmation.message.text = "Filing of leave Failed. HRMS Connection Error"
             callSendAPI(fileLeaveConfirmation);
             console.log("BODY : " + JSON.stringify(body));
         }
@@ -460,6 +461,7 @@ function handleIntent(response, senderID) {
     }
 }
 
+<<<<<<< HEAD
 
 
 function formatLeave(response, fbId) {
@@ -473,6 +475,13 @@ function formatLeave(response, fbId) {
         date = [response.result.parameters.date_custom.date, response.result.parameters.date_custom.date];
         numberOfHours = 8;
     }
+=======
+function fileOffset(response, fbId)
+{
+     console.log("fileOffset");
+
+    var date;
+>>>>>>> abfc64bb14ea8e55034f1c75b6aecee5b0f25fdb
     var userToken;
     var leaveFormat;
     con.query("SELECT TOKEN FROM user_mapping where FB_ID = '" + fbId + "';", function(err, rows) {
@@ -484,6 +493,7 @@ function formatLeave(response, fbId) {
         if (rows.length > 0) {
             console.log("tokenretrieved:" + rows[0].TOKEN);
 
+<<<<<<< HEAD
             userToken = rows[0].TOKEN;
             leaveFormat = {
                 'facebookId': fbId,
@@ -499,12 +509,69 @@ function formatLeave(response, fbId) {
             console.log("leave format = " + JSON.stringify(leaveFormat));
         } else {}
     });
+=======
+           userToken = rows[0].TOKEN;
+            };
+           console.log("leave format = " + JSON.stringify(leaveFormat));
+           sendLeaveDetails(fbId,userToken,response.result.parameters.from_date,response.result.parameters.to_date, response.result.parameters.offset,response.result.parameters.hours, response.result.parameters.reason);
+       }
+   });
+>>>>>>> abfc64bb14ea8e55034f1c75b6aecee5b0f25fdb
 }
 
 
 
 
+function sendOffsetDetails(fbId, userToken, dateFrom, dateTo, leavetype,hours,reason)
+{
+    var options = {
+        url: 'http://23.97.59.113/hrms/chatbot-leave/fileleave',
+        method: 'GET',
+        qs: {
+           "facebookId": fbId,
+           "chatbotToken": userToken,
+           "leaveData": "{ \"offsetFrom\" :\"" + dateFrom + "\"," +
+             "\"offsetTo\":\"" + dateTo + "\"," +
+             "\"leaveType\":\"" + leavetype + "\"," +
+             "\"numberOfHours\":" + hours + "," +
+             "\"reason\":\"" + reason +
+           "\"}"
+        }
+    };
+    var fileLeaveConfirmation = {
+        recipient: {
+            id: fbId
+        },
+        message: {
+            text: "Your leave has been filed."
 
+    }
+    };
+    request(options, function(error, response, body) {
+        console.log(response.statusCode);
+        if (!error && response.statusCode == 200) {
+            var info = JSON.parse(body);
+            console.log("Filing Leave Success: " + JSON.stringify(body));
+            /*console.log("Filing Leave Success: " + response);*/
+
+            if (info.success == true) {
+                console.log("[fileOffset] Success!");
+                callSendAPI(fileLeaveConfirmation);
+
+            } else {
+                console.log("[fileOffset] Failed");
+                fileLeaveConfirmation.message.text = "Filing of leave Failed. Please follow the rules for filing of leaves"
+                callSendAPI(fileLeaveConfirmation);
+            }
+        }
+        else{
+            console.log("<<<<<<<<FILE OFFSET  FAILED>>>>>>>>   ");
+            fileLeaveConfirmation.message.text = "Filing of leave Failed. HRMS Connection Error"
+            callSendAPI(fileLeaveConfirmation);
+            console.log("BODY : " + JSON.stringify(body));
+        }
+    });
+}
 
 
 
