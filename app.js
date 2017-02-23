@@ -282,14 +282,10 @@ function validateUser(email, fbId, token) {
     });
 }
 
-function fileLeave(response, fbId, token){
+function fileLeave(response, fbId){
 
     console.log("fileLeave");
-    options = {
-        url: 'http://23.97.59.113/hrms/chatbot-user/validate',
-        method: 'GET',
-        qs: formatLeave(response, fbId,token)
-        }
+
     var fileLeaveConfirmation = {
         recipient: {
             id: fbId
@@ -299,7 +295,56 @@ function fileLeave(response, fbId, token){
         }
     };
 
-   /* request(options, function(error, response, body) {
+    var date;
+    var numberOfHours;
+    if(response.result.parameters.date_custom.date_period != null)
+    {
+        date = response.result.parameters.date_custom.date_period.split('/');
+        console.log("DATES: " + date[0] + " to " + date[1]);
+        numberOfHours = dateRangeToHours(response.result.parameters.date_custom.date_period);
+    }
+    else if(response.result.parameters.date_custom.date != null)
+    {
+        date = [response.result.parameters.date_custom.date, response.result.parameters.date_custom.date];
+        numberOfHours = 8;
+    }
+    var userToken;
+    var leaveFormat;
+    con.query("SELECT TOKEN FROM user_mapping where FB_ID = '" + fbId + "';", function(err, rows) {
+       if (err) throw err;
+       console.log('RETRIEVE TOKEN');
+
+       console.log(rows[0].TOKEN + "\n");
+
+       if (rows.length > 0) {
+           console.log("tokenretrieved:" + rows[0].TOKEN);
+
+           userToken = rows[0].TOKEN;
+            leaveFormat = {
+                   'facebookId': fbId,
+                   'chatbotToken': userToken,
+                   'leaveData': {
+                       'startDate': date[0],
+                       'endDate': date[1],
+                       'leaveType': response.result.parameters.leave_type,
+                       'numberOfHours': numberOfHours,
+                       'reason': response.result.parameters.reason
+                    }
+            };
+           console.log("leave format = " + JSON.stringify(leaveFormat));
+       }
+   });
+}
+
+function sendLeaveDetails(leaverFormat)
+{
+    options = {
+        url: 'http://23.97.59.113/hrms/chatbot-leave/fileleave',
+        method: 'GET',
+        qs: leaveFormat
+        }
+
+    request(options, function(error, response, body) {
 
         if (!error && response.statusCode == 200) {
             //var info = JSON.parse(body);
@@ -318,7 +363,7 @@ function fileLeave(response, fbId, token){
             console.log("<<<<<<<<FILE LEAVE  FAILED>>>>>>>>   ");
             console.log(error);
         }
-    });*/
+    });
 }
 
 function dateRangeToHours(dateRange){
@@ -361,7 +406,6 @@ function handleIntent(response, senderID)
 
             isRegistered(senderID, response);
             console.log(response.result.parameters);
-            console.log("response : " + response);
             fileLeave(response,senderID);
         }
         else if (response.result.metadata.intentName === "register_account" &&
