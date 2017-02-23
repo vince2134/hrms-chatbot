@@ -433,13 +433,14 @@ function formatLeave(response, fbId)
                        'leaveType': response.result.parameters.leave_type,
                        'numberOfHours': numberOfHours,
                        'reason': response.result.parameters.reason
-    }
-    };
+                    }
+            };
+           console.log("leave format = " + leaveFormat);
        }
        else {
        }
    });
-        console.log("leave format = " + leaveFormat);
+        
 }
 
 
