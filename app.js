@@ -155,11 +155,13 @@ function isRegistered(user_id) {
             console.log("<<<<<<<<<<<<<User is Registered>>>>>>>>>>>>>>");
             register = true;
         }
+        console.log(register);
+        return register;
     });
 
-    console.log(register);
 
-    return register;
+
+
 }
 
 /*
