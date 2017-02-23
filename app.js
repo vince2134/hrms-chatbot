@@ -435,9 +435,7 @@ function handleIntent(response, senderID)
                  response.result.parameters.email !== "" ) {
 
             console.log("<<<<<<<<REGISTER USER>>>>>>>>");
-            var flag = isRegistered(senderID);
-            console.log("FLAG = " + flag);
-            if(flag == false)
+            if(isRegistered(senderID) == false)
                 registerUser(response.result.parameters.email, senderID);
             else
             {
