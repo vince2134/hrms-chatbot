@@ -480,7 +480,7 @@ function fileOffset(response, fbId)
             };
            console.log("leave format = " + JSON.stringify(leaveFormat));
            sendLeaveDetails(fbId,userToken,response.result.parameters.from_date,response.result.parameters.to_date, response.result.parameters.offset,response.result.parameters.hours, response.result.parameters.reason);
-       }
+
    });
 }
 
