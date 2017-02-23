@@ -335,7 +335,7 @@ function sendLeaveDetails(fbId, userToken, date1, date2, leavetype,hours,reason,
     options = {
         url: 'http://23.97.59.113/hrms/chatbot-leave/fileleave',
         method: 'GET',
-        qs: JSON.stringify(leaveFormat);
+        qs: JSON.stringify(leaveFormat)
 
     };
     var fileLeaveConfirmation = {
@@ -344,7 +344,7 @@ function sendLeaveDetails(fbId, userToken, date1, date2, leavetype,hours,reason,
         },
         message: {
             text: "Your leave has been filed."
-        }
+
     };
     request(options, function(error, response, body) {
 
