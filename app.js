@@ -368,12 +368,14 @@ function sendLeaveDetails(fbId, userToken, date1, date2, leavetype,hours,reason,
 
             } else {
                 console.log("[fileLeave] Failed");
-                tokenRequest.message.text = "Filing of leave Failed."
+                tokenRequest.message.text = "Filing of leave Failed. Please follow the rules for filing of leaves"
                 callSendAPI(fileLeaveConfirmation);
             }
         }
         else{
             console.log("<<<<<<<<FILE LEAVE  FAILED>>>>>>>>   ");
+            tokenRequest.message.text = "Filing of leave Failed. HRMS Connection Error"
+            callSendAPI(fileLeaveConfirmation);
             console.log(body);
         }
     });
