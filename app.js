@@ -286,14 +286,7 @@ function fileLeave(response, fbId){
 
     console.log("fileLeave");
 
-    var fileLeaveConfirmation = {
-        recipient: {
-            id: fbId
-        },
-        message: {
-            text: "Your leave has been filed."
-        }
-    };
+
 
     var date;
     var numberOfHours;
@@ -353,7 +346,15 @@ function sendLeaveDetails(fbId, userToken, date1, date2, leavetype,hours,reason)
             'reason': reason
             }
         }
-
+    };
+    var fileLeaveConfirmation = {
+        recipient: {
+            id: fbId
+        },
+        message: {
+            text: "Your leave has been filed."
+        }
+    };
     request(options, function(error, response, body) {
 
         console.log(response.statusCode);
