@@ -332,6 +332,7 @@ function fileLeave(response, fbId){
                     }
             };
            console.log("leave format = " + JSON.stringify(leaveFormat));
+           sendLeaveDetails(leaverFormat);
        }
    });
 }
