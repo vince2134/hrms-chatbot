@@ -232,6 +232,7 @@ function registerUser(email, senderID) {
         if (!error && response.statusCode == 200) {
             // Print out the response body
             var info = JSON.parse(body);
+            console.log(body);
             console.log("Register Success: " + info.success);
             if (info.success == true) {
                 console.log("[registerUser] Success!");
