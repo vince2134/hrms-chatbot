@@ -432,7 +432,7 @@ function handleIntent(response, senderID) {
         }
     } else if ((response.result.metadata.intentName == "file_overtime" || response.result.metadata.intentName == "file_undertime") && response.result.parameters.reason !== "") {
         if (isRegistered(senderID) == false) {
-            mesageData.message.text = "You haven't registered yet. Please type 'register <email>' before filing a leave."
+            messageData.message.text = "You haven't registered yet. Please type 'register <email>' before filing a leave."
             callSendAPI(messageData);
         } else {
             console.log(response.result.parameters);
