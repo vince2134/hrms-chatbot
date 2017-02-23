@@ -220,7 +220,7 @@ function registerUser(email, senderID) {
     };
 
     var options = {
-        url: 'http://192.168.30.210:8080/opentides/register',
+        url: 'http://192.168.30.210:8080/opentides/chatbot-user/register',
         method: 'GET',
         qs: {
             'emailAddress': email
