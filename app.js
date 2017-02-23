@@ -443,7 +443,7 @@ function handleIntent(response, senderID) {
             callSendAPI(messageData);
         } else {
             console.log(response.result.parameters);
-            fileLeave(response, senderID);
+            fileOffset(response, senderID);
         }
     } else if (response.result.metadata.intentName == "register_account" &&
         response.result.parameters.email !== "" &&
