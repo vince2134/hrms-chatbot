@@ -135,7 +135,7 @@ function receivedMessage(event) {
     request.on('response', function(response) {
 
         console.log("INTENT NAME: " + response.result.metadata.intentName);
-        console.log(response.result.parameters);
+        //console.log(response.result.parameters);
         handleIntent(response, senderID);
     });
     request.on('error', function(error) {});
@@ -185,6 +185,20 @@ function callSendAPI(messageData) {
             //console.log(messageData);
         }
     });
+}
+
+function dateRangeToHours(dateRange){
+   var dates = dateRange.split('/');
+   var date1 = dates[0].split('-');
+   var date2 = dates[1].split('-');
+
+   var oneDay = 24*60*60*1000;
+   var firstDate = new Date(parseInt(date1[0]), parseInt(date1[1]), parseInt(date1[2]));
+   var secondDate = new Date(parseInt(date2[0]), parseInt(date2[1]), parseInt(date2[2]));
+
+   var diffDays = Math.round(Math.abs((firstDate.getTime() - secondDate.getTime())/(oneDay))) * 8 + 8;
+
+   return diffDays;
 }
 
 /*
@@ -283,10 +297,7 @@ function validateUser(email, fbId, token) {
 }
 
 function fileLeave(response, fbId){
-
     console.log("fileLeave");
-
-
 
     var date;
     var numberOfHours;
@@ -376,23 +387,9 @@ function sendLeaveDetails(fbId, userToken, date1, date2, leavetype,hours,reason,
             console.log("<<<<<<<<FILE LEAVE  FAILED>>>>>>>>   ");
             tokenRequest.message.text = "Filing of leave Failed. HRMS Connection Error"
             callSendAPI(fileLeaveConfirmation);
-            console.log(body);
+            console.log("BODY : " + JSON.stringify(body));
         }
     });
-}
-
-function dateRangeToHours(dateRange){
-   var dates = dateRange.split('/');
-   var date1 = dates[0].split('-');
-   var date2 = dates[1].split('-');
-
-   var oneDay = 24*60*60*1000;
-   var firstDate = new Date(parseInt(date1[0]), parseInt(date1[1]), parseInt(date1[2]));
-   var secondDate = new Date(parseInt(date2[0]), parseInt(date2[1]), parseInt(date2[2]));
-
-   var diffDays = Math.round(Math.abs((firstDate.getTime() - secondDate.getTime())/(oneDay))) * 8 + 8;
-
-   return diffDays;
 }
 
 function retrieveToken(user_id){
