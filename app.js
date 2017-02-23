@@ -435,7 +435,7 @@ function handleIntent(response, senderID) {
         response.result.parameters.reason !== "") {
 
         if (isRegistered(senderID) == false) {
-           mesageData.message.text = "You haven't registered yet. Please type 'register <email>' before filing an offset."
+           messageData.message.text = "You haven't registered yet. Please type 'register <email>' before filing an offset."
            callSendAPI(messageData);
         }
         else{
