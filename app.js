@@ -138,12 +138,10 @@ function receivedMessage(event) {
         console.log(response.result.parameters);
         handleIntent(response, senderID);
     });
-
     request.on('error', function(error) {});
     request.end();
 
     var messageText = "Echo: " + event.message.text;
-
 
     callSendAPI(messageData);
 }
@@ -162,10 +160,8 @@ function isRegistered(user_id, response) {
             register = true;
         }
     });
-
     return register;
 }
-
 
 /*
  * Call the Send API. The message data goes in the body. If successful, we'll
@@ -258,7 +254,6 @@ function validateUser(email, fbId, token) {
             text: ""
         }
     };
-
     request(options, function(error, response, body) {
         if (!error && response.statusCode == 200) {
             var info = JSON.parse(body);
@@ -287,8 +282,8 @@ function validateUser(email, fbId, token) {
     });
 }
 
-function fileLeave(response, fbId, token)
-{
+function fileLeave(response, fbId, token){
+
     console.log("fileLeave");
     options = {
         url: 'http://23.97.59.113/hrms/chatbot-user/validate',
@@ -326,8 +321,6 @@ function fileLeave(response, fbId, token)
     });*/
 }
 
-//console.log("HOURS RANGE: " + dateRangeToHours('2017-02-22/2017-02-25'));
-
 function dateRangeToHours(dateRange){
    var dates = dateRange.split('/');
    var date1 = dates[0].split('-');
@@ -341,8 +334,6 @@ function dateRangeToHours(dateRange){
 
    return diffDays;
 }
-
-console.log(retrieveToken('1353975678010827'));
 
 function retrieveToken(user_id){
    con.query("SELECT TOKEN FROM user_mapping where FB_ID = '" + user_id + "';", function(err, rows) {
@@ -372,7 +363,6 @@ function handleIntent(response, senderID)
             console.log(response.result.parameters);
             console.log("response : " + response);
             fileLeave(response,senderID);
-
         }
         else if (response.result.metadata.intentName === "register_account" &&
                  response.result.parameters.email !== "" &&
