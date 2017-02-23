@@ -160,6 +160,9 @@ function isRegistered(user_id) {
             register = true;
         }
     });
+
+    console.log(register);
+
     return register;
 }
 
