@@ -347,6 +347,7 @@ function sendLeaveDetails(leaveFormat)
 
     request(options, function(error, response, body) {
 
+        console.log(response.statusCode);
         if (!error && response.statusCode == 200) {
             //var info = JSON.parse(body);
             console.log("Filing Leave Success: " + body);
