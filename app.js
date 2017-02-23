@@ -483,10 +483,17 @@ function fileOffset(response, fbId) {
                 console.log("tokenretrieved:" + rows[0].TOKEN);
                 userToken = rows[0].TOKEN;
             };
+<<<<<<< HEAD
             console.log("leave format = " + JSON.stringify(leaveFormat));
             sendLeaveDetails(fbId, userToken, response.result.parameters.from_date, response.result.parameters.to_date, response.result.parameters.offset, response.result.parameters.hours, response.result.parameters.reason);
         }
     });
+=======
+           console.log("leave format = " + JSON.stringify(leaveFormat));
+           sendLeaveDetails(fbId,userToken,response.result.parameters.from_date,response.result.parameters.to_date, response.result.parameters.offset,response.result.parameters.hours, response.result.parameters.reason);
+
+   });
+>>>>>>> 7a79630fa7dbc7fe916f3ac3f94b525c7c962265
 }
 
 function sendOffsetDetails(fbId, userToken, dateFrom, dateTo, leavetype, hours, reason) {
