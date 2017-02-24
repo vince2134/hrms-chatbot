@@ -352,14 +352,20 @@ function fileLeave(response, fbId) {
 
     var date;
     var numberOfHours;
-    if (response.result.parameters.date_custom.date_period != null) {
-        date = response.result.parameters.date_custom.date_period.split('/');
-        console.log("DATES: " + date[0] + " to " + date[1]);
-        numberOfHours = dateRangeToHours(response.result.parameters.date_custom.date_period);
-    } else if (response.result.parameters.date_custom.date != null) {
-        date = [response.result.parameters.date_custom.date, response.result.parameters.date_custom.date];
-        numberOfHours = 8;
-    }
+
+    if (response.result.parameters.hours.amount < 8) {
+    date = [response.result.parameters.date_custom.date, response.result.parameters.date_custom.date];
+    numberOfHours = response.result.parameters.hours.amount;
+    }else {
+        if (response.result.parameters.date_custom.date_period != null) {
+            date = response.result.parameters.date_custom.date_period.split('/');
+            console.log("DATES: " + date[0] + " to " + date[1]);
+            numberOfHours = dateRangeToHours(response.result.parameters.date_custom.date_period);
+        } else if (response.result.parameters.date_custom.date != null) {
+            date = [response.result.parameters.date_custom.date, response.result.parameters.date_custom.date];
+            numberOfHours = 8;
+        }
+}
     var userToken;
     var leaveFormat;
     con.query("SELECT TOKEN FROM user_mapping where FB_ID = '" + fbId + "';", function(err, rows) {
