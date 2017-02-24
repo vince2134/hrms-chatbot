@@ -434,10 +434,12 @@ function sendLeaveDetails(fbId, userToken, date1, date2, leavetype, hours, reaso
 
             } else {
                 console.log("[fileLeave] Failed");
-                fileLeaveConfirmation.message.text = "Filing of leave Failed. Please follow the rules for filing of leaves"
-                console.log(info.extras);
-                var count = Object.keys(info.extras.fieldErrors).length;
+                fileLeaveConfirmation.message.text = "Filing of leave failed. Please see the details below:\n"
+                var errorCount = Object.keys(info.extras.fieldErrors).length;
                console.log("Error count: " + count);
+               for (var i = 0; i < errorCount; i++) {
+                  fileLeaveConfirmation.message.text += "-" + info.extras.fieldErrors[0] + "\n";
+               }
                 callSendAPI(fileLeaveConfirmation);
             }
         } else {
