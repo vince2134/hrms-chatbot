@@ -476,7 +476,8 @@ function fileOffset(response, fbId) {
             userToken = rows[0].TOKEN;
         };
         console.log("leave format = " + JSON.stringify(leaveFormat));
-        sendLeaveDetails(fbId, userToken, response.result.parameters.from_date, response.result.parameters.to_date, response.result.parameters.offset, response.result.parameters.hours.amount, response.result.parameters.reason);
+        sendLeaveDetails(fbId, userToken, response.result.parameters.from_date, response.result.parameters.to_date,
+            response.result.parameters.offset, response.result.parameters.hours.amount, response.result.parameters.reason);
 
     });
 }
@@ -488,14 +489,16 @@ function sendOffsetDetails(fbId, userToken, dateFrom, dateTo, leavetype, hours, 
         qs: {
             "facebookId": fbId,
             "chatbotToken": userToken,
-            "leaveData": "{ \"offsetFrom\" :\"" + dateFrom + "\"," +
-                "\"offsetTo\":\"" + dateTo + "\"," +
+            "leaveData": "{ \"offsetFrom\" :\"" + dateTo + "\"," +
+                "\"offsetTo\":\"" + dateFrom + "\"," +
                 "\"leaveType\":\"" + leavetype + "\"," +
                 "\"numberOfHours\":" + hours + "," +
                 "\"reason\":\"" + reason +
                 "\"}"
         }
     };
+
+    console.log("options" + options);
     var fileLeaveConfirmation = {
         recipient: {
             id: fbId
