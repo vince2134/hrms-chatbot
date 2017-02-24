@@ -160,7 +160,7 @@ function isRegistered(user_id, response) {
         if (response.result.metadata.intentName == "register_account" &&
         response.result.parameters.email !== ""){
             if (register == false)
-                registerUser(response.result.parameters.email, senderID);
+                registerUser(response.result.parameters.email, user_id);
             else {
                 messageData.message.text = "Registraion Failed. You are already registered to an account."
                 callSendAPI(messageData);
