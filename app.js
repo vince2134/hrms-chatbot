@@ -142,7 +142,7 @@ function receivedMessage(event) {
     callSendAPI(messageData);
 }
 
-function isRegistered(user_id) {
+function isRegistered(user_id, response) {
     console.log("isRegistered");
     register = false;
 
@@ -156,7 +156,20 @@ function isRegistered(user_id) {
             register = true;
         }
         console.log(register);
-        return register;
+
+        if (response.result.metadata.intentName == "register_account" &&
+        response.result.parameters.email !== ""){
+            if (register == false)
+                registerUser(response.result.parameters.email, senderID);
+            else {
+                messageData.message.text = "Registraion Failed. You are already registered to an account."
+                callSendAPI(messageData);
+                }
+        }
+
+
+
+
     });
 
 
@@ -529,7 +542,7 @@ function sendOffsetDetails(fbId, userToken, dateFrom, dateTo, leavetype, hours, 
                 callSendAPI(fileLeaveConfirmation);
             }
         } else {
-            console.log("<<<<<<<<FILE OFFSET  FAILED>>>>>>>>   ");
+            console.log("<<<<<<<<FILE OFFSET  FAILED>>>>>>>>");
             fileLeaveConfirmation.message.text = "Filing of leave Failed. HRMS Connection Error"
             callSendAPI(fileLeaveConfirmation);
             console.log("BODY : " + JSON.stringify(body));
