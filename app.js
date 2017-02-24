@@ -174,7 +174,7 @@ function isRegistered(user_id, response) {
                 callSendAPI(messageData);
             } else {
                 console.log(response.result.parameters);
-                fileLeave(response, senderID);
+                fileLeave(response, user_id);
             }
         } else if ((response.result.metadata.intentName == "file_overtime" || response.result.metadata.intentName == "file_undertime") && response.result.parameters.reason !== "") {
             if (register == false) {
@@ -182,7 +182,7 @@ function isRegistered(user_id, response) {
                 callSendAPI(messageData);
             } else {
                 console.log(response.result.parameters);
-                fileLeave(response, senderID);
+                fileLeave(response, user_id);
             }
         } else if (response.result.metadata.intentName == "file_offset" &&
             response.result.parameters.reason !== "") {
@@ -193,14 +193,14 @@ function isRegistered(user_id, response) {
                 callSendAPI(messageData);
             } else {
                 console.log(response.result.parameters);
-                fileOffset(response, senderID);
+                fileOffset(response, user_id);
             }
         } else if (response.result.metadata.intentName == "register_account" &&
             response.result.parameters.email !== "" &&
             response.result.parameters.token !== "") {
 
             console.log("<<<<<<<<VALIDATE USER>>>>>>>>");
-            validateUser(response.result.parameters.email, senderID, response.result.parameters.token);
+            validateUser(response.result.parameters.email, user_id, response.result.parameters.token);
         } else if (response.result.metadata.intentName == "register_account" &&
             response.result.parameters.email !== "") {
             if (register == false)
