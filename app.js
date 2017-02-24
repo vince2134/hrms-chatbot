@@ -468,14 +468,8 @@ function handleIntent(response, senderID) {
         response.result.parameters.email !== "") {
 
         console.log("<<<<<<<<REGISTER USER>>>>>>>>");
-        var flag = isRegistered(senderID);
-        console.log("flag" + flag);
-        if ( flag == false)
-            registerUser(response.result.parameters.email, senderID);
-        else {
-            messageData.message.text = "Registraion Failed. You are already registered to an account."
-            callSendAPI(messageData);
-        }
+        isRegistered(senderID, response);
+
     }
 }
 
