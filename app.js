@@ -461,7 +461,7 @@ function handleIntent(response, senderID) {
 
 function fileOffset(response, fbId) {
     console.log("fileOffset");
-
+    console.log(response.result.parameters);
     var date;
     var userToken;
     var leaveFormat;
