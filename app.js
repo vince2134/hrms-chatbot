@@ -383,7 +383,6 @@ function fileLeave(response, fbId) {
                     'reason': response.result.parameters.reason
                 }
             };
-            console.log("leave format = " + JSON.stringify(leaveFormat));
             sendLeaveDetails(fbId, userToken, date[0], date[1], response.result.parameters.leave_type, numberOfHours, response.result.parameters.reason, leaveFormat);
         }
     });
@@ -404,6 +403,9 @@ function sendLeaveDetails(fbId, userToken, date1, date2, leavetype, hours, reaso
                 "\"}"
         }
     };
+
+    console.log(JSON.stringify(options));
+    
     var fileLeaveConfirmation = {
         recipient: {
             id: fbId
