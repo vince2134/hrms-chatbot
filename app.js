@@ -353,7 +353,7 @@ function fileLeave(response, fbId) {
     var date;
     var numberOfHours;
 
-    if (response.result.parameters.hours.amount < 8) {
+    if (response.result.metadata.intentName == "file_overtime" || response.result.metadata.intentName == "file_undertime") {
     date = [response.result.parameters.date_custom.date, response.result.parameters.date_custom.date];
     numberOfHours = response.result.parameters.hours.amount;
     }else {
