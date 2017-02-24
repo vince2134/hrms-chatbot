@@ -437,6 +437,8 @@ function sendLeaveDetails(fbId, userToken, date1, date2, leavetype, hours, reaso
                 fileLeaveConfirmation.message.text = "Filing of leave failed. Please see the details below:\n\n"
                 var errorCount = Object.keys(info.extras.fieldErrors).length;
                 console.log("Error count: " + errorCount);
+                console.log("LOG 1:" + info.extras.fieldErrors[0]);
+                console.log("LOG 2:" + info.extras.fieldErrors[1]);
                 if (errorCount > 0 && info.extras.fieldErrors[0] !== info.extras.fieldErrors[1]) {
                     for (var i = 0; i < errorCount; i++) {
                         fileLeaveConfirmation.message.text += info.extras.fieldErrors[0] + "\n";
