@@ -354,9 +354,9 @@ function fileLeave(response, fbId) {
     var numberOfHours;
 
     if (response.result.metadata.intentName == "file_overtime" || response.result.metadata.intentName == "file_undertime") {
-    date = [response.result.parameters.date_custom.date, response.result.parameters.date_custom.date];
-    numberOfHours = response.result.parameters.hours.amount;
-    }else {
+        date = [response.result.parameters.date_custom.date, response.result.parameters.date_custom.date];
+        numberOfHours = response.result.parameters.hours.amount;
+    } else {
         if (response.result.parameters.date_custom.date_period != null) {
             date = response.result.parameters.date_custom.date_period.split('/');
             console.log("DATES: " + date[0] + " to " + date[1]);
@@ -365,7 +365,7 @@ function fileLeave(response, fbId) {
             date = [response.result.parameters.date_custom.date, response.result.parameters.date_custom.date];
             numberOfHours = 8;
         }
-}
+    }
     var userToken;
     var leaveFormat;
     con.query("SELECT TOKEN FROM user_mapping where FB_ID = '" + fbId + "';", function(err, rows) {
@@ -436,10 +436,14 @@ function sendLeaveDetails(fbId, userToken, date1, date2, leavetype, hours, reaso
                 console.log("[fileLeave] Failed");
                 fileLeaveConfirmation.message.text = "Filing of leave failed. Please see the details below:\n\n"
                 var errorCount = Object.keys(info.extras.fieldErrors).length;
-               console.log("Error count: " + errorCount);
-               for (var i = 0; i < errorCount; i++) {
-                  fileLeaveConfirmation.message.text += info.extras.fieldErrors[0] + "\n";
-               }
+                console.log("Error count: " + errorCount);
+                if (errorCount > 0 && info.extras.fieldErrors[0] !== info.extras.fieldErrors[1]) {
+                    for (var i = 0; i < errorCount; i++) {
+                        fileLeaveConfirmation.message.text += info.extras.fieldErrors[0] + "\n";
+                    }
+                }
+                else
+                  fileLeaveConfirmation.message.text += info.extras.fieldErrors[0];
                 callSendAPI(fileLeaveConfirmation);
             }
         } else {
@@ -497,7 +501,7 @@ function fileOffset(response, fbId) {
 
 function sendOffsetDetails(fbId, userToken, dateFrom, dateTo, leavetype, hours, reason) {
 
-   console.log("hours" + hours);
+    console.log("hours" + hours);
 
     var options = {
         url: 'http://23.97.59.113/hrms/chatbot-leave/fileleave',
