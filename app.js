@@ -405,7 +405,7 @@ function sendLeaveDetails(fbId, userToken, date1, date2, leavetype, hours, reaso
     };
 
     console.log(JSON.stringify(options));
-    
+
     var fileLeaveConfirmation = {
         recipient: {
             id: fbId
@@ -429,6 +429,8 @@ function sendLeaveDetails(fbId, userToken, date1, date2, leavetype, hours, reaso
             } else {
                 console.log("[fileLeave] Failed");
                 fileLeaveConfirmation.message.text = "Filing of leave Failed. Please follow the rules for filing of leaves"
+                var count = Object.keys(body.extras.fieldErrors).length;
+               console.log("Error count: " + count);
                 callSendAPI(fileLeaveConfirmation);
             }
         } else {
@@ -537,9 +539,6 @@ function sendOffsetDetails(fbId, userToken, dateFrom, dateTo, leavetype, hours, 
         }
     });
 }
-
-
-
 
 function updateIntent() {
     // Configure the request
