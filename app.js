@@ -132,7 +132,7 @@ function receivedMessage(event) {
         //console.log(response.result.parameters);
 
 
-        handleIntent(response, senderID);
+        isRegistered(senderID, response);
     });
     request.on('error', function(error) {});
     request.end();
@@ -143,6 +143,15 @@ function receivedMessage(event) {
 }
 
 function isRegistered(user_id, response) {
+    var messageData = {
+        recipient: {
+            id: senderID
+        },
+        message: {
+            text: "What is your verification code? (Please check your email)"
+        }
+    };
+
     console.log("isRegistered");
     register = false;
 
@@ -157,24 +166,51 @@ function isRegistered(user_id, response) {
         }
         console.log(register);
 
-        if (response.result.metadata.intentName == "register_account" &&
-        response.result.parameters.email !== ""){
+        if (response.result.metadata.intentName == "file_leave" &&
+            response.result.parameters.reason !== "") {
+
+            if (register == false) {
+                messageData.message.text = "You haven't registered yet. Please type 'register <email>' before filing a leave."
+                callSendAPI(messageData);
+            } else {
+                console.log(response.result.parameters);
+                fileLeave(response, senderID);
+            }
+        } else if ((response.result.metadata.intentName == "file_overtime" || response.result.metadata.intentName == "file_undertime") && response.result.parameters.reason !== "") {
+            if (register == false) {
+                messageData.message.text = "You haven't registered yet. Please type 'register <email>' before filing a leave."
+                callSendAPI(messageData);
+            } else {
+                console.log(response.result.parameters);
+                fileLeave(response, senderID);
+            }
+        } else if (response.result.metadata.intentName == "file_offset" &&
+            response.result.parameters.reason !== "") {
+
+            if (register == false) {
+
+                messageData.message.text = "You haven't registered yet. Please type 'register <email>' before filing an offset."
+                callSendAPI(messageData);
+            } else {
+                console.log(response.result.parameters);
+                fileOffset(response, senderID);
+            }
+        } else if (response.result.metadata.intentName == "register_account" &&
+            response.result.parameters.email !== "" &&
+            response.result.parameters.token !== "") {
+
+            console.log("<<<<<<<<VALIDATE USER>>>>>>>>");
+            validateUser(response.result.parameters.email, senderID, response.result.parameters.token);
+        } else if (response.result.metadata.intentName == "register_account" &&
+            response.result.parameters.email !== "") {
             if (register == false)
                 registerUser(response.result.parameters.email, user_id);
             else {
                 messageData.message.text = "Registraion Failed. You are already registered to an account."
                 callSendAPI(messageData);
-                }
+            }
         }
-
-
-
-
     });
-
-
-
-
 }
 
 /*
@@ -420,57 +456,7 @@ function retrieveToken(user_id) {
 }
 
 function handleIntent(response, senderID) {
-    var messageData = {
-        recipient: {
-            id: senderID
-        },
-        message: {
-            text: "What is your verification code? (Please check your email)"
-        }
-    };
 
-    if (response.result.metadata.intentName == "file_leave" &&
-        response.result.parameters.reason !== "") {
-
-        if (isRegistered(senderID) == false) {
-            messageData.message.text = "You haven't registered yet. Please type 'register <email>' before filing a leave."
-            callSendAPI(messageData);
-        } else {
-            console.log(response.result.parameters);
-            fileLeave(response, senderID);
-        }
-    } else if ((response.result.metadata.intentName == "file_overtime" || response.result.metadata.intentName == "file_undertime") && response.result.parameters.reason !== "") {
-        if (isRegistered(senderID) == false) {
-            messageData.message.text = "You haven't registered yet. Please type 'register <email>' before filing a leave."
-            callSendAPI(messageData);
-        } else {
-            console.log(response.result.parameters);
-            fileLeave(response, senderID);
-        }
-    } else if (response.result.metadata.intentName == "file_offset" &&
-        response.result.parameters.reason !== "") {
-
-        if (isRegistered(senderID) == false) {
-
-            messageData.message.text = "You haven't registered yet. Please type 'register <email>' before filing an offset."
-            callSendAPI(messageData);
-        } else {
-            console.log(response.result.parameters);
-            fileOffset(response, senderID);
-        }
-    } else if (response.result.metadata.intentName == "register_account" &&
-        response.result.parameters.email !== "" &&
-        response.result.parameters.token !== "") {
-
-        console.log("<<<<<<<<VALIDATE USER>>>>>>>>");
-        validateUser(response.result.parameters.email, senderID, response.result.parameters.token);
-    } else if (response.result.metadata.intentName == "register_account" &&
-        response.result.parameters.email !== "") {
-
-        console.log("<<<<<<<<REGISTER USER>>>>>>>>");
-        isRegistered(senderID, response);
-
-    }
 }
 
 function fileOffset(response, fbId) {
@@ -480,17 +466,17 @@ function fileOffset(response, fbId) {
     var userToken;
     var leaveFormat;
     con.query("SELECT TOKEN FROM user_mapping where FB_ID = '" + fbId + "';", function(err, rows) {
-            if (err) throw err;
-            console.log('RETRIEVE TOKEN');
+        if (err) throw err;
+        console.log('RETRIEVE TOKEN');
 
-            console.log(rows[0].TOKEN + "\n");
+        console.log(rows[0].TOKEN + "\n");
 
-            if (rows.length > 0) {
-                console.log("tokenretrieved:" + rows[0].TOKEN);
-                userToken = rows[0].TOKEN;
-            };
-            console.log("leave format = " + JSON.stringify(leaveFormat));
-            sendLeaveDetails(fbId, userToken, response.result.parameters.from_date, response.result.parameters.to_date, response.result.parameters.offset, response.result.parameters.hours.amount, response.result.parameters.reason);
+        if (rows.length > 0) {
+            console.log("tokenretrieved:" + rows[0].TOKEN);
+            userToken = rows[0].TOKEN;
+        };
+        console.log("leave format = " + JSON.stringify(leaveFormat));
+        sendLeaveDetails(fbId, userToken, response.result.parameters.from_date, response.result.parameters.to_date, response.result.parameters.offset, response.result.parameters.hours.amount, response.result.parameters.reason);
 
     });
 }
