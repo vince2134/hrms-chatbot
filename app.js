@@ -145,7 +145,7 @@ function receivedMessage(event) {
 function isRegistered(user_id, response) {
     var messageData = {
         recipient: {
-            id: senderID
+            id: user_id
         },
         message: {
             text: "What is your verification code? (Please check your email)"
