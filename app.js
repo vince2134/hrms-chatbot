@@ -483,6 +483,9 @@ function fileOffset(response, fbId) {
 }
 
 function sendOffsetDetails(fbId, userToken, dateFrom, dateTo, leavetype, hours, reason) {
+
+   console.log("hours" + hours);
+
     var options = {
         url: 'http://23.97.59.113/hrms/chatbot-leave/fileleave',
         method: 'GET',
