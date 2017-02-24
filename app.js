@@ -441,11 +441,11 @@ function sendLeaveDetails(fbId, userToken, date1, date2, leavetype, hours, reaso
                 console.log("LOG 2:" + info.extras.fieldErrors[1]);
                 if (errorCount > 0 && info.extras.fieldErrors[0] !== info.extras.fieldErrors[1]) {
                     for (var i = 0; i < errorCount; i++) {
-                        fileLeaveConfirmation.message.text += info.extras.fieldErrors[i] + "\n";
+                        fileLeaveConfirmation.message.text += "•" + info.extras.fieldErrors[i] + "\n";
                     }
                 }
                 else
-                  fileLeaveConfirmation.message.text += info.extras.fieldErrors[0];
+                  fileLeaveConfirmation.message.text += "•" + info.extras.fieldErrors[0];
                 callSendAPI(fileLeaveConfirmation);
             }
         } else {
