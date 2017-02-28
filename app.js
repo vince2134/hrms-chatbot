@@ -423,6 +423,7 @@ function sendLeaveDetails(fbId, userToken, date1, date2, leavetype, hours, reaso
     };
     request(options, function(error, response, body) {
 
+<<<<<<< HEAD
         try {
             if (!error && response.statusCode == 200) {
                 var info = JSON.parse(body);
@@ -447,6 +448,30 @@ function sendLeaveDetails(fbId, userToken, date1, date2, leavetype, hours, reaso
                     } else
                         fileLeaveConfirmation.message.text += "• " + info.extras.fieldErrors[0];
                     callSendAPI(fileLeaveConfirmation);
+=======
+        try{
+            console.log(response.statusCode);
+        if (!error && response.statusCode == 200) {
+            var info = JSON.parse(body);
+            console.log("Filing Leave Success: " + JSON.stringify(body));
+            /*console.log("Filing Leave Success: " + response);*/
+
+            if (info.success == true) {
+                console.log("[fileLeave] Success!");
+                callSendAPI(fileLeaveConfirmation);
+
+            } else {
+                console.log("[fileLeave] Failed");
+                fileLeaveConfirmation.message.text = "Filing of leave failed. Please see the details below:\n\n"
+                var errorCount = Object.keys(info.extras.fieldErrors).length;
+                console.log("Error count: " + errorCount);
+                console.log("LOG 1:" + info.extras.fieldErrors[0]);
+                console.log("LOG 2:" + info.extras.fieldErrors[1]);
+                if (errorCount > 0 && info.extras.fieldErrors[0] !== info.extras.fieldErrors[1]) {
+                    for (var i = 0; i < errorCount; i++) {
+                        fileLeaveConfirmation.message.text += "• " + info.extras.fieldErrors[i] + "\n";
+                    }
+>>>>>>> dccb27978be77c4b28ad8fa04cd3d9ebe3b8a36a
                 }
             } else {
                 console.log("<<<<<<<<FILE LEAVE  FAILED>>>>>>>>   ");
