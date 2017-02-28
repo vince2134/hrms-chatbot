@@ -422,27 +422,28 @@ function sendLeaveDetails(fbId, userToken, date1, date2, leavetype, hours, reaso
         }
     };
     request(options, function(error, response, body) {
-        try {
-            console.log(response.statusCode);
-            if (!error && response.statusCode == 200) {
-                var info = JSON.parse(body);
-                console.log("Filing Leave Success: " + JSON.stringify(body));
-                /*console.log("Filing Leave Success: " + response);*/
+            try {
+                console.log(response.statusCode);
+                if (!error && response.statusCode == 200) {
+                    var info = JSON.parse(body);
+                    console.log("Filing Leave Success: " + JSON.stringify(body));
+                    /*console.log("Filing Leave Success: " + response);*/
 
-                if (info.success == true) {
-                    console.log("[fileLeave] Success!");
-                    callSendAPI(fileLeaveConfirmation);
+                    if (info.success == true) {
+                        console.log("[fileLeave] Success!");
+                        callSendAPI(fileLeaveConfirmation);
 
-                } else {
-                    console.log("[fileLeave] Failed");
-                    fileLeaveConfirmation.message.text = "Filing of leave failed. Please see the details below:\n\n"
-                    var errorCount = Object.keys(info.extras.fieldErrors).length;
-                    console.log("Error count: " + errorCount);
-                    console.log("LOG 1:" + info.extras.fieldErrors[0]);
-                    console.log("LOG 2:" + info.extras.fieldErrors[1]);
-                    if (errorCount > 0 && info.extras.fieldErrors[0] !== info.extras.fieldErrors[1]) {
-                        for (var i = 0; i < errorCount; i++) {
-                            fileLeaveConfirmation.message.text += "• " + info.extras.fieldErrors[i] + "\n";
+                    } else {
+                        console.log("[fileLeave] Failed");
+                        fileLeaveConfirmation.message.text = "Filing of leave failed. Please see the details below:\n\n"
+                        var errorCount = Object.keys(info.extras.fieldErrors).length;
+                        console.log("Error count: " + errorCount);
+                        console.log("LOG 1:" + info.extras.fieldErrors[0]);
+                        console.log("LOG 2:" + info.extras.fieldErrors[1]);
+                        if (errorCount > 0 && info.extras.fieldErrors[0] !== info.extras.fieldErrors[1]) {
+                            for (var i = 0; i < errorCount; i++) {
+                                fileLeaveConfirmation.message.text += "• " + info.extras.fieldErrors[i] + "\n";
+                            }
                         }
                     }
                 } else {
