@@ -423,42 +423,41 @@ function sendLeaveDetails(fbId, userToken, date1, date2, leavetype, hours, reaso
     };
     request(options, function(error, response, body) {
 
-        try{
-        if (!error && response.statusCode == 200) {
-            var info = JSON.parse(body);
-            console.log("Filing Leave Success: " + JSON.stringify(body));
-            /*console.log("Filing Leave Success: " + response);*/
+        try {
+            if (!error && response.statusCode == 200) {
+                var info = JSON.parse(body);
+                console.log("Filing Leave Success: " + JSON.stringify(body));
+                /*console.log("Filing Leave Success: " + response);*/
 
-            if (info.success == true) {
-                console.log("[fileLeave] Success!");
-                callSendAPI(fileLeaveConfirmation);
+                if (info.success == true) {
+                    console.log("[fileLeave] Success!");
+                    callSendAPI(fileLeaveConfirmation);
 
-            } else {
-                console.log("[fileLeave] Failed");
-                fileLeaveConfirmation.message.text = "Filing of leave failed. Please see the details below:\n\n"
-                var errorCount = Object.keys(info.extras.fieldErrors).length;
-                console.log("Error count: " + errorCount);
-                console.log("LOG 1:" + info.extras.fieldErrors[0]);
-                console.log("LOG 2:" + info.extras.fieldErrors[1]);
-                if (errorCount > 0 && info.extras.fieldErrors[0] !== info.extras.fieldErrors[1]) {
-                    for (var i = 0; i < errorCount; i++) {
-                        fileLeaveConfirmation.message.text += "• " + info.extras.fieldErrors[i] + "\n";
-                    }
+                } else {
+                    console.log("[fileLeave] Failed");
+                    fileLeaveConfirmation.message.text = "Filing of leave failed. Please see the details below:\n\n"
+                    var errorCount = Object.keys(info.extras.fieldErrors).length;
+                    console.log("Error count: " + errorCount);
+                    console.log("LOG 1:" + info.extras.fieldErrors[0]);
+                    console.log("LOG 2:" + info.extras.fieldErrors[1]);
+                    if (errorCount > 0 && info.extras.fieldErrors[0] !== info.extras.fieldErrors[1]) {
+                        for (var i = 0; i < errorCount; i++) {
+                            fileLeaveConfirmation.message.text += "• " + info.extras.fieldErrors[i] + "\n";
+                        }
+                    } else
+                        fileLeaveConfirmation.message.text += "• " + info.extras.fieldErrors[0];
+                    callSendAPI(fileLeaveConfirmation);
                 }
-                else
-                  fileLeaveConfirmation.message.text += "• " + info.extras.fieldErrors[0];
+            } else {
+                console.log("<<<<<<<<FILE LEAVE  FAILED>>>>>>>>   ");
+                fileLeaveConfirmation.message.text = "Filing of leave Failed. HRMS Connection Error"
                 callSendAPI(fileLeaveConfirmation);
+                console.log("BODY : " + JSON.stringify(body));
             }
-        } else {
-            console.log("<<<<<<<<FILE LEAVE  FAILED>>>>>>>>   ");
-            fileLeaveConfirmation.message.text = "Filing of leave Failed. HRMS Connection Error"
+        } catch (error) {
+            fileLeaveConfirmation.message.text = "Error: The server is down but you can continue the filing process. We will inform you when your leave has been filed when the server goes back up.";
             callSendAPI(fileLeaveConfirmation);
-            console.log("BODY : " + JSON.stringify(body));
-            }
-        } catch (error){
-            fileLeaveConfirmation.message.text = "Server is down";
-            callSendAPI(fileLeaveConfirmation);
-         }
+        }
     });
 }
 
@@ -536,26 +535,31 @@ function sendOffsetDetails(fbId, userToken, dateFrom, dateTo, leavetype, hours, 
         }
     };
     request(options, function(error, response, body) {
-        console.log(response.statusCode);
-        if (!error && response.statusCode == 200) {
-            var info = JSON.parse(body);
-            console.log("Filing Leave Success: " + JSON.stringify(body));
-            /*console.log("Filing Leave Success: " + response);*/
+        try {
+            console.log(response.statusCode);
+            if (!error && response.statusCode == 200) {
+                var info = JSON.parse(body);
+                console.log("Filing Leave Success: " + JSON.stringify(body));
+                /*console.log("Filing Leave Success: " + response);*/
 
-            if (info.success == true) {
-                console.log("[fileOffset] Success!");
-                callSendAPI(fileLeaveConfirmation);
+                if (info.success == true) {
+                    console.log("[fileOffset] Success!");
+                    callSendAPI(fileLeaveConfirmation);
 
+                } else {
+                    console.log("[fileOffset] Failed");
+                    fileLeaveConfirmation.message.text = "Filing of leave Failed. Please follow the rules for filing of leaves"
+                    callSendAPI(fileLeaveConfirmation);
+                }
             } else {
-                console.log("[fileOffset] Failed");
-                fileLeaveConfirmation.message.text = "Filing of leave Failed. Please follow the rules for filing of leaves"
+                console.log("<<<<<<<<FILE OFFSET  FAILED>>>>>>>>");
+                fileLeaveConfirmation.message.text = "Filing of leave Failed. HRMS Connection Error"
                 callSendAPI(fileLeaveConfirmation);
+                console.log("BODY : " + JSON.stringify(body));
             }
-        } else {
-            console.log("<<<<<<<<FILE OFFSET  FAILED>>>>>>>>");
-            fileLeaveConfirmation.message.text = "Filing of leave Failed. HRMS Connection Error"
-            callSendAPI(fileLeaveConfirmation);
-            console.log("BODY : " + JSON.stringify(body));
+        } catch(err){
+           fileLeaveConfirmation.message.text = "Error: The server is down but you can continue the filing process. We will inform you when your leave has been filed when the server goes back up.";
+           callSendAPI(fileLeaveConfirmation);
         }
     });
 }
