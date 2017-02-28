@@ -422,280 +422,281 @@ function sendLeaveDetails(fbId, userToken, date1, date2, leavetype, hours, reaso
         }
     };
     request(options, function(error, response, body) {
-            try {
-                console.log(response.statusCode);
-                if (!error && response.statusCode == 200) {
-                    var info = JSON.parse(body);
-                    console.log("Filing Leave Success: " + JSON.stringify(body));
-                    /*console.log("Filing Leave Success: " + response);*/
+        try {
+            console.log(response.statusCode);
+            if (!error && response.statusCode == 200) {
+                var info = JSON.parse(body);
+                console.log("Filing Leave Success: " + JSON.stringify(body));
+                /*console.log("Filing Leave Success: " + response);*/
 
-                    if (info.success == true) {
-                        console.log("[fileLeave] Success!");
-                        callSendAPI(fileLeaveConfirmation);
-
-                    } else {
-                        console.log("[fileLeave] Failed");
-                        fileLeaveConfirmation.message.text = "Filing of leave failed. Please see the details below:\n\n"
-                        var errorCount = Object.keys(info.extras.fieldErrors).length;
-                        console.log("Error count: " + errorCount);
-                        console.log("LOG 1:" + info.extras.fieldErrors[0]);
-                        console.log("LOG 2:" + info.extras.fieldErrors[1]);
-                        if (errorCount > 0 && info.extras.fieldErrors[0] !== info.extras.fieldErrors[1]) {
-                            for (var i = 0; i < errorCount; i++) {
-                                fileLeaveConfirmation.message.text += "• " + info.extras.fieldErrors[i] + "\n";
-                            }
-                        }
-                    } else {
-                        console.log("<<<<<<<<FILE LEAVE  FAILED>>>>>>>>   ");
-                        fileLeaveConfirmation.message.text = "Filing of leave Failed. HRMS Connection Error"
-                        callSendAPI(fileLeaveConfirmation);
-                        console.log("BODY : " + JSON.stringify(body));
-                    }
-                } catch (error) {
-                    fileLeaveConfirmation.message.text = "Error: The server is down but you can continue the filing process. We will inform you when your leave has been filed when the server goes back up.";
+                if (info.success == true) {
+                    console.log("[fileLeave] Success!");
                     callSendAPI(fileLeaveConfirmation);
-                }
-            });
-    }
 
-    function retrieveToken(user_id) {
-        con.query("SELECT TOKEN FROM user_mapping where FB_ID = '" + user_id + "';", function(err, rows) {
-            if (err) throw err;
-            console.log('RETRIEVE TOKEN');
-
-            console.log(rows[0].TOKEN + "\n");
-
-            if (rows.length > 0) {
-                console.log("tokenretrieved:" + rows[0].TOKEN);
-
-                return rows[0].TOKEN;
-            } else {
-                return null;
-            }
-        });
-    }
-
-    function handleIntent(response, senderID) {
-
-    }
-
-    function fileOffset(response, fbId) {
-        console.log("fileOffset");
-        console.log(response.result.parameters);
-        var date;
-        var userToken;
-        var leaveFormat;
-        con.query("SELECT TOKEN FROM user_mapping where FB_ID = '" + fbId + "';", function(err, rows) {
-            if (err) throw err;
-            console.log('RETRIEVE TOKEN');
-
-            console.log(rows[0].TOKEN + "\n");
-
-            if (rows.length > 0) {
-                console.log("tokenretrieved:" + rows[0].TOKEN);
-                userToken = rows[0].TOKEN;
-            };
-            console.log("leave format = " + JSON.stringify(leaveFormat));
-            sendOffsetDetails(fbId, userToken, response.result.parameters.from_date, response.result.parameters.to_date,
-                response.result.parameters.offset, response.result.parameters.hours.amount, response.result.parameters.reason);
-
-        });
-    }
-
-    function sendOffsetDetails(fbId, userToken, dateFrom, dateTo, leavetype, hours, reason) {
-
-        console.log("hours" + hours);
-
-        var options = {
-            url: 'http://23.97.59.113/hrms/chatbot-leave/fileleave',
-            method: 'GET',
-            qs: {
-                "facebookId": fbId,
-                "chatbotToken": userToken,
-                "leaveData": "{ \"offsetFrom\" :\"" + dateTo + "\"," +
-                    "\"offsetTo\":\"" + dateFrom + "\"," +
-                    "\"leaveType\":\"" + leavetype + "\"," +
-                    "\"numberOfHours\":" + hours + "," +
-                    "\"reason\":\"" + reason +
-                    "\"}"
-            }
-        };
-
-        console.log("options" + options);
-        var fileLeaveConfirmation = {
-            recipient: {
-                id: fbId
-            },
-            message: {
-                text: "Your leave has been filed."
-
-            }
-        };
-        request(options, function(error, response, body) {
-            try {
-                console.log(response.statusCode);
-                if (!error && response.statusCode == 200) {
-                    var info = JSON.parse(body);
-                    console.log("Filing Leave Success: " + JSON.stringify(body));
-                    /*console.log("Filing Leave Success: " + response);*/
-
-                    if (info.success == true) {
-                        console.log("[fileOffset] Success!");
-                        callSendAPI(fileLeaveConfirmation);
-
-                    } else {
-                        console.log("[fileOffset] Failed");
-                        fileLeaveConfirmation.message.text = "Filing of leave Failed. Please follow the rules for filing of leaves"
-                        callSendAPI(fileLeaveConfirmation);
+                } else {
+                    console.log("[fileLeave] Failed");
+                    fileLeaveConfirmation.message.text = "Filing of leave failed. Please see the details below:\n\n"
+                    var errorCount = Object.keys(info.extras.fieldErrors).length;
+                    console.log("Error count: " + errorCount);
+                    console.log("LOG 1:" + info.extras.fieldErrors[0]);
+                    console.log("LOG 2:" + info.extras.fieldErrors[1]);
+                    if (errorCount > 0 && info.extras.fieldErrors[0] !== info.extras.fieldErrors[1]) {
+                        for (var i = 0; i < errorCount; i++) {
+                            fileLeaveConfirmation.message.text += "• " + info.extras.fieldErrors[i] + "\n";
+                        }
                     }
                 } else {
-                    console.log("<<<<<<<<FILE OFFSET  FAILED>>>>>>>>");
+                    console.log("<<<<<<<<FILE LEAVE  FAILED>>>>>>>>   ");
                     fileLeaveConfirmation.message.text = "Filing of leave Failed. HRMS Connection Error"
                     callSendAPI(fileLeaveConfirmation);
                     console.log("BODY : " + JSON.stringify(body));
                 }
-            } catch (err) {
-                fileLeaveConfirmation.message.text = "Error: The server is down but you can continue the filing process. We will inform you when your leave has been filed when the server goes back up.";
-                callSendAPI(fileLeaveConfirmation);
             }
-        });
-    }
+        } catch (error) {
+            fileLeaveConfirmation.message.text = "Error: The server is down but you can continue the filing process. We will inform you when your leave has been filed when the server goes back up.";
+            callSendAPI(fileLeaveConfirmation);
+        }
+    });
+}
 
-    function updateIntent() {
-        // Configure the request
-        console.log("[METHOD] updateIntent");
-        var link = 'https://api.api.ai/v1/intents?v=20150910';
+function retrieveToken(user_id) {
+    con.query("SELECT TOKEN FROM user_mapping where FB_ID = '" + user_id + "';", function(err, rows) {
+        if (err) throw err;
+        console.log('RETRIEVE TOKEN');
 
-        /* options = {
-            uri: link,
-            method: 'POST',
-          headers: {
-                    "Authorization": "Bearer 05411b958f3840019c2e968e3ac72a63",
-                    "Content-Type": "application/json; charset=utf-8"
-                },
-                qs:
-                */
+        console.log(rows[0].TOKEN + "\n");
 
-        var dataJSON = {
-            "name": "change appliance state",
-            "auto": true,
-            "contexts": [],
-            "templates": [
-                "turn @state:state the @appliance:appliance ",
-                "switch the @appliance:appliance @state:state "
-            ],
-            "userSays": [{
-                    "data": [{
-                            "text": "turn "
-                        },
-                        {
-                            "text": "on",
-                            "alias": "state",
-                            "meta": "@state"
-                        },
-                        {
-                            "text": " the "
-                        },
-                        {
-                            "text": "kitchen lights",
-                            "alias": "appliance",
-                            "meta": "@appliance"
-                        }
-                    ],
-                    "isTemplate": false,
-                    "count": 0
-                },
-                {
-                    "data": [{
-                            "text": "switch the "
-                        },
-                        {
-                            "text": "heating",
-                            "alias": "appliance",
-                            "meta": "@appliance"
-                        },
-                        {
-                            "text": " "
-                        },
-                        {
-                            "text": "off",
-                            "alias": "state",
-                            "meta": "@state"
-                        }
-                    ],
-                    "isTemplate": false,
-                    "count": 0
+        if (rows.length > 0) {
+            console.log("tokenretrieved:" + rows[0].TOKEN);
+
+            return rows[0].TOKEN;
+        } else {
+            return null;
+        }
+    });
+}
+
+function handleIntent(response, senderID) {
+
+}
+
+function fileOffset(response, fbId) {
+    console.log("fileOffset");
+    console.log(response.result.parameters);
+    var date;
+    var userToken;
+    var leaveFormat;
+    con.query("SELECT TOKEN FROM user_mapping where FB_ID = '" + fbId + "';", function(err, rows) {
+        if (err) throw err;
+        console.log('RETRIEVE TOKEN');
+
+        console.log(rows[0].TOKEN + "\n");
+
+        if (rows.length > 0) {
+            console.log("tokenretrieved:" + rows[0].TOKEN);
+            userToken = rows[0].TOKEN;
+        };
+        console.log("leave format = " + JSON.stringify(leaveFormat));
+        sendOffsetDetails(fbId, userToken, response.result.parameters.from_date, response.result.parameters.to_date,
+            response.result.parameters.offset, response.result.parameters.hours.amount, response.result.parameters.reason);
+
+    });
+}
+
+function sendOffsetDetails(fbId, userToken, dateFrom, dateTo, leavetype, hours, reason) {
+
+    console.log("hours" + hours);
+
+    var options = {
+        url: 'http://23.97.59.113/hrms/chatbot-leave/fileleave',
+        method: 'GET',
+        qs: {
+            "facebookId": fbId,
+            "chatbotToken": userToken,
+            "leaveData": "{ \"offsetFrom\" :\"" + dateTo + "\"," +
+                "\"offsetTo\":\"" + dateFrom + "\"," +
+                "\"leaveType\":\"" + leavetype + "\"," +
+                "\"numberOfHours\":" + hours + "," +
+                "\"reason\":\"" + reason +
+                "\"}"
+        }
+    };
+
+    console.log("options" + options);
+    var fileLeaveConfirmation = {
+        recipient: {
+            id: fbId
+        },
+        message: {
+            text: "Your leave has been filed."
+
+        }
+    };
+    request(options, function(error, response, body) {
+        try {
+            console.log(response.statusCode);
+            if (!error && response.statusCode == 200) {
+                var info = JSON.parse(body);
+                console.log("Filing Leave Success: " + JSON.stringify(body));
+                /*console.log("Filing Leave Success: " + response);*/
+
+                if (info.success == true) {
+                    console.log("[fileOffset] Success!");
+                    callSendAPI(fileLeaveConfirmation);
+
+                } else {
+                    console.log("[fileOffset] Failed");
+                    fileLeaveConfirmation.message.text = "Filing of leave Failed. Please follow the rules for filing of leaves"
+                    callSendAPI(fileLeaveConfirmation);
                 }
-            ],
-            "responses": [{
-                "resetContexts": false,
-                "action": "set-appliance",
-                "affectedContexts": [{
-                    "name": "house",
-                    "lifespan": 10
-                }],
-                "parameters": [{
-                        "dataType": "@appliance",
-                        "name": "appliance",
-                        "value": "\$appliance"
+            } else {
+                console.log("<<<<<<<<FILE OFFSET  FAILED>>>>>>>>");
+                fileLeaveConfirmation.message.text = "Filing of leave Failed. HRMS Connection Error"
+                callSendAPI(fileLeaveConfirmation);
+                console.log("BODY : " + JSON.stringify(body));
+            }
+        } catch (err) {
+            fileLeaveConfirmation.message.text = "Error: The server is down but you can continue the filing process. We will inform you when your leave has been filed when the server goes back up.";
+            callSendAPI(fileLeaveConfirmation);
+        }
+    });
+}
+
+function updateIntent() {
+    // Configure the request
+    console.log("[METHOD] updateIntent");
+    var link = 'https://api.api.ai/v1/intents?v=20150910';
+
+    /* options = {
+        uri: link,
+        method: 'POST',
+      headers: {
+                "Authorization": "Bearer 05411b958f3840019c2e968e3ac72a63",
+                "Content-Type": "application/json; charset=utf-8"
+            },
+            qs:
+            */
+
+    var dataJSON = {
+        "name": "change appliance state",
+        "auto": true,
+        "contexts": [],
+        "templates": [
+            "turn @state:state the @appliance:appliance ",
+            "switch the @appliance:appliance @state:state "
+        ],
+        "userSays": [{
+                "data": [{
+                        "text": "turn "
                     },
                     {
-                        "dataType": "@state",
-                        "name": "state",
-                        "value": "\$state"
+                        "text": "on",
+                        "alias": "state",
+                        "meta": "@state"
+                    },
+                    {
+                        "text": " the "
+                    },
+                    {
+                        "text": "kitchen lights",
+                        "alias": "appliance",
+                        "meta": "@appliance"
                     }
                 ],
-                "speech": "Turning the \$appliance \$state\!"
+                "isTemplate": false,
+                "count": 0
+            },
+            {
+                "data": [{
+                        "text": "switch the "
+                    },
+                    {
+                        "text": "heating",
+                        "alias": "appliance",
+                        "meta": "@appliance"
+                    },
+                    {
+                        "text": " "
+                    },
+                    {
+                        "text": "off",
+                        "alias": "state",
+                        "meta": "@state"
+                    }
+                ],
+                "isTemplate": false,
+                "count": 0
+            }
+        ],
+        "responses": [{
+            "resetContexts": false,
+            "action": "set-appliance",
+            "affectedContexts": [{
+                "name": "house",
+                "lifespan": 10
             }],
-            "priority": 500000
-        }
-        // Set the headers
-
-        var headers = {
-            "Authorization": "Bearer 05411b958f3840019c2e968e3ac72a63",
-            "Content-Type": "application/json; charset=utf-8"
-        }
-
-        // Configure the request
-        options = {
-            url: 'https://api.api.ai/v1/intents?v=20150910',
-            method: 'POST',
-            headers: headers,
-            form: dataJSON
-        };
-
-        /*    }
-            request(options, function(error, response, body) {
-                    console.log("ResponseCode : " + response.statusCode);
-                    console.log("Body : " + body);
-                    console.log("Error: " + error);
-                if(response.statusCode == 200)
-                        console.log("[updateIntent] Success!");
-            });*/
-        var util = require('util');
-        var exec = require('child_process').exec;
-
-        /*var command = "curl -k -H \"Content-Type: application/json; charset=utf-8\" -H \"Authorization: Bearer 05411b958f3840019c2e968e3ac72a63\" --data \"{'name':'change appliance state 1','auto':true,'contexts':[],'templates':['turn @state:state the @appliance:appliance ','switch the @appliance:appliance @state:state '],'userSays':[{'data':[{'text':'turn '},{'text':'on','alias':'state','meta':'@state'},{'text':' the '},{'text':'bug report','alias':'report','meta':'@report'}],'isTemplate':false,'count':0},{'data':[{'text':'switch the '},{'text':'heating','alias':'appliance','meta':'@appliance'},{'text':' '},{'text':'off','alias':'state','meta':'@state'}],'isTemplate':false,'count':0}],'responses':[{'resetContexts':false,'action':'set-appliance','affectedContexts':[{'name':'house','lifespan':10}],'parameters':[{'dataType':'@appliance','name':'appliance','value':'\$appliance'},{'dataType':'@state','name':'state','value':'\$state'}],'speech':'Turning the \$appliance \$state\!'}],'priority':500000}\" \"https://api.api.ai/v1/intents?v=20150910\""
-
-        child = exec(command, function(error, stdout, stderr) {
-            console.log('stdout: ' + stdout);
-            console.log('stderr: ' + stderr);
-
-            if (error !== null) {
-                console.log('exec error: ' + error);
-            }
-        });*/
-
-        var celebrants = "TEST";
-
-        var command2 = "curl -k -X PUT -H \"Content-Type: application/json; charset=utf-8\" -H \"Authorization: Bearer 05411b958f3840019c2e968e3ac72a63\" --data \"{'name':'birthday_greeting','auto':true,'contexts':[],'templates':['Who are the @birthday:birthday for this month?','Who are the @birthday:birthday celebrants of this month?'],'userSays':[{'data':[{'text':'Who are the '},{'text':'celebrants','alias':'birthday','meta':'@birthday'},{'text':' '},{'text':'for this month','meta':'@sys.ignore','userDefined': false},{'text':'?'}],'isTemplate':false,'count':0},{'data':[{'text':'Who are the '},{'text':'birthday','alias':'birthday','meta':'@birthday'},{'text':' '},{'text':'celebrants','meta':'@sys.ignore','userDefined': false},{'text':' of '},{'text':' this month','meta': '@sys.ignore','userDefined':false},{'text':'?'}],'isTemplate':false,'count':0}],'responses':[{'resetContexts':false,affectedContexts':[],'parameters':[{'dataType':'@birthday','name':'birthday','value':'\$birthday','isList':'false'}],'speech':'" + celebrants + "'}],'priority':500000}\" \"https://api.api.ai/v1/intents/ac32491a-5140-42b5-a583-a7cb305e9f9a?v=20150910\""
-
-        child2 = exec(command2, function(error, stdout, stderr) {
-            console.log('stdout: ' + stdout);
-            console.log('stderr: ' + stderr);
-
-            if (error !== null) {
-                console.log('exec error: ' + error);
-            }
-        });
+            "parameters": [{
+                    "dataType": "@appliance",
+                    "name": "appliance",
+                    "value": "\$appliance"
+                },
+                {
+                    "dataType": "@state",
+                    "name": "state",
+                    "value": "\$state"
+                }
+            ],
+            "speech": "Turning the \$appliance \$state\!"
+        }],
+        "priority": 500000
     }
+    // Set the headers
+
+    var headers = {
+        "Authorization": "Bearer 05411b958f3840019c2e968e3ac72a63",
+        "Content-Type": "application/json; charset=utf-8"
+    }
+
+    // Configure the request
+    options = {
+        url: 'https://api.api.ai/v1/intents?v=20150910',
+        method: 'POST',
+        headers: headers,
+        form: dataJSON
+    };
+
+    /*    }
+        request(options, function(error, response, body) {
+                console.log("ResponseCode : " + response.statusCode);
+                console.log("Body : " + body);
+                console.log("Error: " + error);
+            if(response.statusCode == 200)
+                    console.log("[updateIntent] Success!");
+        });*/
+    var util = require('util');
+    var exec = require('child_process').exec;
+
+    /*var command = "curl -k -H \"Content-Type: application/json; charset=utf-8\" -H \"Authorization: Bearer 05411b958f3840019c2e968e3ac72a63\" --data \"{'name':'change appliance state 1','auto':true,'contexts':[],'templates':['turn @state:state the @appliance:appliance ','switch the @appliance:appliance @state:state '],'userSays':[{'data':[{'text':'turn '},{'text':'on','alias':'state','meta':'@state'},{'text':' the '},{'text':'bug report','alias':'report','meta':'@report'}],'isTemplate':false,'count':0},{'data':[{'text':'switch the '},{'text':'heating','alias':'appliance','meta':'@appliance'},{'text':' '},{'text':'off','alias':'state','meta':'@state'}],'isTemplate':false,'count':0}],'responses':[{'resetContexts':false,'action':'set-appliance','affectedContexts':[{'name':'house','lifespan':10}],'parameters':[{'dataType':'@appliance','name':'appliance','value':'\$appliance'},{'dataType':'@state','name':'state','value':'\$state'}],'speech':'Turning the \$appliance \$state\!'}],'priority':500000}\" \"https://api.api.ai/v1/intents?v=20150910\""
+
+    child = exec(command, function(error, stdout, stderr) {
+        console.log('stdout: ' + stdout);
+        console.log('stderr: ' + stderr);
+
+        if (error !== null) {
+            console.log('exec error: ' + error);
+        }
+    });*/
+
+    var celebrants = "TEST";
+
+    var command2 = "curl -k -X PUT -H \"Content-Type: application/json; charset=utf-8\" -H \"Authorization: Bearer 05411b958f3840019c2e968e3ac72a63\" --data \"{'name':'birthday_greeting','auto':true,'contexts':[],'templates':['Who are the @birthday:birthday for this month?','Who are the @birthday:birthday celebrants of this month?'],'userSays':[{'data':[{'text':'Who are the '},{'text':'celebrants','alias':'birthday','meta':'@birthday'},{'text':' '},{'text':'for this month','meta':'@sys.ignore','userDefined': false},{'text':'?'}],'isTemplate':false,'count':0},{'data':[{'text':'Who are the '},{'text':'birthday','alias':'birthday','meta':'@birthday'},{'text':' '},{'text':'celebrants','meta':'@sys.ignore','userDefined': false},{'text':' of '},{'text':' this month','meta': '@sys.ignore','userDefined':false},{'text':'?'}],'isTemplate':false,'count':0}],'responses':[{'resetContexts':false,affectedContexts':[],'parameters':[{'dataType':'@birthday','name':'birthday','value':'\$birthday','isList':'false'}],'speech':'" + celebrants + "'}],'priority':500000}\" \"https://api.api.ai/v1/intents/ac32491a-5140-42b5-a583-a7cb305e9f9a?v=20150910\""
+
+    child2 = exec(command2, function(error, stdout, stderr) {
+        console.log('stdout: ' + stdout);
+        console.log('stderr: ' + stderr);
+
+        if (error !== null) {
+            console.log('exec error: ' + error);
+        }
+    });
+}
