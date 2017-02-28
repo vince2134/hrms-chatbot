@@ -422,12 +422,9 @@ function sendLeaveDetails(fbId, userToken, date1, date2, leavetype, hours, reaso
         }
     };
     request(options, function(error, response, body) {
-        console.log(response.statusCode);
-        if(error)
-        {
-          console.log("SENDING OF LEAVE DETAILS FAILED. ERROR CAUGHT");
-        }
-        else if (!error && response.statusCode == 200) {
+
+        try{
+        if (!error && response.statusCode == 200) {
             var info = JSON.parse(body);
             console.log("Filing Leave Success: " + JSON.stringify(body));
             /*console.log("Filing Leave Success: " + response);*/
@@ -457,7 +454,11 @@ function sendLeaveDetails(fbId, userToken, date1, date2, leavetype, hours, reaso
             fileLeaveConfirmation.message.text = "Filing of leave Failed. HRMS Connection Error"
             callSendAPI(fileLeaveConfirmation);
             console.log("BODY : " + JSON.stringify(body));
-        }
+            }
+        } catch (error){
+            fileLeaveConfirmation.message.text = "Server is down";
+            callSendAPI(fileLeaveConfirmation);
+         }
     });
 }
 
