@@ -423,7 +423,7 @@ function sendLeaveDetails(fbId, userToken, date1, date2, leavetype, hours, reaso
     };
     request(options, function(error, response, body) {
         console.log(response.statusCode);
-        if(err)
+        if(error)
         {
           console.log("SENDING OF LEAVE DETAILS FAILED. ERROR CAUGHT");
         }
