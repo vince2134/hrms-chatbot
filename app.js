@@ -424,6 +424,7 @@ function sendLeaveDetails(fbId, userToken, date1, date2, leavetype, hours, reaso
     request(options, function(error, response, body) {
 
         try{
+            console.log(response.statusCode);
         if (!error && response.statusCode == 200) {
             var info = JSON.parse(body);
             console.log("Filing Leave Success: " + JSON.stringify(body));
