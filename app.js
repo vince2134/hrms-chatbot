@@ -306,20 +306,20 @@ function notifyUnloggedUsers(){
       qs: {
       }
    }
-   var notification = {
+   /*var notification = {
       recipient: {
            id: fbId
       },
       message: {
            text: "Excuse me. You have not logged in unfuddle in the previous days. Please log as soon as possible or there will be consequences for your misconduct."
       }
-   };
+   };*/
    request(options, function(error, response, body) {
       if (!error && response.statusCode == 200) {
          console.log("NOTIFY");
            var info = JSON.parse(body);
            console.log(body);
-               callSendAPI(notification);
+               //callSendAPI(notification);
 
       }
    });
