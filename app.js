@@ -48,9 +48,10 @@ con.connect(function(err) {
 // FUTURE: As a chatbot, I should be able to alert users if they fail to log their previous work hours on Unfuddle every 10am
 function myTimer() {
     var d = new Date();
-    if (d.getHours() == 16 && !notified) {
+    if (d.getHours() == 17 && !notified) {
         notified = true;
-        console.log("IT'S 4 PM!     ");
+        console.log("IT'S 5 PM!     ");
+        notifyUnloggedUsers();
     };
 }
 
@@ -281,7 +282,7 @@ function registerUser(email, senderID) {
             var info = JSON.parse(body);
             console.log(body);
             console.log("Register Success: " + info.success);
-            1
+
             if (info.success == true) {
                 console.log("[registerUser] Success!");
                 callSendAPI(tokenRequest);
@@ -296,6 +297,32 @@ function registerUser(email, senderID) {
             console.log(error);
         }
     });
+}
+
+function notifyUnloggedUsers(){
+   options = {
+      url: 'http://23.97.59.113/hrms/chatbot-user/getAllWithUnloggedHours',
+      method: 'GET',
+      qs: {
+      }
+   }
+   var notification = {
+      recipient: {
+           id: fbId
+      },
+      message: {
+           text: "Excuse me. You have not logged in unfuddle in the previous days. Please log as soon as possible or there will be consequences for your misconduct."
+      }
+   };
+   request(options, function(error, response, body) {
+      if (!error && response.statusCode == 200) {
+         console.log("NOTIFY");
+           var info = JSON.parse(body);
+           console.log(body);
+               callSendAPI(notification);
+
+      }
+   });
 }
 
 /*
