@@ -48,9 +48,9 @@ con.connect(function(err) {
 // FUTURE: As a chatbot, I should be able to alert users if they fail to log their previous work hours on Unfuddle every 10am
 function myTimer() {
     var d = new Date();
-    if (d.getHours() == 17 && !notified) {
+    if (d.getHours() == 18 && !notified) {
         notified = true;
-        console.log("IT'S 5 PM!     ");
+        console.log("IT'S 6 PM!     ");
         notifyUnloggedUsers();
     };
 }
