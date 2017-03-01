@@ -13,7 +13,7 @@ var notified = false;
 var register = false;
 var intent = "";
 //FB Page Access Token
-var token = "EAAPjuqfpWPABAO3jNa0f6mqkSM9cxJEYqnz6Hqw1a2G1T8aQK7KjisFKg1vzG7xPmNycrO6i9HmPo9USJOaWBkYWhTuNh3djMVOWG5ZCXPqFjsWy9qRJIHZA4atnCuktd5ox4BB1uqV9ZA7YZB217PS3ht3yQD34xStVuimrzEbwZBFlIL7Aw";
+var token = "EAAaVinNu9QEBADaP0aXQjTOBqMvOqk0VS7Vrm1hcpzlF4o4ueH3vj9g2QzKylCPZAn8fVkQw1CjItOtI5ErlesKCO2pRjs3ywHCbL9nT1WRMbXnzZAxFStcJ346WALwds5z9LraMlXdm2a8EPolL5V0MlZAhWdTZCOMuYZAH3lwZDZD";
 var https = require('https');
 var http = require('http');
 var fs = require('fs');
