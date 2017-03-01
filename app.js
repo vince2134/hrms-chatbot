@@ -578,7 +578,7 @@ function sendOffsetDetails(fbId, userToken, dateFrom, dateTo, leavetype, hours, 
 function notifyTeam(userToken, fbId)
 {
     options = {
-      url: 'http://23.97.59.113/hrms/chatbot-user/getAllWithUnloggedHours',
+      url: 'http://23.97.59.113/hrms/chatbot-user/getAllOnSameProject',
       method: 'GET',
       qs: {
           "chatbotToken": userToken,
