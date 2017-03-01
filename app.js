@@ -92,18 +92,6 @@ app.post('/webhook', function(req, res) {
     }
 });
 
-app.get('/notifyusers', function(req, res) {
-    // res.send('Notify Users');
-    console.log("Notify GET");
-    res.sendStatus(200);
-});
-
-app.post('/notifyusers', function(req, res) {
-    res.send('Notify Users');
-    console.log("app post notify");
-    res.sendStatus(200);
-});
-
 
 function receivedMessage(event) {
 
@@ -503,10 +491,6 @@ function retrieveToken(user_id) {
     });
 }
 
-function handleIntent(response, senderID) {
-
-}
-
 function fileOffset(response, fbId) {
     console.log("fileOffset");
     console.log(response.result.parameters);
@@ -588,6 +572,38 @@ function sendOffsetDetails(fbId, userToken, dateFrom, dateTo, leavetype, hours, 
         }
     });
 }
+
+function notifyTeam()
+{
+    options = {
+      url: 'http://23.97.59.113/hrms/chatbot-user/getAllWithUnloggedHours',
+      method: 'GET',
+      qs: {
+          'emailAddress': email,
+          'facebookId': fbId,
+      }
+   }
+   /*var notification = {
+      recipient: {
+           id: fbId
+      },
+      message: {
+           text: "Excuse me. You have not logged in unfuddle in the previous days. Please log as soon as possible or there will be consequences for your misconduct."
+      }
+   };*/
+   request(options, function(error, response, body) {
+      if (!error && response.statusCode == 200) {
+         console.log("<<<<<<<<<<<<<<<<<<<<Notify Team>>>>>>>>>>>>>>>>>>>>>");
+           var info = JSON.parse(body);
+           console.log(body);
+               //callSendAPI(notification);
+
+      }
+   });
+}
+
+
+
 
 function updateIntent() {
     // Configure the request
