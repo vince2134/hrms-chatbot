@@ -575,14 +575,14 @@ function sendOffsetDetails(fbId, userToken, dateFrom, dateTo, leavetype, hours, 
     });
 }
 
-function notifyTeam(email, fbId)
+function notifyTeam(userToken, fbId)
 {
     options = {
       url: 'http://23.97.59.113/hrms/chatbot-user/getAllWithUnloggedHours',
       method: 'GET',
       qs: {
-          'emailAddress': email,
-          'facebookId': fbId,
+          "chatbotToken": userToken,
+          'facebookId': fbId
       }
    }
    /*var notification = {
