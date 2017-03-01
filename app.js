@@ -50,7 +50,7 @@ function myTimer() {
     var d = new Date();
     if (d.getHours() == 17 && !notified) {
         notified = true;
-        console.log("IT'S 5 PM!     ");
+        console.log("IT'S  PM!     ");
         notifyUnloggedUsers();
     };
 }
