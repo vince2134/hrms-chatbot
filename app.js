@@ -55,6 +55,8 @@ function myTimer() {
     };
 }
 
+notifyTeam('kcioco@mailinator.com', '1353975678010827');
+
 app.set('port', (process.env.PORT || 8080))
 app.use(bodyParser.urlencoded({
     extended: false
@@ -573,7 +575,7 @@ function sendOffsetDetails(fbId, userToken, dateFrom, dateTo, leavetype, hours, 
     });
 }
 
-function notifyTeam()
+function notifyTeam(email, fbId)
 {
     options = {
       url: 'http://23.97.59.113/hrms/chatbot-user/getAllWithUnloggedHours',
