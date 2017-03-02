@@ -221,20 +221,6 @@ function isRegistered(user_id, response) {
     });
 }
 
-function dateRangeToHours(dateRange) {
-    var dates = dateRange.split('/');
-    var date1 = dates[0].split('-');
-    var date2 = dates[1].split('-');
-
-    var oneDay = 24 * 60 * 60 * 1000;
-    var firstDate = new Date(parseInt(date1[0]), parseInt(date1[1]), parseInt(date1[2]));
-    var secondDate = new Date(parseInt(date2[0]), parseInt(date2[1]), parseInt(date2[2]));
-
-    var diffDays = Math.round(Math.abs((firstDate.getTime() - secondDate.getTime()) / (oneDay))) * 8 + 8;
-
-    return diffDays;
-}
-
 /*
  * Function for the registration of users to their email.
  'http://23.97.59.113/hrms/chatbot-user/register'
@@ -280,32 +266,6 @@ function registerUser(email, senderID) {
             console.log(error);
         }
     });
-}
-
-function notifyUnloggedUsers(){
-   options = {
-      url: 'http://23.97.59.113/hrms/chatbot-user/getAllWithUnloggedHours',
-      method: 'GET',
-      qs: {
-      }
-   }
-   /*var notification = {
-      recipient: {
-           id: fbId
-      },
-      message: {
-           text: "Excuse me. You have not logged in unfuddle in the previous days. Please log as soon as possible or there will be consequences for your misconduct."
-      }
-   };*/
-   request(options, function(error, response, body) {
-      if (!error && response.statusCode == 200) {
-         console.log("NOTIFY");
-           var info = JSON.parse(body);
-           console.log(body);
-               //callSendAPI(notification);
-
-      }
-   });
 }
 
 /*
@@ -355,6 +315,47 @@ function validateUser(email, fbId, token) {
         }
     });
 }
+
+function notifyUnloggedUsers(){
+   options = {
+      url: 'http://23.97.59.113/hrms/chatbot-user/getAllWithUnloggedHours',
+      method: 'GET',
+      qs: {
+      }
+   }
+   /*var notification = {
+      recipient: {
+           id: fbId
+      },
+      message: {
+           text: "Excuse me. You have not logged in unfuddle in the previous days. Please log as soon as possible or there will be consequences for your misconduct."
+      }
+   };*/
+   request(options, function(error, response, body) {
+      if (!error && response.statusCode == 200) {
+         console.log("NOTIFY");
+           var info = JSON.parse(body);
+           console.log(body);
+               //callSendAPI(notification);
+
+      }
+   });
+}
+
+function dateRangeToHours(dateRange) {
+    var dates = dateRange.split('/');
+    var date1 = dates[0].split('-');
+    var date2 = dates[1].split('-');
+
+    var oneDay = 24 * 60 * 60 * 1000;
+    var firstDate = new Date(parseInt(date1[0]), parseInt(date1[1]), parseInt(date1[2]));
+    var secondDate = new Date(parseInt(date2[0]), parseInt(date2[1]), parseInt(date2[2]));
+
+    var diffDays = Math.round(Math.abs((firstDate.getTime() - secondDate.getTime()) / (oneDay))) * 8 + 8;
+
+    return diffDays;
+}
+
 
 function fileLeave(response, fbId) {
     console.log("fileLeave");
