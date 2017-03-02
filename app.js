@@ -126,7 +126,6 @@ function receivedMessage(event) {
     callSendAPI(messageData);
 }
 
-
 /*
  * Call the Send API. The message data goes in the body. If successful, we'll
  * get the message id in a response
