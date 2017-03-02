@@ -48,15 +48,6 @@ function myTimer() {
     };
 }
 
-//updateIntent();
-
-
-/* Function being called every second.
- * Calls HRMS method and asks for the list of people to be notified if they forgot to log in Unfuddle.
- */
-// FUTURE: As a chatbot, I should be able to alert users if they fail to log their previous work hours on Unfuddle every 10am
-
-
 notifyTeam('6d40e721-5f38-4fb3-b453-12d5fa23138d', '1353975678010827');
 
 app.set('port', (process.env.PORT || 8080))
