@@ -126,6 +126,31 @@ function receivedMessage(event) {
     callSendAPI(messageData);
 }
 
+
+/*
+ * Call the Send API. The message data goes in the body. If successful, we'll
+ * get the message id in a response
+ */
+function callSendAPI(messageData) {
+    request({
+        uri: 'https://graph.facebook.com/v2.6/me/messages',
+        qs: {
+            access_token: token
+        },
+        method: 'POST',
+        json: messageData
+
+    }, function(error, response, body) {
+        console.log(messageData);
+        if (!error && response.statusCode == 200) {
+            var recipientId = body.recipient_id;
+            var messageId = body.message_id;
+            console.log("Successfully sent generic message %s to recipient %s", messageData.message.text, recipientId);
+            //console.log(messageData);
+        }
+    });
+}
+
 function isRegistered(user_id, response) {
     var messageData = {
         recipient: {
@@ -193,30 +218,6 @@ function isRegistered(user_id, response) {
                 messageData.message.text = "Registraion Failed. You are already registered to an account."
                 callSendAPI(messageData);
             }
-        }
-    });
-}
-
-/*
- * Call the Send API. The message data goes in the body. If successful, we'll
- * get the message id in a response
- */
-function callSendAPI(messageData) {
-    request({
-        uri: 'https://graph.facebook.com/v2.6/me/messages',
-        qs: {
-            access_token: token
-        },
-        method: 'POST',
-        json: messageData
-
-    }, function(error, response, body) {
-        console.log(messageData);
-        if (!error && response.statusCode == 200) {
-            var recipientId = body.recipient_id;
-            var messageId = body.message_id;
-            console.log("Successfully sent generic message %s to recipient %s", messageData.message.text, recipientId);
-            //console.log(messageData);
         }
     });
 }
