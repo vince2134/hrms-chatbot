@@ -16,7 +16,6 @@ var https = require('https');
 var http = require('http');
 var fs = require('fs');
 var mysql = require('./node_modules/mysql');
-//FUTURE: Remove.
 var temptoken;
 // Function that ticks every 1 second.
 console.log("Start Timer");
