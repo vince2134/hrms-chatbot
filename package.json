@@ -13,7 +13,7 @@
     "facebook",
     "bot"
   ],
-  "author": "Siva Sankar",
+  "author": "Vince Gonzales & Nicolle Magpale",
   "license": "ISC",
   "dependencies": {
     "body-parser": "^1.15.1",
