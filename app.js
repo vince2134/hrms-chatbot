@@ -39,6 +39,9 @@ var myVar = setInterval(function() {
     myTimer()
 }, 1000);
 
+/* Function being called every second.
+ * Calls the function that asks HRMS for the list of people to be notified if they forgot to log in Unfuddle.
+ */
 function myTimer() {
     var d = new Date();
     if (d.getHours() == 17 && !notified) {
@@ -47,7 +50,6 @@ function myTimer() {
         notifyUnloggedUsers();
     };
 }
-
 
 app.set('port', (process.env.PORT || 8080))
 app.use(bodyParser.urlencoded({
@@ -85,7 +87,6 @@ app.post('/webhook', function(req, res) {
         res.sendStatus(200);
     }
 });
-
 
 function receivedMessage(event) {
 
