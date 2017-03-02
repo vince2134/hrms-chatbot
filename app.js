@@ -1,9 +1,7 @@
 var express = require('express');
 var bodyParser = require('body-parser');
 var request = require('request');
-/*var trigger = require('./basetrigger');*/
 var app = express();
-//Connection for chatbot conversation using API.AI ***INSERT APIAI DASHBOARD URL HERE***
 var apiai = require('apiai');
 //API.AI Client Access Token
 var app2 = apiai("f725e735395240e5a209e7a034ba22c1");
