@@ -88,6 +88,8 @@ app.post('/webhook', function(req, res) {
     }
 });
 
+//--------------------------RECEIVING AND SENDING MESSAGES---------------------------------
+
 function receivedMessage(event) {
 
     var senderID = event.sender.id;
@@ -149,6 +151,8 @@ function callSendAPI(messageData) {
         }
     });
 }
+
+//----------------------------REGISTRATION-------------------------------
 
 function isRegistered(user_id, response) {
     var messageData = {
@@ -316,6 +320,8 @@ function validateUser(email, fbId, token) {
     });
 }
 
+//-----------------------------NOTIFICATIONS----------------------------
+
 function notifyUnloggedUsers(){
    options = {
       url: 'http://23.97.59.113/hrms/chatbot-user/getAllWithUnloggedHours',
@@ -341,6 +347,37 @@ function notifyUnloggedUsers(){
       }
    });
 }
+
+function notifyTeam(userToken, fbId)
+{
+    options = {
+      url: 'http://23.97.59.113/hrms/chatbot-user/getAllOnSameProject',
+      method: 'GET',
+      qs: {
+          "chatbotToken": userToken,
+          'facebookId': fbId
+      }
+   }
+   /*var notification = {
+      recipient: {
+           id: fbId
+      },
+      message: {
+           text: "Excuse me. You have not logged in unfuddle in the previous days. Please log as soon as possible or there will be consequences for your misconduct."
+      }
+   };*/
+   request(options, function(error, response, body) {
+      if (!error && response.statusCode == 200) {
+         console.log("<<<<<<<<<<<<<<<<<<<<Notify Team>>>>>>>>>>>>>>>>>>>>>");
+           var info = JSON.parse(body);
+           console.log(body);
+               //callSendAPI(notification);
+
+      }
+   });
+}
+
+//--------------------------------------------FILING----------------------------------------------
 
 function dateRangeToHours(dateRange) {
     var dates = dateRange.split('/');
@@ -567,33 +604,4 @@ function sendOffsetDetails(fbId, userToken, dateFrom, dateTo, leavetype, hours, 
             callSendAPI(fileLeaveConfirmation);
         }
     });
-}
-
-function notifyTeam(userToken, fbId)
-{
-    options = {
-      url: 'http://23.97.59.113/hrms/chatbot-user/getAllOnSameProject',
-      method: 'GET',
-      qs: {
-          "chatbotToken": userToken,
-          'facebookId': fbId
-      }
-   }
-   /*var notification = {
-      recipient: {
-           id: fbId
-      },
-      message: {
-           text: "Excuse me. You have not logged in unfuddle in the previous days. Please log as soon as possible or there will be consequences for your misconduct."
-      }
-   };*/
-   request(options, function(error, response, body) {
-      if (!error && response.statusCode == 200) {
-         console.log("<<<<<<<<<<<<<<<<<<<<Notify Team>>>>>>>>>>>>>>>>>>>>>");
-           var info = JSON.parse(body);
-           console.log(body);
-               //callSendAPI(notification);
-
-      }
-   });
 }
